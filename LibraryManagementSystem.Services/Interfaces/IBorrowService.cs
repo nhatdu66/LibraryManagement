@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using LibraryManagementSystem.Services.DTOs;
+
+namespace LibraryManagementSystem.Services.Interfaces
+{
+	public interface IBorrowService
+	{
+		Task<BorrowRequestDto> SubmitBorrowRequestAsync(int readerId, SubmitBorrowRequestDto dto);
+		Task<IEnumerable<BorrowRequestDto>> GetPendingRequestsAsync();
+		Task ApproveBorrowRequestAsync(int requestId, int employeeId, ApproveBorrowRequestDto dto);
+		Task RejectBorrowRequestAsync(int requestId, string reason);
+
+		Task<BorrowTransactionDto> CreateBorrowTransactionAsync(int requestId, int employeeId, List<int> copyIds);
+		Task ReturnBookAsync(int borrowDetailId, ReturnBookDto dto);
+		Task<IEnumerable<BorrowTransactionDto>> GetReaderBorrowHistoryAsync(int readerId);
+		Task<IEnumerable<BorrowTransactionDto>> GetOverdueTransactionsAsync();
+	}
+}

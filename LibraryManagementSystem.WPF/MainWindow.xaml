@@ -1,0 +1,76 @@
+﻿<Window x:Class="LibraryManagementSystem.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản Lý Thư Viện" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<!-- Header -->
+			<RowDefinition Height="*"/>
+			<!-- Nội dung chính -->
+		</Grid.RowDefinitions>
+
+		<!-- Header đơn giản -->
+		<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+			<TextBlock Text="Quản Lý Thư Viện" FontSize="18" FontWeight="Bold"/>
+			<TextBlock x:Name="txtUserInfo" Text="Chưa đăng nhập" Margin="20,0,0,0" VerticalAlignment="Center"/>
+		</StackPanel>
+
+		<!-- TabControl - nội dung chính -->
+		<TabControl x:Name="tabControl" Grid.Row="1">
+			<!-- Tab Login -->
+			<TabItem Header="Đăng Nhập">
+				<StackPanel Margin="20">
+					<TextBlock Text="Email" Margin="0,10,0,5"/>
+					<TextBox x:Name="txtEmail" Width="300" HorizontalAlignment="Left"/>
+
+					<TextBlock Text="Mật khẩu" Margin="0,10,0,5"/>
+					<PasswordBox x:Name="txtPassword" Width="300" HorizontalAlignment="Left"/>
+
+					<Button Content="Đăng Nhập" Width="100" Margin="0,20,0,0" HorizontalAlignment="Left" Click="BtnLogin_Click"/>
+					<TextBlock x:Name="txtLoginStatus" Text="" Margin="0,10,0,0" Foreground="Red"/>
+				</StackPanel>
+			</TabItem>
+
+			<!-- Tab Book Catalog -->
+			<TabItem Header="Danh Sách Sách">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<!-- Search -->
+						<RowDefinition Height="*"/>
+						<!-- List -->
+					</Grid.RowDefinitions>
+
+					<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+						<TextBox x:Name="txtSearch" Width="300" Margin="0,0,10,0" TextChanged="TxtSearch_TextChanged"/>
+						<Button Content="Tìm kiếm" Width="100" Click="BtnSearch_Click"/>
+					</StackPanel>
+
+					<ListView x:Name="lvBooks" Grid.Row="1">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn Header="Tên sách" DisplayMemberBinding="{Binding Title}" Width="300"/>
+								<GridViewColumn Header="Tác giả" DisplayMemberBinding="{Binding Authors}" Width="200"/>
+								<GridViewColumn Header="Thể loại" DisplayMemberBinding="{Binding Categories}" Width="200"/>
+								<GridViewColumn Header="Còn lại" DisplayMemberBinding="{Binding AvailableCopies}" Width="80"/>
+								<GridViewColumn Header="Tổng bản" DisplayMemberBinding="{Binding TotalCopies}" Width="80"/>
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</Grid>
+			</TabItem>
+
+			<!-- Tab Borrow (chưa làm nội dung, disable tạm) -->
+			<TabItem Header="Mượn Sách" IsEnabled="False">
+				<TextBlock Text="Chưa triển khai" Margin="20"/>
+			</TabItem>
+
+			<!-- Tab My Account (chưa làm nội dung, disable tạm) -->
+			<TabItem Header="Tài Khoản" IsEnabled="False">
+				<TextBlock Text="Chưa triển khai" Margin="20"/>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>

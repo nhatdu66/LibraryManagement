@@ -23,6 +23,7 @@ namespace LibraryManagementSystem.Repositories
 		public async Task<Employee?> GetByEmailAsync(string email)
 		{
 			return await _dbSet
+				.Include(e => e.Role)  // ← THÊM DÒNG NÀY để load Role
 				.FirstOrDefaultAsync(e => e.Email.ToLower() == email.ToLower());
 		}
 

@@ -1,32 +1,15 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Windows;
-using System.Windows;
-using LibraryManagementSystem.WPF;
-using Microsoft.EntityFrameworkCore;  // Để dùng DbContextOptionsBuilder
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration;
-using LibraryManagementSystem.Repositories.Interfaces; // ← chỉ dùng cái này
-
-// App.xaml.cs (giữ nguyên phần OnStartup bạn đã có, chỉ bổ sung nếu cần)
-using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
-using System.Windows;
-
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
-using System.Windows;
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Repositories;
 using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services;
 using LibraryManagementSystem.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using LibraryManagementSystem.WPF.ViewModels;
 
 namespace LibraryManagementSystem.WPF
 {
@@ -49,17 +32,17 @@ namespace LibraryManagementSystem.WPF
 			// Setup DI
 			var services = new ServiceCollection();
 
-			// Register DbContext
-			services.AddDbContext<LibraryDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			// Register DbContext - DÙNG TRANSIENT để tránh lỗi concurrent operation
+			// Register DbContext - Transient để tránh concurrent error
+			services.AddDbContext<LibraryDbContext>(
+	options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+	ServiceLifetime.Transient);
 
-			// Register UnitOfWork (use non-generic overload to avoid compile-time type constraint)
-			services.AddScoped(
-				typeof(LibraryManagementSystem.Repositories.Interfaces.IUnitOfWork),
-				typeof(LibraryManagementSystem.Repositories.UnitOfWork)
-			);
+			// Register UnitOfWork
+			services.AddScoped<LibraryManagementSystem.Repositories.Interfaces.IUnitOfWork,
+							   LibraryManagementSystem.Repositories.UnitOfWork>();
 
-			// Register tất cả Services
+			// Register Services
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IReaderAccountService, ReaderAccountService>();
 			services.AddScoped<IEmployeeAccountService, EmployeeAccountService>();
@@ -69,13 +52,16 @@ namespace LibraryManagementSystem.WPF
 			services.AddScoped<IEmployeeService, EmployeeService>();
 			services.AddScoped<IRoleService, RoleService>();
 
-			// Register MainWindow as transient (or scoped)
+			// Register MainWindow và ViewModels
 			services.AddTransient<MainWindow>();
+			services.AddTransient<MainViewModel>();
+			services.AddTransient<LoginViewModel>();
 
 			ServiceProvider = services.BuildServiceProvider();
 
 			try
 			{
+				// Resolve và show MainWindow
 				var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 				mainWindow.Show();
 			}
@@ -83,11 +69,6 @@ namespace LibraryManagementSystem.WPF
 			{
 				MessageBox.Show($"Lỗi khởi tạo MainWindow: {ex.Message}\nInner: {ex.InnerException?.Message}");
 			}
-
-			// create a scope so scoped services are resolved correctly
-			/*using var scope = ServiceProvider.CreateScope();
-			var mainWindow = scope.ServiceProvider.GetRequiredService<MainWindow>();
-			mainWindow.Show();*/
 		}
 	}
 }

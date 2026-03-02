@@ -1,20 +1,9 @@
 ﻿using System;
-using System;
-using System;
-using System.Linq;
-using System.Windows;
-using System.Windows;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using LibraryManagementSystem.Data;
-using LibraryManagementSystem.Data;
-using LibraryManagementSystem.Data.Entities;
-using LibraryManagementSystem.Repositories;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace LibraryManagementSystem.WPF
 {
@@ -30,8 +19,7 @@ namespace LibraryManagementSystem.WPF
 			_bookService = bookService;
 			_authService = authService;
 
-			// Load danh sách sách ngay khi mở app (test)
-			LoadBooks();
+			LoadBooks(); // Load danh sách sách khi mở app
 		}
 
 		private async void LoadBooks()
@@ -40,21 +28,19 @@ namespace LibraryManagementSystem.WPF
 			{
 				var books = await _bookService.GetAllBookWorksAsync();
 				lvBooks.ItemsSource = books ?? new List<BookWorkDto>();
-				MessageBox.Show($"Load thành công: {books?.Count() ?? 0} sách");
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"Lỗi load sách chi tiết: {ex.Message}\nInner: {ex.InnerException?.Message}\nStack: {ex.StackTrace}");
+				MessageBox.Show($"Lỗi load sách: {ex.Message}");
 			}
 		}
 
-		// Xử lý tìm kiếm (nếu người dùng gõ vào txtSearch)
 		private async void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			string keyword = txtSearch.Text.Trim();
 			if (string.IsNullOrWhiteSpace(keyword))
 			{
-				LoadBooks(); // Load lại tất cả nếu không có từ khóa
+				LoadBooks();
 				return;
 			}
 
@@ -69,7 +55,6 @@ namespace LibraryManagementSystem.WPF
 			}
 		}
 
-		// Xử lý nút Đăng Nhập (tạm thời, sau này bind Command)
 		private async void BtnLogin_Click(object sender, RoutedEventArgs e)
 		{
 			string email = txtEmail.Text.Trim();
@@ -83,15 +68,32 @@ namespace LibraryManagementSystem.WPF
 
 			try
 			{
-				var response = await _authService.LoginAsync(new LoginDto { Email = email, Password = password });
-				txtLoginStatus.Text = response.Message;
-				txtUserInfo.Text = $"Đăng nhập: {response.FullName} ({response.RoleName})";
-
-				// Enable các tab khác sau khi login thành công
-				foreach (TabItem tab in (tabControl.Items))
+				var response = await _authService.LoginAsync(new LoginDto
 				{
-					if (tab.Header.ToString() != "Đăng Nhập")
-						tab.IsEnabled = true;
+					Email = email,
+					Password = password
+				});
+
+				txtLoginStatus.Text = response.Message;
+
+				if (response.UserId != 0) // Login thành công
+				{
+					txtUserInfo.Text = $"Đăng nhập: {response.FullName} ({response.RoleName})";
+
+					// Enable tất cả tab trừ tab Đăng Nhập
+					for (int i = 1; i < tabControl.Items.Count; i++)
+					{
+						((TabItem)tabControl.Items[i]).IsEnabled = true;
+					}
+
+					// Chuyển sang tab Danh Sách Sách
+					tabControl.SelectedIndex = 1;
+
+					// Hiện nút Đăng xuất
+					btnLogout.Visibility = Visibility.Visible;
+
+					MessageBox.Show($"Đăng nhập thành công!\nChào {response.FullName} ({response.RoleName})",
+									"Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 			}
 			catch (Exception ex)
@@ -100,7 +102,32 @@ namespace LibraryManagementSystem.WPF
 			}
 		}
 
-		// Added missing search button click handler referenced from XAML
+		// Nút Đăng xuất
+		private void BtnLogout_Click(object sender, RoutedEventArgs e)
+		{
+			// Reset trạng thái đăng nhập
+			txtUserInfo.Text = "Chưa đăng nhập";
+			txtLoginStatus.Text = "Đã đăng xuất thành công";
+
+			// Disable các tab (chỉ giữ tab Đăng Nhập)
+			for (int i = 1; i < tabControl.Items.Count; i++)
+			{
+				((TabItem)tabControl.Items[i]).IsEnabled = false;
+			}
+
+			// Chuyển về tab Đăng Nhập
+			tabControl.SelectedIndex = 0;
+
+			// Ẩn nút Đăng xuất
+			btnLogout.Visibility = Visibility.Collapsed;
+
+			// Xóa input đăng nhập cũ (tùy chọn)
+			txtEmail.Clear();
+			txtPassword.Clear();
+
+			MessageBox.Show("Đã đăng xuất thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+		}
+
 		private async void BtnSearch_Click(object sender, RoutedEventArgs e)
 		{
 			string keyword = txtSearch.Text.Trim();

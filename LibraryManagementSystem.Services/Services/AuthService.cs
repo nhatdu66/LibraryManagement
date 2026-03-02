@@ -27,7 +27,8 @@ namespace LibraryManagementSystem.Services
 			if (employee != null)
 			{
 				// Kiểm tra password (BCrypt hoặc plaintext tạm)
-				if (BCrypt.Net.BCrypt.Verify(dto.Password, employee.PasswordHash)) // Nếu chưa có BCrypt → thay bằng dto.Password == employee.PasswordHash
+				//if (BCrypt.Net.BCrypt.Verify(dto.Password, employee.PasswordHash)) // Nếu chưa có BCrypt → thay bằng dto.Password == employee.PasswordHash
+				if (dto.Password == employee.PasswordHash)
 				{
 					return new LoginResponseDto
 					{
@@ -44,7 +45,8 @@ namespace LibraryManagementSystem.Services
 			var reader = await _uow.ReaderRepository.GetByEmailAsync(dto.Email);
 			if (reader != null)
 			{
-				if (BCrypt.Net.BCrypt.Verify(dto.Password, reader.PasswordHash)) // Nếu chưa có BCrypt → thay bằng dto.Password == reader.PasswordHash
+				//if (BCrypt.Net.BCrypt.Verify(dto.Password, reader.PasswordHash)) // Nếu chưa có BCrypt → thay bằng dto.Password == reader.PasswordHash
+				if (dto.Password == reader.PasswordHash)
 				{
 					return new LoginResponseDto
 					{

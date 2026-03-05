@@ -54,6 +54,10 @@ namespace LibraryManagementSystem.Services.DTOs
 		/// Danh sách thể loại (từ WorkCategory)
 		/// </summary>
 		public List<string> Categories { get; set; } = new List<string>();
+		// Thêm 2 dòng này
+		public string AuthorsString => string.Join(", ", Authors ?? Enumerable.Empty<string>());
+		public string CategoriesString => string.Join(", ", Categories ?? Enumerable.Empty<string>());
+
 
 		/// <summary>
 		/// Số lượng bản sao còn available (tính từ BookEdition + BookCopy)

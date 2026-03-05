@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using LibraryManagementSystem.Services.DTOs;
-using LibraryManagementSystem.Services.Interfaces;
-
-using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using LibraryManagementSystem.WPF.ViewModels;
+using LibraryManagementSystem.WPF.Views;
 
 namespace LibraryManagementSystem.WPF
 {
@@ -14,9 +12,25 @@ namespace LibraryManagementSystem.WPF
 		public MainWindow()
 		{
 			InitializeComponent();
-			// Không cần inject service nữa, vì ViewModel sẽ được inject qua DI
-			// Nếu cần set DataContext thủ công cho MainWindow, có thể làm ở đây
-			// Nhưng tốt nhất để App.xaml.cs xử lý
+
+			Loaded += (sender, e) =>
+			{
+				if (tabMain != null)
+				{
+					foreach (TabItem tab in tabMain.Items)
+					{
+						if (tab.Header?.ToString().Contains("Đăng nhập") == true)
+						{
+							if (tab.Content is LoginView loginView)
+							{
+								var vm = App.ServiceProvider.GetRequiredService<LoginViewModel>();
+								loginView.DataContext = vm;
+							}
+							break;
+						}
+					}
+				}
+			};
 		}
 	}
 }

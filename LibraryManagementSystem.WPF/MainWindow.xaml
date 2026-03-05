@@ -11,21 +11,17 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<!-- Header (giữ nguyên nếu có) -->
-		<TextBlock Grid.Row="0" Text="Quản lý Thư viện" FontSize="20" Margin="0,0,0,10"/>
+		<TextBlock Grid.Row="0" Text="Quản Lý Thư Viện" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10"/>
 
-		<TabControl Grid.Row="1">
-			<!-- Tab Đăng nhập -->
+		<TabControl x:Name="tabMain" Grid.Row="1" Margin="0,10,0,0">
 			<TabItem Header="Đăng nhập">
 				<views:LoginView />
 			</TabItem>
 
-			<!-- Tab Danh sách sách -->
 			<TabItem Header="Danh sách sách">
 				<views:BookCatalogView />
 			</TabItem>
 
-			<!-- Tab còn lại giữ nguyên placeholder -->
 			<TabItem Header="Mượn Sách" IsEnabled="False">
 				<TextBlock Text="Chức năng đang phát triển" Margin="30" FontSize="14"/>
 			</TabItem>

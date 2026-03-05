@@ -10,26 +10,12 @@ using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services;
 using LibraryManagementSystem.Services.Interfaces;
 using LibraryManagementSystem.WPF.ViewModels;
-using System;
-using System.IO;
-using System.Windows;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using LibraryManagementSystem.Data;
-using LibraryManagementSystem.Repositories;
-using LibraryManagementSystem.Repositories.Interfaces;
-using LibraryManagementSystem.Services;
-using LibraryManagementSystem.Services.Interfaces;
-using LibraryManagementSystem.WPF.ViewModels;
 
 namespace LibraryManagementSystem.WPF
 {
 	public partial class App : Application
 	{
-		public static IServiceProvider ServiceProvider { get; private set; }  // Chỉ khai báo 1 lần, public static
-
-		public IConfiguration Configuration { get; private set; }
+		public static IServiceProvider ServiceProvider { get; private set; }
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -39,51 +25,53 @@ namespace LibraryManagementSystem.WPF
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-			Configuration = builder.Build();
+			var configuration = builder.Build();
 
 			var services = new ServiceCollection();
 
 			// DbContext
 			services.AddDbContext<LibraryDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-			// UnitOfWork & Repositories (scoped vì cần context riêng mỗi scope)
+			// UnitOfWork + Repositories
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-			services.AddScoped<IBookWorkRepository, BookWorkRepository>();
-			services.AddScoped<IBookCopyRepository, BookCopyRepository>();
-			services.AddScoped<IBorrowTransactionRepository, BorrowTransactionRepository>();
-			services.AddScoped<IBorrowRequestRepository, BorrowRequestRepository>();
-			services.AddScoped<IReaderRepository, ReaderRepository>();
-			services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 			services.AddScoped<IRoleRepository, RoleRepository>();
+			services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+			services.AddScoped<IReaderRepository, ReaderRepository>();
+			services.AddScoped<IBookWorkRepository, BookWorkRepository>();
+			services.AddScoped<IBorrowRequestRepository, BorrowRequestRepository>();
+			services.AddScoped<IBorrowTransactionRepository, BorrowTransactionRepository>();
+			services.AddScoped<IBookCopyRepository, BookCopyRepository>();
 
 			// Services
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IBookService, BookService>();
 			services.AddScoped<IBorrowService, BorrowService>();
-			services.AddScoped<IReaderAccountService, ReaderAccountService>();
-			services.AddScoped<IReaderService, ReaderService>();
 			services.AddScoped<IEmployeeAccountService, EmployeeAccountService>();
-			services.AddScoped<IEmployeeService, EmployeeService>();
+			services.AddScoped<IReaderAccountService, ReaderAccountService>();
 			services.AddScoped<IRoleService, RoleService>();
+			services.AddScoped<IEmployeeService, EmployeeService>();
+			services.AddScoped<IReaderService, ReaderService>();
 
-			// ViewModels (transient vì mỗi instance riêng)
-			services.AddTransient<MainViewModel>();
+			// ViewModels
 			services.AddTransient<LoginViewModel>();
+			services.AddTransient<MainViewModel>();
 			services.AddTransient<BookCatalogViewModel>();
 			services.AddTransient<BorrowViewModel>();
 			services.AddTransient<MyAccountViewModel>();
 
-			// MainWindow vẫn transient
+			// MainWindow
 			services.AddTransient<MainWindow>();
 
 			ServiceProvider = services.BuildServiceProvider();
 
 			try
 			{
-				var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-				mainWindow.DataContext = ServiceProvider.GetRequiredService<MainViewModel>();
+				var mainVM = ServiceProvider.GetRequiredService<MainViewModel>();
+				var mainWindow = new MainWindow
+				{
+					DataContext = mainVM  // Set DataContext là MainViewModel
+				};
 				mainWindow.Show();
 			}
 			catch (Exception ex)

@@ -10,44 +10,17 @@ namespace LibraryManagementSystem.Services.DTOs
 {
 	public class LoginResponseDto
 	{
-		/// <summary>
-		/// ID của tài khoản (EmployeeId hoặc ReaderId)
-		/// </summary>
+		public bool Success { get; set; } = false;  // Thêm cái này để fix CS1061
+		public string Message { get; set; } = "Đăng nhập thất bại";
+
 		public int UserId { get; set; }
+		public string AccountType { get; set; } = "";  // "Reader" hoặc "Employee"
+		public string FullName { get; set; } = "";
+		public string RoleName { get; set; } = "";
 
-		/// <summary>
-		/// Loại tài khoản (Employee hoặc Reader)
-		/// </summary>
-		public string AccountType { get; set; } = string.Empty;
-
-		/// <summary>
-		/// Tên đầy đủ (FullName)
-		/// </summary>
-		public string FullName { get; set; } = string.Empty;
-
-		/// <summary>
-		/// Tên role (Administrator, Staff, Librarian, Reader)
-		/// </summary>
-		public string RoleName { get; set; } = string.Empty;
-
-		/// <summary>
-		/// Ngày hết hạn (nếu là Reader)
-		/// </summary>
+		// Các trường optional khác nếu có (giữ nguyên nếu bạn đã có)
 		public DateTime? ExpiredDate { get; set; }
-
-		/// <summary>
-		/// Token JWT (nếu dùng authentication token)
-		/// </summary>
 		public string? Token { get; set; }
-
-		/// <summary>
-		/// Thời gian hết hạn token (nếu dùng)
-		/// </summary>
 		public DateTime? TokenExpiration { get; set; }
-
-		/// <summary>
-		/// Thông báo thành công
-		/// </summary>
-		public string Message { get; set; } = "Login thành công!";
 	}
 }

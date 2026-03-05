@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
-using System;
-using System.Windows;
-using System.Windows.Input;
-using LibraryManagementSystem.Services.DTOs;
-using LibraryManagementSystem.Services.Interfaces;
-using LibraryManagementSystem.WPF.Helpers;
-
-using System;
-using System.Windows;
 using System.Windows.Input;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
@@ -23,66 +10,98 @@ namespace LibraryManagementSystem.WPF.ViewModels
 	public class LoginViewModel : ObservableObject
 	{
 		private readonly IAuthService _authService;
-		private readonly MainViewModel _mainViewModel;
 
-		private string _email = "";
-		private string _password = "";
-		private string _statusMessage = "";
-
+		private string _email = string.Empty;
 		public string Email
 		{
 			get => _email;
 			set => SetProperty(ref _email, value);
 		}
 
+		private string _password = string.Empty;
 		public string Password
 		{
 			get => _password;
 			set => SetProperty(ref _password, value);
 		}
 
+		private string _statusMessage = string.Empty;
 		public string StatusMessage
 		{
 			get => _statusMessage;
 			set => SetProperty(ref _statusMessage, value);
 		}
 
+		private bool _isReaderLogin = true;
+		public bool IsReaderLogin
+		{
+			get => _isReaderLogin;
+			set => SetProperty(ref _isReaderLogin, value);
+		}
+
 		public ICommand LoginCommand { get; }
 
-		public LoginViewModel(IAuthService authService, MainViewModel mainViewModel)
+		public string LoginSuccessFullName { get; private set; } = "";
+		public string LoginSuccessRoleName { get; private set; } = "";
+		public string LoginSuccessAccountType { get; private set; } = "";
+		private bool _loginSuccessTriggered;
+		public bool LoginSuccessTriggered
 		{
-			_authService = authService;
-			_mainViewModel = mainViewModel;
-
-			LoginCommand = new RelayCommand(Login, CanLogin);
+			get => _loginSuccessTriggered;
+			private set => SetProperty(ref _loginSuccessTriggered, value);
 		}
 
-		private bool CanLogin(object parameter)
+		public LoginViewModel(IAuthService authService)
 		{
-			return !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password);
+			_authService = authService ?? throw new ArgumentNullException(nameof(authService));
+			LoginCommand = new RelayCommand(async _ => await ExecuteLoginAsync());
 		}
 
-		private async void Login(object parameter)
+		private async Task ExecuteLoginAsync()
 		{
+			if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+			{
+				StatusMessage = "Vui lòng nhập email và mật khẩu";
+				return;
+			}
+
 			try
 			{
-				var response = await _authService.LoginAsync(new LoginDto
-				{
-					Email = Email,
-					Password = Password
-				});
+				StatusMessage = "Đang đăng nhập...";
 
-				StatusMessage = response.Message;
-
-				if (response.UserId != 0) // Login thành công
+				var loginDto = new LoginDto
 				{
-					_mainViewModel.OnLoginSuccess(response.FullName, response.RoleName);
+					Email = Email.Trim(),
+					Password = Password,
+					AccountType = IsReaderLogin ? "Reader" : "Employee"
+				};
+
+				var result = await _authService.LoginAsync(loginDto);
+
+				if (result.Success)
+				{
+					LoginSuccessFullName = result.FullName ?? "Unknown";
+					LoginSuccessRoleName = result.RoleName ?? "Unknown";
+					LoginSuccessAccountType = result.AccountType ?? "Unknown";
+					LoginSuccessTriggered = true;
+
+					StatusMessage = $"Đăng nhập {loginDto.AccountType.ToLower()} thành công!";
+					Password = "";
+				}
+				else
+				{
+					StatusMessage = result.Message ?? "Email hoặc mật khẩu không đúng";
 				}
 			}
 			catch (Exception ex)
 			{
 				StatusMessage = $"Lỗi: {ex.Message}";
 			}
+		}
+
+		public void ClearLoginSuccessTriggered()
+		{
+			LoginSuccessTriggered = false;
 		}
 	}
 }

@@ -54,7 +54,7 @@ namespace LibraryManagementSystem.WPF
 			services.AddScoped<IReaderService, ReaderService>();
 
 			// ViewModels
-			services.AddTransient<LoginViewModel>();
+			services.AddSingleton<LoginViewModel>();
 			services.AddTransient<MainViewModel>();
 			services.AddTransient<BookCatalogViewModel>();
 			services.AddTransient<BorrowViewModel>();

@@ -1,15 +1,20 @@
-﻿using LibraryManagementSystem.WPF.Helpers;
+﻿using System;
+using System.Windows.Input;
+using LibraryManagementSystem.WPF.Helpers;
 using LibraryManagementSystem.WPF.ViewModels;
+using System.Diagnostics;
 
-namespace LibraryManagementSystem.WPF.ViewModels  // Đảm bảo namespace đúng
+namespace LibraryManagementSystem.WPF.ViewModels
 {
 	public class MainViewModel : ObservableObject
 	{
-		private string _currentTab = "Login";
-		public string CurrentTab
+		public LoginViewModel LoginVM { get; }
+
+		private int _selectedTabIndex = 0;
+		public int SelectedTabIndex
 		{
-			get => _currentTab;
-			set => SetProperty(ref _currentTab, value);
+			get => _selectedTabIndex;
+			set => SetProperty(ref _selectedTabIndex, value);
 		}
 
 		private bool _isLoggedIn;
@@ -19,39 +24,45 @@ namespace LibraryManagementSystem.WPF.ViewModels  // Đảm bảo namespace đú
 			set => SetProperty(ref _isLoggedIn, value);
 		}
 
-		private string _userFullName = "Chưa đăng nhập";
-		public string UserFullName
+		private string _welcomeMessage = "Chưa đăng nhập";
+		public string WelcomeMessage
 		{
-			get => _userFullName;
-			set => SetProperty(ref _userFullName, value);
+			get => _welcomeMessage;
+			set => SetProperty(ref _welcomeMessage, value);
 		}
 
-		private string _userRole = "";
-		public string UserRole
-		{
-			get => _userRole;
-			set => SetProperty(ref _userRole, value);
-		}
-
-		private readonly LoginViewModel _loginVM;
+		public ICommand LogoutCommand { get; }
 
 		public MainViewModel(LoginViewModel loginVM)
 		{
-			_loginVM = loginVM ?? throw new ArgumentNullException(nameof(loginVM));
+			LoginVM = loginVM;
 
-			// Subscribe to PropertyChanged của LoginViewModel
-			_loginVM.PropertyChanged += (s, e) =>
+			LogoutCommand = new RelayCommand(ExecuteLogout);
+
+			LoginVM.PropertyChanged += (s, e) =>
 			{
-				if (e.PropertyName == nameof(LoginViewModel.LoginSuccessTriggered) && _loginVM.LoginSuccessTriggered)
+				Debug.WriteLine($"[DEBUG] PropertyChanged: {e.PropertyName}");
+
+				if (e.PropertyName == nameof(LoginViewModel.LoginSuccessTriggered) && LoginVM.LoginSuccessTriggered)
 				{
 					IsLoggedIn = true;
-					UserFullName = $"Đăng nhập: {_loginVM.LoginSuccessFullName}";
-					UserRole = $"({_loginVM.LoginSuccessRoleName} - {_loginVM.LoginSuccessAccountType})";
-
-					CurrentTab = "BookCatalog"; // Chuyển tab
-					_loginVM.ClearLoginSuccessTriggered(); // Reset trigger
+					WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
+					SelectedTabIndex = 1;           // chuyển sang tab Danh sách sách
+					LoginVM.ClearLoginSuccessTriggered();
+					Debug.WriteLine("[DEBUG] MainViewModel UPDATED SUCCESSFULLY!");
 				}
 			};
+
+			Debug.WriteLine($"[DEBUG] MainViewModel subscribed to LoginVM");
+		}
+
+		private void ExecuteLogout(object parameter)
+		{
+			IsLoggedIn = false;
+			WelcomeMessage = "Chưa đăng nhập";
+			SelectedTabIndex = 0;
+			LoginVM.Email = "";
+			LoginVM.StatusMessage = "";
 		}
 	}
 }

@@ -9,90 +9,36 @@
 	<Grid Margin="30">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
-			<!-- Tiêu đề -->
 			<RowDefinition Height="Auto"/>
-			<!-- Chọn loại tài khoản -->
 			<RowDefinition Height="Auto"/>
-			<!-- Label Email -->
 			<RowDefinition Height="Auto"/>
-			<!-- Ô Email -->
 			<RowDefinition Height="Auto"/>
-			<!-- Label Mật khẩu -->
-			<RowDefinition Height="Auto"/>
-			<!-- Ô Mật khẩu -->
-			<RowDefinition Height="Auto"/>
-			<!-- Nút Đăng nhập -->
 			<RowDefinition Height="*"/>
-			<!-- Status message -->
 		</Grid.RowDefinitions>
 
-		<!-- 0: Tiêu đề -->
-		<TextBlock Grid.Row="0"
-                   Text="Đăng nhập hệ thống"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   Margin="0,0,0,20"
-                   HorizontalAlignment="Center"/>
+		<TextBlock Text="ĐĂNG NHẬP" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30"/>
 
-		<!-- 1: Chọn loại tài khoản -->
-		<StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,0,20">
-			<RadioButton x:Name="rbReader"
-                         Content="Bạn đọc (Reader)"
-                         GroupName="AccountType"
-                         IsChecked="True"
-                         Checked="rbAccountType_Checked"
-                         Margin="0,0,40,0"/>
-			<RadioButton x:Name="rbEmployee"
-                         Content="Nhân viên (Employee)"
-                         GroupName="AccountType"
-                         Checked="rbAccountType_Checked"/>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+			<RadioButton Content="Độc giả" IsChecked="{Binding IsReaderLogin}" GroupName="AccountType" Margin="0,0,30,0"/>
+			<RadioButton Content="Nhân viên" IsChecked="{Binding IsEmployeeLogin}" GroupName="AccountType"/>
 		</StackPanel>
 
-		<!-- 2: Label Email -->
-		<TextBlock Grid.Row="2"
-                   Text="Email:"
-                   Margin="0,0,0,5"
-                   HorizontalAlignment="Left"/>
+		<StackPanel Grid.Row="2" Margin="0,0,0,15">
+			<TextBlock Text="Email" Margin="0,0,0,5"/>
+			<TextBox Text="{Binding Email}" Width="300" HorizontalAlignment="Left"/>
+		</StackPanel>
 
-		<!-- 3: Ô nhập Email -->
-		<TextBox Grid.Row="3"
-                 Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                 Width="300"
-                 HorizontalAlignment="Left"
-                 Margin="0,0,0,10"/>
+		<StackPanel Grid.Row="3" Margin="0,0,0,20">
+			<TextBlock Text="Mật khẩu" Margin="0,0,0,5"/>
+			<PasswordBox x:Name="txtPassword" Width="300" HorizontalAlignment="Left"/>
+		</StackPanel>
 
-		<!-- 4: Label Mật khẩu -->
-		<TextBlock Grid.Row="4"
-                   Text="Mật khẩu:"
-                   Margin="0,0,0,5"
-                   HorizontalAlignment="Left"/>
+		<Button Grid.Row="4" Content="Đăng nhập" 
+                Command="{Binding LoginCommand}" 
+                CommandParameter="{x:Reference txtPassword}"
+                Width="140" Height="40" HorizontalAlignment="Left" Margin="0,0,0,10"/>
 
-		<!-- 5: Ô nhập Mật khẩu (đúng thứ tự, nằm dưới email) -->
-		<PasswordBox x:Name="txtPassword"
-                     Grid.Row="5"
-                     Width="300"
-                     HorizontalAlignment="Left"
-                     PasswordChanged="txtPassword_PasswordChanged"
-                     Margin="0,0,0,15"/>
-
-		<!-- 6: Nút Đăng nhập -->
-		<Button Grid.Row="6"
-                Content="Đăng nhập"
-                Command="{Binding LoginCommand}"
-                Width="120"
-                Height="35"
-                HorizontalAlignment="Left"
-                Margin="0,0,0,10"/>
-
-		<!-- 7: Thông báo trạng thái (dưới cùng) -->
-		<TextBlock Grid.Row="7"
-                   Text="{Binding StatusMessage}"
-                   Foreground="Red"
-                   TextWrapping="Wrap"
-                   Margin="0,10,0,0"
-                   HorizontalAlignment="Left"/>
+		<TextBlock Grid.Row="5" Text="{Binding StatusMessage}" 
+                   Foreground="Red" TextWrapping="Wrap" Margin="0,10,0,0"/>
 	</Grid>
 </UserControl>

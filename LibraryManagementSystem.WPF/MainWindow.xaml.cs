@@ -1,9 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using LibraryManagementSystem.WPF.ViewModels;
-using LibraryManagementSystem.WPF.Views;
+﻿using System.Windows;
 
 namespace LibraryManagementSystem.WPF
 {
@@ -12,25 +7,6 @@ namespace LibraryManagementSystem.WPF
 		public MainWindow()
 		{
 			InitializeComponent();
-
-			Loaded += (sender, e) =>
-			{
-				if (tabMain != null)
-				{
-					foreach (TabItem tab in tabMain.Items)
-					{
-						if (tab.Header?.ToString().Contains("Đăng nhập") == true)
-						{
-							if (tab.Content is LoginView loginView)
-							{
-								var vm = App.ServiceProvider.GetRequiredService<LoginViewModel>();
-								loginView.DataContext = vm;
-							}
-							break;
-						}
-					}
-				}
-			};
 		}
 	}
 }

@@ -91,6 +91,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 				if (result.UserId != 0)
 				{
+					pb.Clear();
 					LoginSuccessFullName = result.FullName ?? "Unknown";
 					LoginSuccessRoleName = result.RoleName ?? "Unknown";
 					LoginSuccessAccountType = result.AccountType ?? "Unknown";

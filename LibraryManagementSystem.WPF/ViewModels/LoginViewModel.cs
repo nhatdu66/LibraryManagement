@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
 using LibraryManagementSystem.WPF.Helpers;
-using System.Diagnostics;
 
 namespace LibraryManagementSystem.WPF.ViewModels
 {
@@ -16,7 +16,12 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		private string _email = string.Empty;
 		private string _statusMessage = string.Empty;
 		private bool _isReaderLogin = true;
-		private bool _isEmployeeLogin = false;
+
+		private bool _loginSuccessTriggered;
+		private string _loginSuccessFullName = string.Empty;
+		private string _loginSuccessRoleName = string.Empty;
+		private string _loginSuccessAccountType = string.Empty;
+		private int _loginSuccessUserId;
 
 		public string Email
 		{
@@ -33,73 +38,94 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public bool IsReaderLogin
 		{
 			get => _isReaderLogin;
-			set
-			{
-				SetProperty(ref _isReaderLogin, value);
-				if (value) IsEmployeeLogin = false;
-			}
+			set => SetProperty(ref _isReaderLogin, value);
 		}
 
-		public bool IsEmployeeLogin
-		{
-			get => _isEmployeeLogin;
-			set
-			{
-				SetProperty(ref _isEmployeeLogin, value);
-				if (value) IsReaderLogin = false;
-			}
-		}
-
-		public ICommand LoginCommand { get; }
-
-		public string LoginSuccessFullName { get; private set; }
-		public string LoginSuccessRoleName { get; private set; }
-		public string LoginSuccessAccountType { get; private set; }
-
-		private bool _loginSuccessTriggered;
 		public bool LoginSuccessTriggered
 		{
 			get => _loginSuccessTriggered;
 			set => SetProperty(ref _loginSuccessTriggered, value);
 		}
 
+		public string LoginSuccessFullName
+		{
+			get => _loginSuccessFullName;
+			set => SetProperty(ref _loginSuccessFullName, value);
+		}
+
+		public string LoginSuccessRoleName
+		{
+			get => _loginSuccessRoleName;
+			set => SetProperty(ref _loginSuccessRoleName, value);
+		}
+
+		public string LoginSuccessAccountType
+		{
+			get => _loginSuccessAccountType;
+			set => SetProperty(ref _loginSuccessAccountType, value);
+		}
+
+		public int LoginSuccessUserId
+		{
+			get => _loginSuccessUserId;
+			set => SetProperty(ref _loginSuccessUserId, value);
+		}
+
+		public ICommand LoginCommand { get; }
+
 		public LoginViewModel(IAuthService authService)
 		{
 			_authService = authService;
-			LoginCommand = new RelayCommand<object>(ExecuteLogin);
-			Debug.WriteLine($"[DEBUG] LoginViewModel created - Hash: {GetHashCode()}");
+			LoginCommand = new RelayCommand(LoginAsync);
 		}
 
-		private async void ExecuteLogin(object parameter)
+		private async void LoginAsync(object parameter)
 		{
-			if (parameter is not PasswordBox pb) return;
-
 			try
 			{
+				string password = string.Empty;
+
+				// Lấy mật khẩu từ PasswordBox (CommandParameter)
+				if (parameter is PasswordBox passwordBox)
+				{
+					password = passwordBox.Password;
+				}
+
+				Debug.WriteLine($"[DEBUG] Login called - Email='{Email}', Password length={password.Length}");
+
+				if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(password))
+				{
+					StatusMessage = "Lỗi: Email và Password không được để trống";
+					return;
+				}
+
 				StatusMessage = "Đang đăng nhập...";
 
 				var dto = new LoginDto
 				{
 					Email = Email.Trim(),
-					Password = pb.Password,
+					Password = password,
 					AccountType = IsReaderLogin ? "Reader" : "Employee"
 				};
 
 				var result = await _authService.LoginAsync(dto);
 
-				StatusMessage = result.Message;
-
-				if (result.UserId != 0)
+				if (result.Success)
 				{
-					pb.Clear();
-					LoginSuccessFullName = result.FullName ?? "Unknown";
+					LoginSuccessFullName = result.FullName;
 					LoginSuccessRoleName = result.RoleName ?? "Unknown";
 					LoginSuccessAccountType = result.AccountType ?? "Unknown";
+					LoginSuccessUserId = result.UserId;
 
-					Debug.WriteLine($"[DEBUG] LOGIN SUCCESS - Setting Trigger = true (Hash: {GetHashCode()})");
+					Debug.WriteLine($"[DEBUG] LOGIN SUCCESS - UserId: {LoginSuccessUserId}, Type: {LoginSuccessAccountType}");
+
+					// Trigger login success
 					LoginSuccessTriggered = true;
-
 					StatusMessage = "Đăng nhập thành công!";
+				}
+				else
+				{
+					StatusMessage = result.Message ?? "Đăng nhập thất bại";
 				}
 			}
 			catch (Exception ex)

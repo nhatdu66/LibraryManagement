@@ -40,7 +40,7 @@
 				<views:BookCatalogView />
 			</TabItem>
 
-			<TabItem Header="Mượn Sách" IsEnabled="{Binding IsLoggedIn}">
+			<TabItem Header="Mượn Sách" >
 				<views:BorrowView DataContext="{Binding BorrowVM}"/>
 			</TabItem>
 

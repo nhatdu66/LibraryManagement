@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
@@ -44,6 +45,9 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			_borrowService = borrowService ?? throw new ArgumentNullException(nameof(borrowService));
 			_authService = authService ?? throw new ArgumentNullException(nameof(authService));
 
+			// Debug ngay đầu constructor
+			MessageBox.Show("BorrowViewModel đã được khởi tạo!", "Debug - Constructor", MessageBoxButton.OK, MessageBoxImage.Information);
+
 			RefreshTransactionsCommand = new RelayCommand(async _ => await LoadTransactionsAsync());
 
 			_ = LoadTransactionsAsync();
@@ -51,35 +55,37 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		private async Task LoadTransactionsAsync()
 		{
+			// Debug ngay đầu method
+			MessageBox.Show("Bắt đầu LoadTransactionsAsync", "Debug - Start Load", MessageBoxButton.OK, MessageBoxImage.Information);
+
 			try
 			{
 				StatusMessage = "Đang tải danh sách giao dịch...";
 
-				// Tạm thời lấy tất cả (sau này lọc theo reader nếu cần)
-				var transactions = await _borrowService.GetReaderBorrowHistoryAsync(0); // 0 = all, sửa sau
+				var transactions = await _borrowService.GetAllBorrowTransactionsAsync().ConfigureAwait(false);
 
-				var list = transactions.ToList();
+				int count = transactions?.Count() ?? 0;
+				MessageBox.Show($"Load được {count} giao dịch.\nNếu 0 → DB có thể trống hoặc query sai.",
+								"Debug - Kết quả Load", MessageBoxButton.OK, MessageBoxImage.Information);
 
-				// Tạo chuỗi chi tiết ngay trong ViewModel (không cần thêm property vào DTO)
-				var enhancedList = list.Select(t => new
-				{
-					Transaction = t,
-					DetailsString = string.Join(" | ", t.Details.Select(d =>
-						$"{d.Title} (Due: {d.DueDate:dd/MM/yyyy}) {(d.ReturnDate.HasValue ? "✓ Trả" : "Chưa trả")}"))
-				}).ToList();
+				var list = transactions?.ToList() ?? new List<BorrowTransactionDto>();
 
-				// Gán vào ObservableCollection (giữ nguyên DTO gốc)
-				BorrowTransactions = new ObservableCollection<BorrowTransactionDto>(enhancedList.Select(x => x.Transaction));
-
-				// Để hiển thị DetailsString trong XAML, ta sẽ dùng Binding với Converter hoặc MultiBinding (cách đơn giản dưới đây)
-				// Nhưng để nhanh → tạm thời ta sẽ sửa XAML dùng StringFormat + Converter (xem phần XAML sửa)
+				BorrowTransactions = new ObservableCollection<BorrowTransactionDto>(list);
 
 				TransactionCount = BorrowTransactions.Count;
 				StatusMessage = $"Đã tải {TransactionCount} giao dịch.";
+
+				if (TransactionCount == 0)
+				{
+					MessageBox.Show("Không có giao dịch nào trong DB.\nHãy kiểm tra bảng BorrowTransaction bằng SSMS hoặc thêm data test.",
+									"No Data", MessageBoxButton.OK, MessageBoxImage.Warning);
+				}
 			}
 			catch (Exception ex)
 			{
 				StatusMessage = $"Lỗi: {ex.Message}";
+				MessageBox.Show($"Lỗi chi tiết khi load:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}",
+								"Error Debug - Load Transactions", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}

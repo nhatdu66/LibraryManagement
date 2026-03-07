@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
-using LibraryManagementSystem.Data.Entities;
-
+﻿// Full code cho LibraryDbContext.cs (giữ .ToTable("BorrowTransaction") để khớp tên bảng)
 using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystem.Data.Entities;
 
@@ -14,7 +6,6 @@ namespace LibraryManagementSystem.Data
 {
 	public class LibraryDbContext : DbContext
 	{
-		// Constructor mặc định (dùng cho migration và design-time)
 		public LibraryDbContext() : base()
 		{
 		}
@@ -46,27 +37,34 @@ namespace LibraryManagementSystem.Data
 			if (!optionsBuilder.IsConfigured)
 			{
 				// Connection string fallback for design-time (e.g., migration)
-				optionsBuilder.UseSqlServer("DESKTOP-4MP3LIQ\\SQLEXPRESS03;Database=LibraryManagementDB;Trusted_Connection=True;MultipleActiveResultSets=true");
+				optionsBuilder.UseSqlServer(@"Server=DESKTOP-4MP3LIQ\SQLEXPRESS03;Database=LibraryManagementDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
 			}
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// Config tên bảng singular cho các entity chính (để khớp DDL của bạn)
-			modelBuilder.Entity<Author>().ToTable("Author");
-			modelBuilder.Entity<Category>().ToTable("Category");
-			modelBuilder.Entity<BookWork>().ToTable("BookWork");
-			modelBuilder.Entity<BookEdition>().ToTable("BookEdition");
-			modelBuilder.Entity<BookCopy>().ToTable("BookCopy");
+			base.OnModelCreating(modelBuilder);
+
+			// Config table names (số ít, khớp DDL của bạn)
 			modelBuilder.Entity<Role>().ToTable("Role");
 			modelBuilder.Entity<Employee>().ToTable("Employee");
 			modelBuilder.Entity<Reader>().ToTable("Reader");
-			modelBuilder.Entity<Series>().ToTable("Series");
+			modelBuilder.Entity<BookWork>().ToTable("BookWork");
+			modelBuilder.Entity<BookEdition>().ToTable("BookEdition");
+			modelBuilder.Entity<BookCopy>().ToTable("BookCopy");
+			modelBuilder.Entity<Author>().ToTable("Author");
+			modelBuilder.Entity<Category>().ToTable("Category");
 			modelBuilder.Entity<Publisher>().ToTable("Publisher");
+			modelBuilder.Entity<Series>().ToTable("Series");
+			modelBuilder.Entity<WorkAuthor>().ToTable("WorkAuthor");
+			modelBuilder.Entity<WorkCategory>().ToTable("WorkCategory");
+			modelBuilder.Entity<BorrowRequest>().ToTable("BorrowRequest");
+			modelBuilder.Entity<BorrowRequestDetail>().ToTable("BorrowRequestDetail");
+			modelBuilder.Entity<BorrowTransaction>().ToTable("BorrowTransaction");  // Key fix cho tên bảng
+			modelBuilder.Entity<BorrowTransactionDetail>().ToTable("BorrowTransactionDetail");
 
-			// Junction tables (đã có từ trước, giữ nguyên)
+			// Junction tables config
 			modelBuilder.Entity<WorkAuthor>()
-				.ToTable("WorkAuthor")
 				.HasKey(wa => new { wa.WorkId, wa.AuthorId });
 
 			modelBuilder.Entity<WorkAuthor>()
@@ -76,11 +74,10 @@ namespace LibraryManagementSystem.Data
 
 			modelBuilder.Entity<WorkAuthor>()
 				.HasOne(wa => wa.Author)
-				.WithMany(a => a.WorkAuthors)  // Nếu Author có ICollection<WorkAuthor> WorkAuthors
+				.WithMany(a => a.WorkAuthors)
 				.HasForeignKey(wa => wa.AuthorId);
 
 			modelBuilder.Entity<WorkCategory>()
-				.ToTable("WorkCategory")
 				.HasKey(wc => new { wc.WorkId, wc.CategoryId });
 
 			modelBuilder.Entity<WorkCategory>()
@@ -92,8 +89,6 @@ namespace LibraryManagementSystem.Data
 				.HasOne(wc => wc.Category)
 				.WithMany(c => c.WorkCategories)
 				.HasForeignKey(wc => wc.CategoryId);
-
-			// Các config khác nếu có, giữ nguyên
 		}
 	}
 }

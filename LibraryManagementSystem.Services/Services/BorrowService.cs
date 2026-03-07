@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LibraryManagementSystem.Data.Entities;
-using LibraryManagementSystem.Repositories.Interfaces;
-using LibraryManagementSystem.Services.DTOs;
-using LibraryManagementSystem.Services.Interfaces;
-
+﻿// Full code cho BorrowService.cs (thêm GetAllBorrowTransactionsAsync với full mapping, sử dụng repository đã include)
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +7,7 @@ using LibraryManagementSystem.Data.Entities;
 using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Services
 {
@@ -40,10 +33,13 @@ namespace LibraryManagementSystem.Services
 			};
 
 			await _uow.BorrowRequestRepository.AddAsync(request);
-			await _uow.SaveChangesAsync(); // Save để có RequestId
+			await _uow.SaveChangesAsync();
 
 			foreach (var detail in dto.Details)
 			{
+				var work = await _uow.BookWorkRepository.GetByIdAsync(detail.WorkId);
+				if (work == null) throw new KeyNotFoundException($"Không tìm thấy tác phẩm ID {detail.WorkId}");
+
 				var requestDetail = new BorrowRequestDetail
 				{
 					RequestId = request.RequestId,
@@ -51,61 +47,106 @@ namespace LibraryManagementSystem.Services
 					RequestedQuantity = detail.RequestedQuantity
 				};
 
-				// Không dùng _context trực tiếp, tạo entity rồi SaveChanges sẽ attach tự động
-				_uow.DbContext.BorrowRequestDetails.Add(requestDetail); // Nếu IUnitOfWork có DbContext, hoặc bỏ dòng này và SaveChanges sau
+				await _uow.DbContext.BorrowRequestDetails.AddAsync(requestDetail);
 			}
 
 			await _uow.SaveChangesAsync();
 
-			return await MapToBorrowRequestDto(request);
+			return new BorrowRequestDto
+			{
+				RequestId = request.RequestId,
+				ReaderId = request.ReaderId,
+				ReaderFullName = reader.FullName,
+				RequestDate = request.RequestDate,
+				Status = request.Status,
+				Details = dto.Details.Select(d => new BorrowRequestDetailDto
+				{
+					WorkId = d.WorkId,
+					Title = _uow.DbContext.BookWorks.Find(d.WorkId)?.Title ?? "Unknown",
+					RequestedQuantity = d.RequestedQuantity
+				}).ToList()
+			};
 		}
 
 		public async Task<IEnumerable<BorrowRequestDto>> GetPendingRequestsAsync()
 		{
 			var requests = await _uow.BorrowRequestRepository.GetPendingRequestsAsync();
-			return await Task.WhenAll(requests.Select(async r => await MapToBorrowRequestDto(r)));
+			return requests.Select(r => new BorrowRequestDto
+			{
+				RequestId = r.RequestId,
+				ReaderId = r.ReaderId,
+				ReaderFullName = r.Reader.FullName,
+				RequestDate = r.RequestDate,
+				Status = r.Status,
+				Details = r.Details.Select(d => new BorrowRequestDetailDto
+				{
+					WorkId = d.WorkId,
+					Title = d.BookWork.Title,
+					RequestedQuantity = d.RequestedQuantity,
+					ApprovedQuantity = d.ApprovedQuantity
+				}).ToList()
+			});
 		}
 
 		public async Task ApproveBorrowRequestAsync(int requestId, int employeeId, ApproveBorrowRequestDto dto)
 		{
 			var request = await _uow.BorrowRequestRepository.GetRequestWithDetailsAsync(requestId);
-			if (request == null) throw new KeyNotFoundException("Không tìm thấy request");
+			if (request == null) throw new KeyNotFoundException("Không tìm thấy yêu cầu");
 
-			if (request.Status != "Pending") throw new InvalidOperationException("Request không ở trạng thái Pending");
+			if (request.Status != "Pending") throw new InvalidOperationException("Yêu cầu không phải đang chờ duyệt");
 
-			foreach (var approved in dto.ApprovedDetails)
+			var employee = await _uow.EmployeeRepository.GetByIdAsync(employeeId);
+			if (employee == null) throw new KeyNotFoundException("Không tìm thấy nhân viên");
+
+			int totalApproved = 0;
+
+			foreach (var approveDetail in dto.ApprovedDetails)
 			{
-				var detail = request.Details.FirstOrDefault(d => d.RequestDetailId == approved.RequestDetailId);
-				if (detail != null)
-					detail.ApprovedQuantity = approved.ApprovedQuantity;
+				var detail = request.Details.FirstOrDefault(d => d.RequestDetailId == approveDetail.RequestDetailId);
+				if (detail == null) continue;
+
+				var work = await _uow.BookWorkRepository.GetByIdAsync(detail.WorkId);
+				var availableCopies = work.BookEditions
+					.SelectMany(e => e.BookCopies)
+					.Count(c => c.PhysicalCondition == "Good" || c.PhysicalCondition == "Excellent");
+
+				// Sửa lỗi: dùng GetValueOrDefault để an toàn với nullable int
+				int requested = detail.RequestedQuantity;
+				int approvedProposed = approveDetail.ApprovedQuantity;
+				int approvedLimited = Math.Min(approvedProposed, requested);
+				int finalApproved = Math.Min(approvedLimited, availableCopies);
+
+				detail.ApprovedQuantity = finalApproved;  // gán trực tiếp (int)
+
+				totalApproved += finalApproved;
 			}
 
 			request.ApprovedByEmployeeId = employeeId;
 			request.ApprovedDate = DateTime.Now;
-			request.Status = "Approved";
+			request.Status = totalApproved > 0 ? "Approved" : "Rejected";
 
+			await _uow.BorrowRequestRepository.UpdateAsync(request);
 			await _uow.SaveChangesAsync();
 		}
 
 		public async Task RejectBorrowRequestAsync(int requestId, string reason)
 		{
 			var request = await _uow.BorrowRequestRepository.GetByIdAsync(requestId);
-			if (request == null) throw new KeyNotFoundException("Không tìm thấy request");
+			if (request == null) throw new KeyNotFoundException("Không tìm thấy yêu cầu");
 
-			if (request.Status != "Pending") throw new InvalidOperationException("Request không ở trạng thái Pending");
+			if (request.Status != "Pending") throw new InvalidOperationException("Yêu cầu không phải đang chờ duyệt");
 
 			request.Status = "Rejected";
 			request.RejectReason = reason;
 
+			await _uow.BorrowRequestRepository.UpdateAsync(request);
 			await _uow.SaveChangesAsync();
 		}
 
 		public async Task<BorrowTransactionDto> CreateBorrowTransactionAsync(int requestId, int employeeId, List<int> copyIds)
 		{
 			var request = await _uow.BorrowRequestRepository.GetRequestWithDetailsAsync(requestId);
-			if (request == null) throw new KeyNotFoundException("Không tìm thấy request");
-
-			if (request.Status != "Approved") throw new InvalidOperationException("Request chưa được duyệt");
+			if (request == null || request.Status != "Approved") throw new InvalidOperationException("Yêu cầu chưa được duyệt hoặc không tồn tại");
 
 			var transaction = new BorrowTransaction
 			{
@@ -117,38 +158,72 @@ namespace LibraryManagementSystem.Services
 			};
 
 			await _uow.BorrowTransactionRepository.AddAsync(transaction);
-			await _uow.SaveChangesAsync(); // Save để có BorrowId
+			await _uow.SaveChangesAsync();
 
-			foreach (var copyId in copyIds)
+			int copyIndex = 0;
+			foreach (var detail in request.Details.Where(d => d.ApprovedQuantity > 0))
 			{
-				var detail = new BorrowTransactionDetail
+				for (int i = 0; i < detail.ApprovedQuantity; i++)
 				{
-					BorrowId = transaction.BorrowId,
-					CopyId = copyId,
-					DueDate = DateTime.Now.AddDays(14),
-					ItemStatus = "Borrowed"
-				};
+					var copyId = copyIds[copyIndex++];
+					var copy = await _uow.BookCopyRepository.GetByIdAsync(copyId);
+					if (copy == null || (copy.PhysicalCondition != "Good" && copy.PhysicalCondition != "Excellent"))
+						throw new InvalidOperationException($"Bản sao ID {copyId} không khả dụng");
 
-				// Không dùng _context trực tiếp, tạo entity rồi SaveChanges sẽ attach tự động
-				_uow.DbContext.BorrowTransactionDetails.Add(detail);
+					var transactionDetail = new BorrowTransactionDetail
+					{
+						BorrowId = transaction.BorrowId,
+						CopyId = copyId,
+						DueDate = DateTime.Now.AddDays(14),
+						ItemStatus = "Borrowed"
+					};
+
+					await _uow.DbContext.BorrowTransactionDetails.AddAsync(transactionDetail);
+
+					copy.PhysicalCondition = "Borrowed";  // ← sửa thành PhysicalCondition
+					await _uow.BookCopyRepository.UpdateAsync(copy);
+				}
 			}
 
 			await _uow.SaveChangesAsync();
 
-			return await MapToBorrowTransactionDto(transaction);
+			var loadedTransaction = await _uow.BorrowTransactionRepository.GetTransactionWithDetailsAsync(transaction.BorrowId);
+			return GetTransactionDto(loadedTransaction);
 		}
 
 		public async Task ReturnBookAsync(int borrowDetailId, ReturnBookDto dto)
 		{
-			var detail = await _uow.DbContext.BorrowTransactionDetails.FindAsync(borrowDetailId);
-			if (detail == null) throw new KeyNotFoundException("Không tìm thấy chi tiết giao dịch");
+			var detail = await _uow.DbContext.BorrowTransactionDetails
+				.Include(d => d.BorrowTransaction)
+				.Include(d => d.BookCopy)
+				.FirstOrDefaultAsync(d => d.BorrowDetailId == borrowDetailId);
 
-			if (detail.ReturnDate != null) throw new InvalidOperationException("Sách đã được trả");
+			if (detail == null) throw new KeyNotFoundException("Không tìm thấy chi tiết mượn");
+
+			if (detail.ReturnDate.HasValue) throw new InvalidOperationException("Sách đã được trả");
 
 			detail.ReturnDate = dto.ReturnDate ?? DateTime.Now;
 			detail.ItemStatus = dto.ItemStatus;
 			detail.FineAmount = dto.FineAmount;
 			detail.ConditionNote = dto.ConditionNote;
+
+			// Khi trả, set lại PhysicalCondition dựa vào tình trạng trả về
+			detail.BookCopy.PhysicalCondition = dto.ItemStatus switch
+			{
+				"Damaged" => "Poor",
+				"Lost" => "Missing",
+				_ => "Good"  // mặc định
+			};  // ← sửa thành PhysicalCondition
+
+			var transaction = detail.BorrowTransaction;
+			if (transaction.Details.All(d => d.ReturnDate.HasValue))
+			{
+				transaction.Status = "FullyReturned";
+			}
+			else if (transaction.Details.Any(d => d.ReturnDate.HasValue))
+			{
+				transaction.Status = "PartiallyReturned";
+			}
 
 			await _uow.SaveChangesAsync();
 		}
@@ -156,74 +231,46 @@ namespace LibraryManagementSystem.Services
 		public async Task<IEnumerable<BorrowTransactionDto>> GetReaderBorrowHistoryAsync(int readerId)
 		{
 			var transactions = await _uow.BorrowTransactionRepository.GetByReaderIdAsync(readerId);
-			return await Task.WhenAll(transactions.Select(async t => await MapToBorrowTransactionDto(t)));
+			return transactions.Select(t => GetTransactionDto(t));
 		}
 
 		public async Task<IEnumerable<BorrowTransactionDto>> GetOverdueTransactionsAsync()
 		{
 			var transactions = await _uow.BorrowTransactionRepository.GetOverdueTransactionsAsync();
-			return await Task.WhenAll(transactions.Select(async t => await MapToBorrowTransactionDto(t)));
+			return transactions.Select(t => GetTransactionDto(t));
 		}
 
-		// Helper để map DTO
-		private async Task<BorrowRequestDto> MapToBorrowRequestDto(BorrowRequest request)
+		public async Task<IEnumerable<BorrowTransactionDto>> GetAllBorrowTransactionsAsync()
 		{
-			var reader = await _uow.ReaderRepository.GetByIdAsync(request.ReaderId);
-			var approvedEmployee = request.ApprovedByEmployeeId.HasValue
-				? await _uow.EmployeeRepository.GetByIdAsync(request.ApprovedByEmployeeId.Value)
-				: null;
-
-			var detailDtos = await Task.WhenAll(request.Details.Select(async d => new BorrowRequestDetailDto
-			{
-				WorkId = d.WorkId,
-				Title = (await _uow.BookWorkRepository.GetByIdAsync(d.WorkId))?.Title ?? "Unknown",
-				RequestedQuantity = d.RequestedQuantity,
-				ApprovedQuantity = d.ApprovedQuantity
-			}));
-
-			return new BorrowRequestDto
-			{
-				RequestId = request.RequestId,
-				ReaderId = request.ReaderId,
-				ReaderFullName = reader?.FullName ?? "Unknown",
-				RequestDate = request.RequestDate,
-				Status = request.Status,
-				ApprovedByEmployeeId = request.ApprovedByEmployeeId,
-				ApprovedByEmployeeName = approvedEmployee?.FullName,
-				ApprovedDate = request.ApprovedDate,
-				RejectReason = request.RejectReason,
-				Details = detailDtos.ToList()
-			};
+			var transactions = await _uow.BorrowTransactionRepository.GetAllAsync();
+			return transactions.Select(t => GetTransactionDto(t));
 		}
 
-		private async Task<BorrowTransactionDto> MapToBorrowTransactionDto(BorrowTransaction transaction)
+		private BorrowTransactionDto GetTransactionDto(BorrowTransaction t)
 		{
-			var reader = await _uow.ReaderRepository.GetByIdAsync(transaction.ReaderId);
-			var employee = await _uow.EmployeeRepository.GetByIdAsync(transaction.EmployeeId);
-
-			var detailDtos = await Task.WhenAll(transaction.Details.Select(async d => new BorrowTransactionDetailDto
+			var detailDtos = t.Details.Select(d => new BorrowTransactionDetailDto
 			{
 				BorrowDetailId = d.BorrowDetailId,
 				CopyId = d.CopyId,
-				Title = (await _uow.BookCopyRepository.GetByIdAsync(d.CopyId))?.BookEdition?.BookWork?.Title ?? "Unknown",
+				Title = d.BookCopy?.BookEdition?.BookWork?.Title ?? "Unknown",
 				DueDate = d.DueDate,
 				ReturnDate = d.ReturnDate,
 				ItemStatus = d.ItemStatus,
 				FineAmount = d.FineAmount,
 				ConditionNote = d.ConditionNote
-			}));
+			}).ToList();
 
 			return new BorrowTransactionDto
 			{
-				BorrowId = transaction.BorrowId,
-				ReaderId = transaction.ReaderId,
-				ReaderFullName = reader?.FullName ?? "Unknown",
-				EmployeeId = transaction.EmployeeId,
-				EmployeeFullName = employee?.FullName ?? "Unknown",
-				RequestId = transaction.RequestId,
-				BorrowDate = transaction.BorrowDate,
-				Status = transaction.Status,
-				Details = detailDtos.ToList()
+				BorrowId = t.BorrowId,
+				ReaderId = t.ReaderId,
+				ReaderFullName = t.Reader?.FullName ?? "Unknown",
+				EmployeeId = t.EmployeeId,
+				EmployeeFullName = t.Employee?.FullName ?? "Unknown",
+				RequestId = t.RequestId,
+				BorrowDate = t.BorrowDate,
+				Status = t.Status,
+				Details = detailDtos
 			};
 		}
 	}

@@ -1,9 +1,8 @@
-﻿using System;
+﻿// Full code cho BorrowTransactionRepository.cs (override GetAllAsync với Include để load đầy đủ)
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Data.Entities;
 using LibraryManagementSystem.Repositories.Interfaces;
@@ -17,32 +16,22 @@ namespace LibraryManagementSystem.Repositories
 		{
 		}
 
-		/// <summary>
-		/// Lấy tất cả BorrowTransaction của một Reader (lịch sử mượn)
-		/// </summary>
 		public async Task<IEnumerable<BorrowTransaction>> GetByReaderIdAsync(int readerId)
 		{
 			return await _dbSet
 				.Where(t => t.ReaderId == readerId)
-				.Include(t => t.Details).ThenInclude(d => d.BookCopy).ThenInclude(c => c.BookEdition).ThenInclude(e => e.BookWork)
-				.OrderByDescending(t => t.BorrowDate)
+				.Include(t => t.Details)
 				.ToListAsync();
 		}
 
-		/// <summary>
-		/// Lấy tất cả BorrowTransaction đang mượn (chưa trả hết)
-		/// </summary>
 		public async Task<IEnumerable<BorrowTransaction>> GetActiveTransactionsAsync()
 		{
 			return await _dbSet
-				.Where(t => t.Status == "Borrowed" || t.Status == "PartiallyReturned")
-				.Include(t => t.Details).ThenInclude(d => d.BookCopy)
+				.Where(t => t.Status == "Borrowed")
+				.Include(t => t.Details)
 				.ToListAsync();
 		}
 
-		/// <summary>
-		/// Lấy tất cả BorrowTransaction do một nhân viên xử lý
-		/// </summary>
 		public async Task<IEnumerable<BorrowTransaction>> GetByEmployeeIdAsync(int employeeId)
 		{
 			return await _dbSet
@@ -51,21 +40,16 @@ namespace LibraryManagementSystem.Repositories
 				.ToListAsync();
 		}
 
-		/// <summary>
-		/// Lấy chi tiết BorrowTransaction kèm Detail (eager loading)
-		/// </summary>
 		public async Task<BorrowTransaction?> GetTransactionWithDetailsAsync(int borrowId)
 		{
 			return await _dbSet
-				.Include(t => t.Reader)
-				.Include(t => t.Employee)
-				.Include(t => t.Details).ThenInclude(d => d.BookCopy).ThenInclude(c => c.BookEdition).ThenInclude(e => e.BookWork)
+				.Include(t => t.Details)
+					.ThenInclude(d => d.BookCopy)
+						.ThenInclude(c => c.BookEdition)
+							.ThenInclude(e => e.BookWork)
 				.FirstOrDefaultAsync(t => t.BorrowId == borrowId);
 		}
 
-		/// <summary>
-		/// Lấy tất cả BorrowTransaction liên kết với một Request cụ thể
-		/// </summary>
 		public async Task<IEnumerable<BorrowTransaction>> GetFromRequestAsync(int requestId)
 		{
 			return await _dbSet
@@ -74,14 +58,24 @@ namespace LibraryManagementSystem.Repositories
 				.ToListAsync();
 		}
 
-		/// <summary>
-		/// Lấy tất cả BorrowTransaction quá hạn (DueDate < Today và chưa trả)
-		/// </summary>
 		public async Task<IEnumerable<BorrowTransaction>> GetOverdueTransactionsAsync()
 		{
 			return await _dbSet
 				.Where(t => t.Status == "Borrowed" && t.Details.Any(d => d.DueDate < DateTime.Today && d.ReturnDate == null))
 				.Include(t => t.Details)
+				.ToListAsync();
+		}
+
+		// Override GetAllAsync để include đầy đủ data (fix lỗi null khi load Title, Reader, Employee)
+		public override async Task<IEnumerable<BorrowTransaction>> GetAllAsync()
+		{
+			return await _dbSet
+				.Include(t => t.Reader)
+				.Include(t => t.Employee)
+				.Include(t => t.Details)
+					.ThenInclude(d => d.BookCopy)
+						.ThenInclude(c => c.BookEdition)
+							.ThenInclude(e => e.BookWork)
 				.ToListAsync();
 		}
 	}

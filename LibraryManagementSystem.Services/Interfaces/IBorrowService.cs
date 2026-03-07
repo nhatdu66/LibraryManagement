@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LibraryManagementSystem.Services.DTOs;
 
@@ -21,5 +15,8 @@ namespace LibraryManagementSystem.Services.Interfaces
 		Task ReturnBookAsync(int borrowDetailId, ReturnBookDto dto);
 		Task<IEnumerable<BorrowTransactionDto>> GetReaderBorrowHistoryAsync(int readerId);
 		Task<IEnumerable<BorrowTransactionDto>> GetOverdueTransactionsAsync();
+
+		// Thêm method này để BorrowViewModel gọi được
+		Task<IEnumerable<BorrowTransactionDto>> GetAllBorrowTransactionsAsync();
 	}
 }

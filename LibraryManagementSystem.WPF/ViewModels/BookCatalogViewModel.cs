@@ -1,28 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using LibraryManagementSystem.Services.DTOs;
-using LibraryManagementSystem.Services.Interfaces;
-using LibraryManagementSystem.WPF.Helpers;
-
+﻿// Full code cho BookCatalogViewModel.cs (thêm ConfigureAwait(false) để đồng bộ tránh concurrency)
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
-using LibraryManagementSystem.Services.DTOs;
-using LibraryManagementSystem.Services.Interfaces;
-using LibraryManagementSystem.WPF.Helpers;
-
-using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
@@ -34,9 +14,9 @@ namespace LibraryManagementSystem.WPF.ViewModels
 	{
 		private readonly IBookService _bookService;
 
-		private ObservableCollection<BookWorkDto> _books = new ObservableCollection<BookWorkDto>();
+		private ObservableCollection<BookWorkDto> _books = new();
 		private string _searchKeyword = string.Empty;
-		private string _statusMessage = string.Empty;
+		private string _statusMessage = "Đang tải sách...";
 
 		public ObservableCollection<BookWorkDto> Books
 		{
@@ -47,7 +27,11 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public string SearchKeyword
 		{
 			get => _searchKeyword;
-			set => SetProperty(ref _searchKeyword, value);
+			set
+			{
+				SetProperty(ref _searchKeyword, value);
+				SearchBooks();
+			}
 		}
 
 		public string StatusMessage
@@ -56,38 +40,33 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			set => SetProperty(ref _statusMessage, value);
 		}
 
-		public ICommand SearchCommand { get; }
-		public ICommand LoadAllCommand { get; }
+		public ICommand RefreshCommand { get; }
 
 		public BookCatalogViewModel(IBookService bookService)
 		{
 			_bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
 
-			SearchCommand = new RelayCommand(_ => SearchBooks());
-			LoadAllCommand = new RelayCommand(_ => LoadAllBooks());
+			RefreshCommand = new RelayCommand(async _ => await LoadAllBooksAsync());
 
-			// Load dữ liệu async khi ViewModel được tạo
-			_ = LoadAllBooksAsync();  // fire-and-forget
+			_ = LoadAllBooksAsync();
 		}
 
 		private async Task LoadAllBooksAsync()
 		{
 			try
 			{
-				StatusMessage = "Đang tải danh sách sách...";
-				var allBooks = await _bookService.GetAllBookWorksAsync();
-				Books = new ObservableCollection<BookWorkDto>(allBooks);
-				StatusMessage = $"Tải thành công: {Books.Count} sách.";
+				StatusMessage = "Đang tải sách...";
+
+				var bookWorks = await _bookService.GetAllBookWorksAsync().ConfigureAwait(false);
+
+				Books = new ObservableCollection<BookWorkDto>(bookWorks);
+
+				StatusMessage = $"Tổng sách: {Books.Count}";
 			}
 			catch (Exception ex)
 			{
 				StatusMessage = $"Lỗi tải sách: {ex.Message}";
 			}
-		}
-
-		private async void LoadAllBooks()
-		{
-			await LoadAllBooksAsync();
 		}
 
 		private async void SearchBooks()
@@ -101,7 +80,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 					return;
 				}
 
-				var results = await _bookService.SearchBooksAsync(SearchKeyword, null, null, null);
+				var results = await _bookService.SearchBooksAsync(SearchKeyword, null, null, null).ConfigureAwait(false);
 				Books = new ObservableCollection<BookWorkDto>(results);
 				StatusMessage = $"Tìm thấy: {Books.Count} kết quả.";
 			}

@@ -9,5 +9,7 @@
 			<Setter Property="TextAlignment" Value="Center"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
 		</Style>
+
 	</Application.Resources>
+
 </Application>

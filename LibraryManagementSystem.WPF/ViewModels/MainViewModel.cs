@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using LibraryManagementSystem.WPF.Helpers;
 using LibraryManagementSystem.WPF.ViewModels;
 using System.Diagnostics;
+using LibraryManagementSystem.Services.Interfaces;
 
 namespace LibraryManagementSystem.WPF.ViewModels
 {
 	public class MainViewModel : ObservableObject
 	{
 		public LoginViewModel LoginVM { get; }
+		public BorrowViewModel BorrowVM { get; }
 
 		private int _selectedTabIndex = 0;
 		public int SelectedTabIndex
@@ -33,27 +36,32 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		public ICommand LogoutCommand { get; }
 
-		public MainViewModel(LoginViewModel loginVM)
+		public MainViewModel(LoginViewModel loginVM, IBorrowService borrowService, IAuthService authService)
 		{
-			LoginVM = loginVM;
+			LoginVM = loginVM ?? throw new ArgumentNullException(nameof(loginVM));
+
+			// Khởi tạo BorrowVM
+			BorrowVM = new BorrowViewModel(borrowService, authService);
 
 			LogoutCommand = new RelayCommand(ExecuteLogout);
 
-			LoginVM.PropertyChanged += (s, e) =>
+			// Theo dõi login success
+			LoginVM.PropertyChanged += LoginVM_PropertyChanged;
+
+			Debug.WriteLine("[DEBUG] MainViewModel initialized and subscribed to LoginVM");
+		}
+
+		private void LoginVM_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == nameof(LoginVM.LoginSuccessTriggered) && LoginVM.LoginSuccessTriggered)
 			{
-				Debug.WriteLine($"[DEBUG] PropertyChanged: {e.PropertyName}");
+				IsLoggedIn = true;
+				WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
+				SelectedTabIndex = 1; // Chuyển sang tab Danh sách sách
+				LoginVM.ClearLoginSuccessTriggered();
 
-				if (e.PropertyName == nameof(LoginViewModel.LoginSuccessTriggered) && LoginVM.LoginSuccessTriggered)
-				{
-					IsLoggedIn = true;
-					WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
-					SelectedTabIndex = 1;           // chuyển sang tab Danh sách sách
-					LoginVM.ClearLoginSuccessTriggered();
-					Debug.WriteLine("[DEBUG] MainViewModel UPDATED SUCCESSFULLY!");
-				}
-			};
-
-			Debug.WriteLine($"[DEBUG] MainViewModel subscribed to LoginVM");
+				Debug.WriteLine($"[DEBUG] Login success detected - IsLoggedIn set to true, Welcome: {WelcomeMessage}");
+			}
 		}
 
 		private void ExecuteLogout(object parameter)
@@ -63,6 +71,11 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			SelectedTabIndex = 0;
 			LoginVM.Email = "";
 			LoginVM.StatusMessage = "";
+			LoginVM.LoginSuccessTriggered = false;
+			LoginVM.LoginSuccessFullName = "";
+			LoginVM.LoginSuccessUserId = 0;
+
+			Debug.WriteLine("[DEBUG] Logout executed - IsLoggedIn set to false");
 		}
 	}
 }

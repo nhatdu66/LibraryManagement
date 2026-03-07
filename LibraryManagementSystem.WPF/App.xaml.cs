@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Full code cho App.xaml.cs (đổi AddDbContext thành Transient)
+using System;
 using System.IO;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
@@ -21,44 +22,44 @@ namespace LibraryManagementSystem.WPF
 		{
 			base.OnStartup(e);
 
-			var builder = new ConfigurationBuilder()
-				.SetBasePath(Directory.GetCurrentDirectory())
-				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-			var configuration = builder.Build();
-
 			var services = new ServiceCollection();
 
-			// DbContext
-			services.AddDbContext<LibraryDbContext>(options =>
-				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+			// Configuration
+			var configuration = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+				.Build();
 
-			// UnitOfWork + Repositories
-			services.AddScoped<IUnitOfWork, UnitOfWork>();
-			services.AddScoped<IRoleRepository, RoleRepository>();
-			services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-			services.AddScoped<IReaderRepository, ReaderRepository>();
-			services.AddScoped<IBookWorkRepository, BookWorkRepository>();
-			services.AddScoped<IBorrowRequestRepository, BorrowRequestRepository>();
-			services.AddScoped<IBorrowTransactionRepository, BorrowTransactionRepository>();
-			services.AddScoped<IBookCopyRepository, BookCopyRepository>();
+			// DbContext - Đổi thành Transient để mỗi operation có instance DbContext riêng, tránh concurrency
+			services.AddDbContext<LibraryDbContext>(options =>
+				options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")),
+				ServiceLifetime.Transient);  // ← Key fix concurrency
+
+			// UnitOfWork & Repositories
+			services.AddTransient<IUnitOfWork, UnitOfWork>();
+			services.AddTransient<IRoleRepository, RoleRepository>();
+			services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+			services.AddTransient<IReaderRepository, ReaderRepository>();
+			services.AddTransient<IBookWorkRepository, BookWorkRepository>();
+			services.AddTransient<IBorrowRequestRepository, BorrowRequestRepository>();
+			services.AddTransient<IBorrowTransactionRepository, BorrowTransactionRepository>();
+			services.AddTransient<IBookCopyRepository, BookCopyRepository>();
 
 			// Services
-			services.AddScoped<IAuthService, AuthService>();
-			services.AddScoped<IBookService, BookService>();
-			services.AddScoped<IBorrowService, BorrowService>();
-			services.AddScoped<IEmployeeAccountService, EmployeeAccountService>();
-			services.AddScoped<IReaderAccountService, ReaderAccountService>();
-			services.AddScoped<IRoleService, RoleService>();
-			services.AddScoped<IEmployeeService, EmployeeService>();
-			services.AddScoped<IReaderService, ReaderService>();
+			services.AddTransient<IAuthService, AuthService>();
+			services.AddTransient<IBookService, BookService>();
+			services.AddTransient<IBorrowService, BorrowService>();
+			services.AddTransient<IEmployeeAccountService, EmployeeAccountService>();
+			services.AddTransient<IEmployeeService, EmployeeService>();
+			services.AddTransient<IReaderAccountService, ReaderAccountService>();
+			services.AddTransient<IReaderService, ReaderService>();
+			services.AddTransient<IRoleService, RoleService>();
 
 			// ViewModels
-			services.AddSingleton<LoginViewModel>();
-			services.AddTransient<MainViewModel>();
+			services.AddTransient<LoginViewModel>();
 			services.AddTransient<BookCatalogViewModel>();
 			services.AddTransient<BorrowViewModel>();
-			services.AddTransient<MyAccountViewModel>();
+			services.AddTransient<MainViewModel>();
 
 			// MainWindow
 			services.AddTransient<MainWindow>();
@@ -70,7 +71,7 @@ namespace LibraryManagementSystem.WPF
 				var mainVM = ServiceProvider.GetRequiredService<MainViewModel>();
 				var mainWindow = new MainWindow
 				{
-					DataContext = mainVM  // Set DataContext là MainViewModel
+					DataContext = mainVM
 				};
 				mainWindow.Show();
 			}

@@ -4,5 +4,10 @@
 	<!-- Quan trọng: trỏ đến MainWindow.xaml -->
 	<Application.Resources>
 		<!-- Nếu có Resource chung (Style, Brush) thì đặt ở đây -->
+		<!-- Trong App.xaml hoặc ResourceDictionary -->
+		<Style x:Key="CenterText" TargetType="TextBlock">
+			<Setter Property="TextAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 	</Application.Resources>
 </Application>

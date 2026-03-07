@@ -41,7 +41,7 @@
 			</TabItem>
 
 			<TabItem Header="Mượn Sách" IsEnabled="{Binding IsLoggedIn}">
-				<views:BorrowView />
+				<views:BorrowView DataContext="{Binding BorrowVM}"/>
 			</TabItem>
 
 			<TabItem Header="Tài khoản" IsEnabled="{Binding IsLoggedIn}">

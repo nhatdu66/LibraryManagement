@@ -22,6 +22,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		private string _loginSuccessFullName = string.Empty;
 		private int _loginSuccessUserId;
 		private string _loginSuccessAccountType = string.Empty;
+		private string _loginSuccessRoleName = string.Empty;
 
 		public string Email
 		{
@@ -63,6 +64,12 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		{
 			get => _loginSuccessAccountType;
 			set => SetProperty(ref _loginSuccessAccountType, value);
+		}
+
+		public string LoginSuccessRoleName   // ← THÊM PROPERTY NÀY
+		{
+			get => _loginSuccessRoleName;
+			set => SetProperty(ref _loginSuccessRoleName, value);
 		}
 
 		public ICommand LoginCommand { get; }
@@ -122,6 +129,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 					LoginSuccessFullName = result.FullName ?? "Unknown";
 					LoginSuccessAccountType = result.AccountType ?? "Unknown";
 					LoginSuccessUserId = result.UserId;
+					LoginSuccessRoleName = result.RoleName ?? "Reader";
 
 					Debug.WriteLine($"[DEBUG] LOGIN SUCCESS - UserId: {LoginSuccessUserId}, Type: {LoginSuccessAccountType}");
 

@@ -34,7 +34,12 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			get => _welcomeMessage;
 			set => SetProperty(ref _welcomeMessage, value);
 		}
-
+		private string _roleDisplay = string.Empty;
+		public string RoleDisplay
+		{
+			get => _roleDisplay;
+			set => SetProperty(ref _roleDisplay, value);
+		}
 		public ICommand LogoutCommand { get; }
 
 		public MainViewModel(IAuthService authService, IBorrowService borrowService, IBookService bookService)
@@ -57,15 +62,34 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		{
 			if (LoginVM.LoginSuccessTriggered)
 			{
-				// Debug MessageBox để xác nhận trigger
-				MessageBox.Show("Login success detected in MainViewModel! Proceeding to update UI.", "Debug Info", MessageBoxButton.OK, MessageBoxImage.Information);
+				MessageBox.Show("Login success detected in MainViewModel! Proceeding to update UI.",
+								"Debug Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
 				IsLoggedIn = true;
 				WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
-				SelectedTabIndex = 1; // Chuyển sang tab Danh sách sách
+
+				// === LOGIC ĐÚNG Ý BẠN: Reader thì hiện ngay, Employee thì lấy RoleName ===
+				if (LoginVM.LoginSuccessAccountType?.Trim().Equals("Reader", StringComparison.OrdinalIgnoreCase) == true)
+				{
+					RoleDisplay = "Bạn là Reader";
+				}
+				else // Employee
+				{
+					string role = LoginVM.LoginSuccessRoleName?.Trim() ?? "Staff";
+
+					RoleDisplay = role switch
+					{
+						"Administrator" => "Bạn là Admin",
+						"Librarian" => "Bạn là Librarian",
+						"Staff" => "Bạn là Staff",
+						_ => "Bạn là " + role
+					};
+				}
+
+				SelectedTabIndex = 1;
 				LoginVM.ClearLoginSuccessTriggered();
 
-				Debug.WriteLine($"[DEBUG] Login success detected - IsLoggedIn set to true, Welcome: {WelcomeMessage}");
+				Debug.WriteLine($"[DEBUG] Hiển thị Role: {RoleDisplay} (AccountType={LoginVM.LoginSuccessAccountType}, RoleName={LoginVM.LoginSuccessRoleName})");
 			}
 		}
 
@@ -73,6 +97,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		{
 			IsLoggedIn = false;
 			WelcomeMessage = "Chưa đăng nhập";
+			RoleDisplay = string.Empty;
 			SelectedTabIndex = 0;
 			LoginVM.Email = "";
 			LoginVM.StatusMessage = "";

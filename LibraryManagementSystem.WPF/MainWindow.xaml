@@ -18,6 +18,11 @@
 
 		<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Right">
 			<TextBlock Text="{Binding WelcomeMessage}" FontWeight="Bold" Margin="0,0,5,0"/>
+			<TextBlock Text="{Binding RoleDisplay}" 
+               FontWeight="Medium" 
+               FontSize="13" 
+               Foreground="#2C3E50"
+               Margin="0,0,5,0"/>
 			<Button Content="Đăng xuất" Command="{Binding LogoutCommand}" 
                     Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" 
                     Width="100" Height="32"/>
@@ -32,7 +37,7 @@
 				<views:BookCatalogView />
 			</TabItem>
 
-			<TabItem Header="Mượn Sách" >
+			<TabItem Header="Mượn Sách" IsEnabled="{Binding IsLoggedIn}">
 				<views:BorrowView DataContext="{Binding BorrowVM}"/>
 			</TabItem>
 

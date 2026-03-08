@@ -1,11 +1,12 @@
 ﻿// Full code cho MainViewModel.cs (thêm MessageBox debug)
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using LibraryManagementSystem.Data.Entities;
+using LibraryManagementSystem.Services.Interfaces;
 using LibraryManagementSystem.WPF.Helpers;
 using LibraryManagementSystem.WPF.ViewModels;
-using System.Diagnostics;
-using LibraryManagementSystem.Services.Interfaces;
 
 namespace LibraryManagementSystem.WPF.ViewModels
 {
@@ -40,6 +41,14 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			get => _roleDisplay;
 			set => SetProperty(ref _roleDisplay, value);
 		}
+
+		private bool _canBorrow;
+		public bool CanBorrow
+		{
+			get => _canBorrow;
+			set => SetProperty(ref _canBorrow, value);
+		}
+
 		public ICommand LogoutCommand { get; }
 
 		public MainViewModel(IAuthService authService, IBorrowService borrowService, IBookService bookService)
@@ -67,6 +76,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 				IsLoggedIn = true;
 				WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
+				// Lấy RoleName từ LoginViewModel
+				string roleName = LoginVM.LoginSuccessRoleName?.Trim() ?? "";
 
 				// === LOGIC ĐÚNG Ý BẠN: Reader thì hiện ngay, Employee thì lấy RoleName ===
 				if (LoginVM.LoginSuccessAccountType?.Trim().Equals("Reader", StringComparison.OrdinalIgnoreCase) == true)
@@ -85,6 +96,9 @@ namespace LibraryManagementSystem.WPF.ViewModels
 						_ => "Bạn là " + role
 					};
 				}
+
+				// PHÂN QUYỀN: Chỉ Admin và Librarian được vào tab Mượn Sách
+				CanBorrow = (roleName == "Administrator" || roleName == "Librarian");
 
 				SelectedTabIndex = 1;
 				LoginVM.ClearLoginSuccessTriggered();

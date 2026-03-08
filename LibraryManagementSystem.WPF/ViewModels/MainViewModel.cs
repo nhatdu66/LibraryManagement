@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Full code cho MainViewModel.cs (thêm MessageBox debug)
+using System;
 using System.Windows;
 using System.Windows.Input;
 using LibraryManagementSystem.WPF.Helpers;
@@ -36,25 +37,29 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		public ICommand LogoutCommand { get; }
 
-		public MainViewModel(LoginViewModel loginVM, IBorrowService borrowService, IAuthService authService)
+		public MainViewModel(IAuthService authService, IBorrowService borrowService, IBookService bookService)
 		{
-			LoginVM = loginVM ?? throw new ArgumentNullException(nameof(loginVM));
-
-			// Khởi tạo BorrowVM
+			LoginVM = new LoginViewModel(authService);
 			BorrowVM = new BorrowViewModel(borrowService, authService);
 
 			LogoutCommand = new RelayCommand(ExecuteLogout);
 
-			// Theo dõi login success
-			LoginVM.PropertyChanged += LoginVM_PropertyChanged;
-
-			Debug.WriteLine("[DEBUG] MainViewModel initialized and subscribed to LoginVM");
+			LoginVM.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(LoginVM.LoginSuccessTriggered))
+				{
+					CheckLoginSuccess();
+				}
+			};
 		}
 
-		private void LoginVM_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void CheckLoginSuccess()
 		{
-			if (e.PropertyName == nameof(LoginVM.LoginSuccessTriggered) && LoginVM.LoginSuccessTriggered)
+			if (LoginVM.LoginSuccessTriggered)
 			{
+				// Debug MessageBox để xác nhận trigger
+				MessageBox.Show("Login success detected in MainViewModel! Proceeding to update UI.", "Debug Info", MessageBoxButton.OK, MessageBoxImage.Information);
+
 				IsLoggedIn = true;
 				WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
 				SelectedTabIndex = 1; // Chuyển sang tab Danh sách sách

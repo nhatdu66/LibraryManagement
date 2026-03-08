@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
-using LibraryManagementSystem.Data.Entities; // ← THÊM DÒNG NÀY
-using BCrypt.Net; // ← THÊM DÒNG NÀY (nếu dùng BCrypt)
+using LibraryManagementSystem.Data.Entities;
+using System.Diagnostics;
 
 namespace LibraryManagementSystem.Services
 {
@@ -19,69 +19,88 @@ namespace LibraryManagementSystem.Services
 
 		public async Task<LoginResponseDto> LoginAsync(LoginDto dto)
 		{
-			if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password))
-				throw new ArgumentException("Email và Password không được để trống");
+			Debug.WriteLine($"[LOGIN ATTEMPT] Email: {dto.Email}, Type: {dto.AccountType ?? "Auto detect"}, Pass length: {dto.Password?.Length ?? 0}");
 
-			// Tìm Employee trước
+			// 1. Kiểm tra Employee trước
 			var employee = await _uow.EmployeeRepository.GetByEmailAsync(dto.Email);
 			if (employee != null)
 			{
-				// Kiểm tra password (BCrypt hoặc plaintext tạm)
-				//if (BCrypt.Net.BCrypt.Verify(dto.Password, employee.PasswordHash)) // Nếu chưa có BCrypt → thay bằng dto.Password == employee.PasswordHash
-				if (dto.Password == employee.PasswordHash)
+				Debug.WriteLine($"[EMPLOYEE FOUND] ID: {employee.EmployeeId}, Email: {dto.Email}, PasswordHash in DB: '{employee.PasswordHash}' (length: {employee.PasswordHash?.Length ?? 0})");
+
+				if (employee.PasswordHash == dto.Password)
 				{
+					Debug.WriteLine($"[EMPLOYEE LOGIN SUCCESS] Email: {dto.Email}");
+
+					var role = await _uow.RoleRepository.GetByIdAsync(employee.RoleId);
+
 					return new LoginResponseDto
 					{
+						Success = true,
+						Message = "Login Employee thành công",
 						UserId = employee.EmployeeId,
 						AccountType = "Employee",
 						FullName = employee.FullName,
-						RoleName = employee.Role.RoleName,
-						Message = "Login Employee thành công"
+						RoleName = role?.RoleName ?? "Unknown"
 					};
+				}
+				else
+				{
+					Debug.WriteLine($"[EMPLOYEE PASSWORD MISMATCH] Email: {dto.Email} | Input: '{dto.Password}' | DB: '{employee.PasswordHash}'");
+					return new LoginResponseDto { Success = false, Message = "Mật khẩu không đúng (Nhân viên)" };
 				}
 			}
 
-			// Tìm Reader nếu không phải Employee
+			// 2. Kiểm tra Reader
 			var reader = await _uow.ReaderRepository.GetByEmailAsync(dto.Email);
 			if (reader != null)
 			{
-				//if (BCrypt.Net.BCrypt.Verify(dto.Password, reader.PasswordHash)) // Nếu chưa có BCrypt → thay bằng dto.Password == reader.PasswordHash
-				if (dto.Password == reader.PasswordHash)
+				Debug.WriteLine($"[READER FOUND] ID: {reader.ReaderId}, Email: {dto.Email}, PasswordHash in DB: '{reader.PasswordHash}' (length: {reader.PasswordHash?.Length ?? 0})");
+
+				if (reader.PasswordHash == dto.Password)
 				{
+					Debug.WriteLine($"[READER LOGIN SUCCESS] Email: {dto.Email}");
+
 					return new LoginResponseDto
 					{
+						Success = true,
+						Message = "Login Reader thành công",
 						UserId = reader.ReaderId,
 						AccountType = "Reader",
 						FullName = reader.FullName,
 						RoleName = "Reader",
-						ExpiredDate = reader.ExpiredDate,
-						Message = "Login Reader thành công"
+						ExpiredDate = reader.ExpiredDate
 					};
+				}
+				else
+				{
+					Debug.WriteLine($"[READER PASSWORD MISMATCH] Email: {dto.Email} | Input: '{dto.Password}' | DB: '{reader.PasswordHash}'");
+					return new LoginResponseDto { Success = false, Message = "Mật khẩu không đúng (Độc giả)" };
 				}
 			}
 
-			throw new UnauthorizedAccessException("Email hoặc mật khẩu không đúng");
+			Debug.WriteLine($"[LOGIN FAIL - User not found] Email: {dto.Email}");
+			return new LoginResponseDto { Success = false, Message = "Không tìm thấy tài khoản" };
 		}
 
 		public async Task<RegisterResponseDto> RegisterReaderAsync(RegisterDto dto)
 		{
-			if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password) || string.IsNullOrWhiteSpace(dto.FullName))
-				throw new ArgumentException("Email, Password và FullName không được để trống");
-
-			if (await _uow.ReaderRepository.GetByEmailAsync(dto.Email) != null)
-				throw new ArgumentException("Email đã tồn tại");
+			var existingReader = await _uow.ReaderRepository.GetByEmailAsync(dto.Email);
+			if (existingReader != null)
+			{
+				throw new InvalidOperationException("Email đã được đăng ký.");
+			}
 
 			var reader = new Reader
 			{
 				Email = dto.Email,
-				PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password), // Nếu chưa có BCrypt → thay bằng dto.Password (plaintext tạm)
+				PasswordHash = dto.Password,           // plaintext → lưu thẳng vào cột PasswordHash
 				FullName = dto.FullName,
 				PhoneNumber = dto.PhoneNumber,
 				Address = dto.Address,
 				RegisterDate = DateTime.Now,
 				ExpiredDate = dto.ExpiredDate ?? DateTime.Now.AddYears(2),
 				ReaderStatus = "Active",
-				CardNumber = "RD" + Guid.NewGuid().ToString("N").Substring(0, 10).ToUpper()
+				CardNumber = Guid.NewGuid().ToString("N").Substring(0, 10).ToUpper()
 			};
 
 			await _uow.ReaderRepository.AddAsync(reader);
@@ -94,22 +113,28 @@ namespace LibraryManagementSystem.Services
 				FullName = reader.FullName,
 				Email = reader.Email,
 				ExpiredDate = reader.ExpiredDate,
-				Message = "Đăng ký Reader thành công"
+				Message = "Đăng ký tài khoản Reader thành công!"
 			};
 		}
 
 		public async Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeDto dto)
 		{
-			if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password) || string.IsNullOrWhiteSpace(dto.FullName))
-				throw new ArgumentException("Email, Password và FullName không được để trống");
+			var existing = await _uow.EmployeeRepository.GetByEmailAsync(dto.Email);
+			if (existing != null)
+			{
+				throw new InvalidOperationException("Email đã tồn tại.");
+			}
 
-			if (await _uow.EmployeeRepository.GetByEmailAsync(dto.Email) != null)
-				throw new ArgumentException("Email đã tồn tại");
+			var role = await _uow.RoleRepository.GetByIdAsync(dto.RoleId);
+			if (role == null)
+			{
+				throw new KeyNotFoundException("Không tìm thấy vai trò.");
+			}
 
 			var employee = new Employee
 			{
 				Email = dto.Email,
-				PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password), // Nếu chưa có BCrypt → thay bằng dto.Password
+				PasswordHash = dto.Password,           // plaintext → lưu thẳng vào cột PasswordHash
 				FullName = dto.FullName,
 				RoleId = dto.RoleId,
 				HireDate = dto.HireDate ?? DateTime.Now,
@@ -124,7 +149,7 @@ namespace LibraryManagementSystem.Services
 				EmployeeId = employee.EmployeeId,
 				Email = employee.Email,
 				FullName = employee.FullName,
-				RoleName = (await _uow.RoleRepository.GetByIdAsync(employee.RoleId))?.RoleName ?? "Unknown",
+				RoleName = role.RoleName ?? "Unknown",
 				HireDate = employee.HireDate,
 				Status = employee.Status
 			};

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Full code cho LoginViewModel.cs (thêm MessageBox debug nếu login fail)
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,9 +20,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		private bool _loginSuccessTriggered;
 		private string _loginSuccessFullName = string.Empty;
-		private string _loginSuccessRoleName = string.Empty;
-		private string _loginSuccessAccountType = string.Empty;
 		private int _loginSuccessUserId;
+		private string _loginSuccessAccountType = string.Empty;
 
 		public string Email
 		{
@@ -53,10 +53,10 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			set => SetProperty(ref _loginSuccessFullName, value);
 		}
 
-		public string LoginSuccessRoleName
+		public int LoginSuccessUserId
 		{
-			get => _loginSuccessRoleName;
-			set => SetProperty(ref _loginSuccessRoleName, value);
+			get => _loginSuccessUserId;
+			set => SetProperty(ref _loginSuccessUserId, value);
 		}
 
 		public string LoginSuccessAccountType
@@ -65,73 +65,86 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			set => SetProperty(ref _loginSuccessAccountType, value);
 		}
 
-		public int LoginSuccessUserId
-		{
-			get => _loginSuccessUserId;
-			set => SetProperty(ref _loginSuccessUserId, value);
-		}
-
 		public ICommand LoginCommand { get; }
 
 		public LoginViewModel(IAuthService authService)
 		{
 			_authService = authService;
-			LoginCommand = new RelayCommand(LoginAsync);
+			LoginCommand = new RelayCommand(ExecuteLogin);
 		}
 
-		private async void LoginAsync(object parameter)
+		private async void ExecuteLogin(object parameter)
 		{
+			if (parameter is not PasswordBox passwordBox)
+			{
+				StatusMessage = "Lỗi: Không lấy được trường mật khẩu.";
+				return;
+			}
+
+			string password = passwordBox.Password?.Trim() ?? "";
+			string email = Email?.Trim() ?? "";
+
+			if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+			{
+				StatusMessage = "Vui lòng nhập đầy đủ email và mật khẩu.";
+				return;
+			}
+
 			try
 			{
-				string password = string.Empty;
-
-				// Lấy mật khẩu từ PasswordBox (CommandParameter)
-				if (parameter is PasswordBox passwordBox)
-				{
-					password = passwordBox.Password;
-				}
-
-				Debug.WriteLine($"[DEBUG] Login called - Email='{Email}', Password length={password.Length}");
-
-				if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(password))
-				{
-					StatusMessage = "Lỗi: Email và Password không được để trống";
-					return;
-				}
-
-				StatusMessage = "Đang đăng nhập...";
+				StatusMessage = "Đang kiểm tra đăng nhập...";
 
 				var dto = new LoginDto
 				{
-					Email = Email.Trim(),
+					Email = email,
 					Password = password,
 					AccountType = IsReaderLogin ? "Reader" : "Employee"
 				};
 
 				var result = await _authService.LoginAsync(dto);
 
+				// Debug MessageBox để hiển thị CHI TIẾT result từ service (luôn hiện, dù success hay fail)
+				MessageBox.Show(
+					$"Kết quả từ AuthService.LoginAsync:\n" +
+					$"Success: {result.Success}\n" +
+					$"Message: {result.Message}\n" +
+					$"UserId: {result.UserId}\n" +
+					$"FullName: {result.FullName ?? "N/A"}\n" +
+					$"AccountType: {result.AccountType ?? "N/A"}\n" +
+					$"RoleName: {result.RoleName ?? "N/A"}",
+					"Debug - Kết quả Login",
+					MessageBoxButton.OK,
+					result.Success ? MessageBoxImage.Information : MessageBoxImage.Warning
+				);
+
 				if (result.Success)
 				{
-					LoginSuccessFullName = result.FullName;
-					LoginSuccessRoleName = result.RoleName ?? "Unknown";
+					LoginSuccessFullName = result.FullName ?? "Unknown";
 					LoginSuccessAccountType = result.AccountType ?? "Unknown";
 					LoginSuccessUserId = result.UserId;
 
 					Debug.WriteLine($"[DEBUG] LOGIN SUCCESS - UserId: {LoginSuccessUserId}, Type: {LoginSuccessAccountType}");
 
-					// Trigger login success
+					// Trigger login success để MainViewModel nhận biết và thay đổi UI
 					LoginSuccessTriggered = true;
 					StatusMessage = "Đăng nhập thành công!";
+
+					// Clear password field sau login thành công
+					passwordBox.Password = "";
 				}
 				else
 				{
 					StatusMessage = result.Message ?? "Đăng nhập thất bại";
+					// MessageBox debug bổ sung nếu fail
+					MessageBox.Show($"Login failed: {result.Message}. Check DB for user/email: {Email}", "Debug Info", MessageBoxButton.OK, MessageBoxImage.Warning);
 				}
 			}
 			catch (Exception ex)
 			{
 				StatusMessage = "Lỗi: " + ex.Message;
 				Debug.WriteLine("[DEBUG] Login exception: " + ex.Message);
+				// Debug MessageBox cho exception
+				MessageBox.Show($"Exception during login: {ex.Message}. Stack: {ex.StackTrace}", "Debug Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 

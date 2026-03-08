@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementSystem.Data.Entities
 {
@@ -24,27 +21,26 @@ namespace LibraryManagementSystem.Data.Entities
 
 		[Required]
 		[StringLength(255)]
-		public string PasswordHash { get; set; } = null!;
-
-		[Required]
-		[StringLength(100)]
 		public string FullName { get; set; } = null!;
 
 		[StringLength(20)]
 		public string? PhoneNumber { get; set; }
 
-		[StringLength(200)]
+		[StringLength(500)]
 		public string? Address { get; set; }
 
-		[Required]
 		public DateTime RegisterDate { get; set; }
 
-		[Required]
 		public DateTime ExpiredDate { get; set; }
 
 		[Required]
 		[StringLength(20)]
 		public string ReaderStatus { get; set; } = null!;  // Active, Expired, Suspended, ...
+
+		// Tên property khớp với tên cột PasswordHash trong DB
+		[Required]
+		[StringLength(255)]
+		public string PasswordHash { get; set; } = string.Empty;  // plaintext, không hash thật
 
 		// Navigation properties
 		public virtual ICollection<BorrowRequest> BorrowRequests { get; set; } = new List<BorrowRequest>();

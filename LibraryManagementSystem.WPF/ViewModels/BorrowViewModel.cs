@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,8 +46,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			_borrowService = borrowService ?? throw new ArgumentNullException(nameof(borrowService));
 			_authService = authService ?? throw new ArgumentNullException(nameof(authService));
 
-			// Debug ngay đầu constructor
-			MessageBox.Show("BorrowViewModel đã được khởi tạo!", "Debug - Constructor", MessageBoxButton.OK, MessageBoxImage.Information);
+			// Optional: Thay bằng logging
+			Debug.WriteLine("BorrowViewModel đã được khởi tạo!");
 
 			RefreshTransactionsCommand = new RelayCommand(async _ => await LoadTransactionsAsync());
 
@@ -55,8 +56,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		private async Task LoadTransactionsAsync()
 		{
-			// Debug ngay đầu method
-			MessageBox.Show("Bắt đầu LoadTransactionsAsync", "Debug - Start Load", MessageBoxButton.OK, MessageBoxImage.Information);
+			// Optional: Thay bằng logging
+			Debug.WriteLine("Bắt đầu LoadTransactionsAsync");
 
 			try
 			{
@@ -65,8 +66,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				var transactions = await _borrowService.GetAllBorrowTransactionsAsync().ConfigureAwait(false);
 
 				int count = transactions?.Count() ?? 0;
-				MessageBox.Show($"Load được {count} giao dịch.\nNếu 0 → DB có thể trống hoặc query sai.",
-								"Debug - Kết quả Load", MessageBoxButton.OK, MessageBoxImage.Information);
+				// Optional: Debug.WriteLine($"Load được {count} giao dịch. Nếu 0 → DB có thể trống hoặc query sai.");
 
 				var list = transactions?.ToList() ?? new List<BorrowTransactionDto>();
 
@@ -77,15 +77,14 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 				if (TransactionCount == 0)
 				{
-					MessageBox.Show("Không có giao dịch nào trong DB.\nHãy kiểm tra bảng BorrowTransaction bằng SSMS hoặc thêm data test.",
-									"No Data", MessageBoxButton.OK, MessageBoxImage.Warning);
+					// Optional: Debug.WriteLine("Không có giao dịch nào trong DB. Hãy kiểm tra bảng BorrowTransaction bằng SSMS hoặc thêm data test.");
 				}
 			}
 			catch (Exception ex)
 			{
 				StatusMessage = $"Lỗi: {ex.Message}";
-				MessageBox.Show($"Lỗi chi tiết khi load:\n{ex.Message}\n\nStackTrace:\n{ex.StackTrace}",
-								"Error Debug - Load Transactions", MessageBoxButton.OK, MessageBoxImage.Error);
+				// Optional: Thay bằng logging
+				Debug.WriteLine($"Lỗi chi tiết khi load: {ex.Message}\nStackTrace: {ex.StackTrace}");
 			}
 		}
 	}

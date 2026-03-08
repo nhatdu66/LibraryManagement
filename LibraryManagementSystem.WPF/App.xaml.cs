@@ -1,16 +1,17 @@
 ﻿// Full code cho App.xaml.cs (đổi AddDbContext thành Transient)
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Repositories;
 using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services;
 using LibraryManagementSystem.Services.Interfaces;
 using LibraryManagementSystem.WPF.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryManagementSystem.WPF
 {
@@ -77,8 +78,9 @@ namespace LibraryManagementSystem.WPF
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"Lỗi khởi tạo ứng dụng:\n{ex.Message}\nInner: {ex.InnerException?.Message}",
-								"Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+				// Optional: Thay bằng logging nếu cần
+				Debug.WriteLine($"Lỗi khởi tạo ứng dụng: {ex.Message} - Inner: {ex.InnerException?.Message}");
+				// Hoặc giữ im lặng, hoặc hiển thị thông báo khác trong UI
 			}
 		}
 	}

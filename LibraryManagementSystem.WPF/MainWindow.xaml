@@ -37,7 +37,7 @@
 				<views:BookCatalogView />
 			</TabItem>
 
-			<TabItem Header="Mượn Sách" 
+			<TabItem Header="Quản lý Mượn Sách" 
              IsEnabled="{Binding CanBorrow}">
 				<views:BorrowView DataContext="{Binding BorrowVM}"/>
 			</TabItem>

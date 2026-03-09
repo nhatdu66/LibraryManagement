@@ -46,7 +46,11 @@
 				<views:BorrowView DataContext="{Binding BorrowVM}"/>
 			</TabItem>
 
-			<TabItem Header="Tài khoản" IsEnabled="{Binding IsLoggedIn}">
+			<TabItem Header="Tài khoản cá nhân" IsEnabled="{Binding IsLoggedIn}">
+				<TextBlock Text="Chức năng đang phát triển" Margin="30" FontSize="14"/>
+			</TabItem>
+
+			<TabItem Header="Quản lý tài khoản" IsEnabled="{Binding IsLoggedIn}">
 				<TextBlock Text="Chức năng đang phát triển" Margin="30" FontSize="14"/>
 			</TabItem>
 		</TabControl>

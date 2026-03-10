@@ -30,7 +30,7 @@
 
 		<TabControl Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex}">
 
-			<TabItem Header="Đăng nhập">
+			<TabItem Header="Đăng nhậpppppppp">
 				<views:LoginView DataContext="{Binding LoginVM}"/>
 			</TabItem>
 

@@ -36,5 +36,6 @@ namespace LibraryManagementSystem.Services.Interfaces
 		/// Staff/Librarian tạo Reader
 		/// </summary>
 		Task<ReaderDto> CreateReaderAsync(CreateReaderDto dto);
-	}
+        public Task<bool> Register(string email, string password, string fullName);
+    }
 }

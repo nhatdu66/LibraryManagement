@@ -32,16 +32,16 @@ namespace LibraryManagementSystem.Data
 		public DbSet<BorrowTransaction> BorrowTransactions { get; set; }
 		public DbSet<BorrowTransactionDetail> BorrowTransactionDetails { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			if (!optionsBuilder.IsConfigured)
-			{
-				// Connection string fallback for design-time (e.g., migration)
-				optionsBuilder.UseSqlServer(@"Server=DESKTOP-4MP3LIQ\SQLEXPRESS03;Database=LibraryManagementDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
-			}
-		}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    "Server=ThanhTung;Database=LibraryManagementDB;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True;");
+            }
+        }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 

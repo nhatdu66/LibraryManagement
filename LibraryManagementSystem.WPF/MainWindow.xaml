@@ -29,6 +29,7 @@
 		</StackPanel>
 
 		<TabControl Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex}">
+
 			<TabItem Header="Đăng nhập">
 				<views:LoginView DataContext="{Binding LoginVM}"/>
 			</TabItem>
@@ -37,22 +38,39 @@
 				<views:BookCatalogView />
 			</TabItem>
 
-			<TabItem Header="Quản lý Sách" IsEnabled="{Binding IsLoggedIn}">
-				<TextBlock Text="Chức năng đang phát triển" Margin="30" FontSize="14"/>
+			<!-- Tab 3: Quản lý sách -->
+			<TabItem Header="Quản lý sách"
+             IsEnabled="{Binding CanManageBooks}"
+             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+				<!-- Nội dung sẽ làm sau -->
+				<TextBlock Text="Chức năng quản lý sách (thêm, sửa, xóa sách, thể loại, tác giả...)" 
+                   Margin="30" FontSize="16" Foreground="DarkGreen"/>
 			</TabItem>
 
-			<TabItem Header="Quản lý Mượn Sách" 
-             IsEnabled="{Binding CanBorrow}">
+			<!-- Tab 4: Quản lý mượn sách -->
+			<TabItem Header="Quản lý mượn sách"
+             IsEnabled="{Binding CanManageBorrow}"
+             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
 				<views:BorrowView DataContext="{Binding BorrowVM}"/>
 			</TabItem>
 
-			<TabItem Header="Tài khoản cá nhân" IsEnabled="{Binding IsLoggedIn}">
-				<TextBlock Text="Chức năng đang phát triển" Margin="30" FontSize="14"/>
+			<!-- Tab 5: Tài khoản cá nhân -->
+			<TabItem Header="Tài khoản cá nhân"
+             IsEnabled="{Binding IsLoggedIn}"
+             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+				<!-- Nếu đã có View & ViewModel thì binding vào đây -->
+				<TextBlock Text="Thông tin tài khoản cá nhân (đang phát triển)" 
+                   Margin="30" FontSize="16"/>
 			</TabItem>
 
-			<TabItem Header="Quản lý tài khoản" IsEnabled="{Binding IsLoggedIn}">
-				<TextBlock Text="Chức năng đang phát triển" Margin="30" FontSize="14"/>
+			<!-- Tab 6: Quản lý tài khoản (chỉ Admin) -->
+			<TabItem Header="Quản lý tài khoản"
+             IsEnabled="{Binding CanManageAccounts}"
+             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+				<TextBlock Text="Quản lý tài khoản độc giả và nhân viên (chỉ Admin)" 
+                   Margin="30" FontSize="16" Foreground="DarkBlue"/>
 			</TabItem>
+
 		</TabControl>
 	</Grid>
 </Window>

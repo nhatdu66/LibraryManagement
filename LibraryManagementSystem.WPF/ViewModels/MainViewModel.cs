@@ -42,11 +42,25 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			set => SetProperty(ref _roleDisplay, value);
 		}
 
-		private bool _canBorrow;
-		public bool CanBorrow
+		private bool _canManageBorrow;
+		public bool CanManageBorrow
 		{
-			get => _canBorrow;
-			set => SetProperty(ref _canBorrow, value);
+			get => _canManageBorrow;
+			private set => SetProperty(ref _canManageBorrow, value);
+		}
+
+		private bool _canManageBooks;
+		public bool CanManageBooks
+		{
+			get => _canManageBooks;
+			private set => SetProperty(ref _canManageBooks, value);
+		}
+
+		private bool _canManageAccounts;
+		public bool CanManageAccounts
+		{
+			get => _canManageAccounts;
+			private set => SetProperty(ref _canManageAccounts, value);
 		}
 
 		public ICommand LogoutCommand { get; }
@@ -77,7 +91,13 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				IsLoggedIn = true;
 				WelcomeMessage = $"Chào mừng {LoginVM.LoginSuccessFullName}";
 				// Lấy RoleName từ LoginViewModel
+				string accountType = LoginVM.LoginSuccessAccountType?.Trim() ?? "";
 				string roleName = LoginVM.LoginSuccessRoleName?.Trim() ?? "";
+
+				// Reset tất cả quyền trước khi gán mới
+				CanManageBooks = false;
+				CanManageBorrow = false;
+				CanManageAccounts = false;
 
 				// === LOGIC ĐÚNG Ý BẠN: Reader thì hiện ngay, Employee thì lấy RoleName ===
 				if (LoginVM.LoginSuccessAccountType?.Trim().Equals("Reader", StringComparison.OrdinalIgnoreCase) == true)
@@ -95,15 +115,35 @@ namespace LibraryManagementSystem.WPF.ViewModels
 						"Staff" => "Bạn là Staff",
 						_ => "Bạn là " + role
 					};
+					// Phân quyền theo role
+					switch (role)
+					{
+						case "Administrator":
+							CanManageBooks = true;
+							CanManageBorrow = true;
+							CanManageAccounts = true;
+							break;
+
+						case "Librarian":
+							CanManageBorrow = true;     // được quản lý mượn/trả sách
+							break;
+
+						case "Staff":
+							CanManageBooks = true;      // được quản lý danh mục sách
+							break;
+
+						default:
+							// role lạ → không có quyền đặc biệt
+							break;
+					}
 				}
 
-				// PHÂN QUYỀN: Chỉ Admin và Librarian được vào tab Mượn Sách
-				CanBorrow = (roleName == "Administrator" || roleName == "Librarian");
 
 				SelectedTabIndex = 1;
 				LoginVM.ClearLoginSuccessTriggered();
 
 				Debug.WriteLine($"[DEBUG] Hiển thị Role: {RoleDisplay} (AccountType={LoginVM.LoginSuccessAccountType}, RoleName={LoginVM.LoginSuccessRoleName})");
+				Debug.WriteLine($"[DEBUG] Quyền: ManageBooks={CanManageBooks}, ManageBorrow={CanManageBorrow}, ManageAccounts={CanManageAccounts}");
 			}
 		}
 
@@ -112,6 +152,12 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			IsLoggedIn = false;
 			WelcomeMessage = "Chưa đăng nhập";
 			RoleDisplay = string.Empty;
+
+			// Reset tất cả quyền
+			CanManageBooks = false;
+			CanManageBorrow = false;
+			CanManageAccounts = false;
+
 			SelectedTabIndex = 0;
 			LoginVM.Email = "";
 			LoginVM.StatusMessage = "";

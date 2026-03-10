@@ -41,6 +41,19 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		public ICommand RefreshTransactionsCommand { get; }
 
+		// Phần mới: Property cho item được chọn trong DataGrid
+		private BorrowTransactionDto? _selectedTransaction;
+		public BorrowTransactionDto? SelectedTransaction
+		{
+			get => _selectedTransaction;
+			set => SetProperty(ref _selectedTransaction, value);
+		}
+
+		// Phần mới: 3 command cho các nút Tạo / Cập nhật / Xóa
+		public ICommand CreateDirectBorrowCommand { get; }
+		public ICommand UpdateBorrowCommand { get; }
+		public ICommand DeleteBorrowCommand { get; }
+
 		public BorrowViewModel(IBorrowService borrowService, IAuthService authService)
 		{
 			_borrowService = borrowService ?? throw new ArgumentNullException(nameof(borrowService));
@@ -50,6 +63,11 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			Debug.WriteLine("BorrowViewModel đã được khởi tạo!");
 
 			RefreshTransactionsCommand = new RelayCommand(async _ => await LoadTransactionsAsync());
+
+			// Phần mới: Khởi tạo 3 command
+			CreateDirectBorrowCommand = new RelayCommand(_ => CreateDirectBorrow(), _ => CanManageBorrowTransactions());
+			UpdateBorrowCommand = new RelayCommand(_ => UpdateSelectedBorrow(), _ => CanEditSelectedBorrow());
+			DeleteBorrowCommand = new RelayCommand(_ => DeleteSelectedBorrow(), _ => CanDeleteSelectedBorrow());
 
 			_ = LoadTransactionsAsync();
 		}
@@ -86,6 +104,68 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				// Optional: Thay bằng logging
 				Debug.WriteLine($"Lỗi chi tiết khi load: {ex.Message}\nStackTrace: {ex.StackTrace}");
 			}
+		}
+
+		private void CreateDirectBorrow()
+		{
+			StatusMessage = "Chức năng Tạo giao dịch mượn mới tại quầy - đang phát triển...";
+			// Sau này: mở dialog chọn độc giả, chọn sách/bản sao, ngày mượn, hạn trả...
+			// Sau đó gọi: await _borrowService.CreateBorrowTransactionAsync(...);
+		}
+
+		private void UpdateSelectedBorrow()
+		{
+			if (SelectedTransaction == null)
+			{
+				StatusMessage = "Vui lòng chọn một giao dịch để cập nhật.";
+				return;
+			}
+
+			StatusMessage = $"Đang cập nhật giao dịch #{SelectedTransaction.BorrowId} - đang phát triển...";
+			// Sau này: mở dialog chỉnh sửa (ví dụ: thay đổi hạn trả, ghi chú, trạng thái)
+		}
+
+		private void DeleteSelectedBorrow()
+		{
+			if (SelectedTransaction == null)
+			{
+				StatusMessage = "Vui lòng chọn một giao dịch để xóa.";
+				return;
+			}
+
+			var result = MessageBox.Show(
+				$"Bạn có chắc muốn xóa giao dịch #{SelectedTransaction.BorrowId}?\nHành động này không thể hoàn tác.",
+				"Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+			if (result == MessageBoxResult.Yes)
+			{
+				StatusMessage = $"Đang xóa giao dịch #{SelectedTransaction.BorrowId}... (chức năng đang phát triển)";
+				// Sau này: gọi service xóa transaction (nếu chưa trả sách)
+			}
+		}
+
+		// Helper kiểm tra quyền / điều kiện enable nút
+		private bool CanManageBorrowTransactions()
+		{
+			// Giả sử bạn có cách lấy role từ login (có thể cần thêm property RoleName hoặc dùng IAuthService)
+			// Tạm thời cho phép Librarian/Staff/Admin
+			return true; // Thay bằng logic thực tế: CurrentRole == "Librarian" || ...
+		}
+
+		private bool CanEditSelectedBorrow()
+		{
+			return SelectedTransaction != null &&
+				   CanManageBorrowTransactions() &&
+				   SelectedTransaction.Status != "FullyReturned" &&
+				   SelectedTransaction.Status != "Cancelled";
+		}
+
+		private bool CanDeleteSelectedBorrow()
+		{
+			return SelectedTransaction != null &&
+				   CanManageBorrowTransactions() &&
+				   SelectedTransaction.Status == "Borrowed" &&
+				   (SelectedTransaction.Details?.All(d => d.ReturnDate == null) ?? true);
 		}
 	}
 }

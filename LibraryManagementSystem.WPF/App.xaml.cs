@@ -61,6 +61,7 @@ namespace LibraryManagementSystem.WPF
 			services.AddTransient<BookCatalogViewModel>();
 			services.AddTransient<BorrowViewModel>();
 			services.AddTransient<MainViewModel>();
+			services.AddTransient<CreateBorrowTransactionViewModel>();
 
 			// MainWindow
 			services.AddTransient<MainWindow>();

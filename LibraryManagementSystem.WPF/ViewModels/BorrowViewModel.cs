@@ -9,6 +9,8 @@ using System.Windows.Input;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
 using LibraryManagementSystem.WPF.Helpers;
+using LibraryManagementSystem.WPF.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryManagementSystem.WPF.ViewModels
 {
@@ -106,12 +108,6 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			}
 		}
 
-		private void CreateDirectBorrow()
-		{
-			StatusMessage = "Chức năng Tạo giao dịch mượn mới tại quầy - đang phát triển...";
-			// Sau này: mở dialog chọn độc giả, chọn sách/bản sao, ngày mượn, hạn trả...
-			// Sau đó gọi: await _borrowService.CreateBorrowTransactionAsync(...);
-		}
 
 		private void UpdateSelectedBorrow()
 		{
@@ -166,6 +162,22 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				   CanManageBorrowTransactions() &&
 				   SelectedTransaction.Status == "Borrowed" &&
 				   (SelectedTransaction.Details?.All(d => d.ReturnDate == null) ?? true);
+		}
+		private void CreateDirectBorrow()
+		{
+			var window = new CreateBorrowTransactionWindow();
+			window.DataContext = App.ServiceProvider.GetRequiredService<CreateBorrowTransactionViewModel>();
+
+			// Load dữ liệu async nếu cần
+			// if (window.DataContext is CreateBorrowTransactionViewModel vm)
+			// {
+			//     _ = vm.LoadReadersAsync();   // ← COMMENT HOẶC XÓA DÒNG NÀY ĐỂ FIX LỖI
+			// }
+
+			window.ShowDialog();
+
+			// Sau khi đóng window, refresh danh sách nếu cần
+			_ = LoadTransactionsAsync();
 		}
 	}
 }

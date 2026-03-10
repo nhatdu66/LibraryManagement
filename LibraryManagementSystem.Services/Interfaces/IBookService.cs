@@ -18,6 +18,7 @@ namespace LibraryManagementSystem.Services.Interfaces
 		Task UpdateBookWorkAsync(UpdateBookWorkDto dto, int workId);
 		Task DeleteBookWorkAsync(int workId);
 
+
 		Task<IEnumerable<BookWorkDto>> SearchBooksAsync(string keyword, int? authorId, int? categoryId, int? seriesId);
 	}
 }

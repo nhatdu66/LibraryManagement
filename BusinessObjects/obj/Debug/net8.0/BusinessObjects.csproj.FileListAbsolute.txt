@@ -1,0 +1,22 @@
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\bin\Debug\net8.0\BusinessObjects.deps.json
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\bin\Debug\net8.0\BusinessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\bin\Debug\net8.0\BusinessObjects.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfoInputs.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfo.cs
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.csproj.CoreCompileInputs.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\refint\BusinessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\ref\BusinessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\bin\Debug\net8.0\BusinessObjects.deps.json
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\bin\Debug\net8.0\BusinessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\bin\Debug\net8.0\BusinessObjects.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfoInputs.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfo.cs
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.csproj.CoreCompileInputs.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\refint\BusinessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\BusinessObjects.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\BusinessObjects\obj\Debug\net8.0\ref\BusinessObjects.dll

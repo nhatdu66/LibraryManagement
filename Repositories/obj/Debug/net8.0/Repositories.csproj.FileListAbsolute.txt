@@ -1,0 +1,34 @@
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\BusinessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\DataAccessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\BusinessObjects.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\bin\Debug\net8.0\DataAccessObjects.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Reposito.787EC4B2.Up2Date
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\BusinessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\DataAccessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\BusinessObjects.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\bin\Debug\net8.0\DataAccessObjects.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Reposito.787EC4B2.Up2Date
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\Repositories\obj\Debug\net8.0\ref\Repositories.dll

@@ -1,0 +1,64 @@
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.exe
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.deps.json
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.runtimeconfig.json
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\BusinessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\DataAccessObjects.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Repositories.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Services.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Services.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\BusinessObjects.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\DataAccessObjects.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Repositories.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.csproj.AssemblyReference.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\LoginWindow.g.cs
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement_MarkupCompile.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement_MarkupCompile.lref
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\LoginWindow.baml
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.g.resources
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.AssemblyInfoInputs.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.AssemblyInfo.cs
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.csproj.CoreCompileInputs.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductM.8086A758.Up2Date
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\refint\ProductManagement.dll
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.pdb
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.genruntimeconfig.cache
+C:\Users\gu444\OneDrive\Desktop\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ref\ProductManagement.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.exe
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.deps.json
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.runtimeconfig.json
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\ProductManagement.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\BusinessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\DataAccessObjects.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Repositories.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Services.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Services.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\BusinessObjects.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\DataAccessObjects.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\bin\Debug\net8.0-windows\Repositories.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.csproj.AssemblyReference.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\LoginWindow.g.cs
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement_MarkupCompile.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement_MarkupCompile.lref
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\LoginWindow.baml
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.g.resources
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.AssemblyInfoInputs.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.AssemblyInfo.cs
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.csproj.CoreCompileInputs.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductM.8086A758.Up2Date
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\refint\ProductManagement.dll
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.pdb
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ProductManagement.genruntimeconfig.cache
+C:\Users\Son\OneDrive\Máy tính\ProductManagementDemo\ProductManagement\obj\Debug\net8.0-windows\ref\ProductManagement.dll

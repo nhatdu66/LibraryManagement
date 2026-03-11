@@ -24,6 +24,21 @@
                     Command="{Binding RefreshTransactionsCommand}"
                     Width="100" Margin="0,0,10,0" Padding="8,4"/>
 
+			<Button Content="Tạo giao dịch mượn mới" 
+            Width="180" Height="38" Margin="0,0,12,0"
+            Command="{Binding CreateDirectBorrowCommand}"
+            ToolTip="Tạo giao dịch mượn trực tiếp tại quầy"/>
+
+			<Button Content="Cập nhật giao dịch" 
+            Width="160" Height="38" Margin="0,0,12,0"
+            Command="{Binding UpdateBorrowCommand}"
+            ToolTip="Chỉnh sửa thông tin giao dịch đang chọn"/>
+
+			<Button Content="Xóa giao dịch" 
+            Width="140" Height="38"
+            Command="{Binding DeleteBorrowCommand}"
+            ToolTip="Xóa giao dịch (chỉ khi chưa trả sách)"/>
+
 			<TextBlock Text="{Binding StatusMessage}" 
                        VerticalAlignment="Center" 
                        Foreground="DarkBlue"

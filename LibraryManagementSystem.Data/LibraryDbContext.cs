@@ -37,7 +37,7 @@ namespace LibraryManagementSystem.Data
 			if (!optionsBuilder.IsConfigured)
 			{
 				// Connection string fallback for design-time (e.g., migration)
-				optionsBuilder.UseSqlServer(@"Server=DESKTOP-4MP3LIQ\SQLEXPRESS03;Database=LibraryManagementDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
+				optionsBuilder.UseSqlServer(@"Server=DESKTOP-RG5IGOV\SQLEXPRESS;Database=LibraryManagementDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;");
 			}
 		}
 

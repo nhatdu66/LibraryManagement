@@ -36,5 +36,20 @@ namespace LibraryManagementSystem.Services.Interfaces
 		/// Thay đổi role của nhân viên (chỉ Admin)
 		/// </summary>
 		Task ChangeEmployeeRoleAsync(int employeeId, int newRoleId);
+
+		/// <summary>
+		/// Admin tạo tài khoản Employee (Staff/Librarian/Admin)
+		/// </summary>
+		Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeDto dto);
+
+		/// <summary>
+		/// Đổi mật khẩu của Employee (yêu cầu mật khẩu hiện tại)
+		/// </summary>
+		Task ChangeEmployeePasswordAsync(int employeeId, string currentPassword, string newPassword);
+
+		/// <summary>
+		/// Reset mật khẩu Employee (Admin)
+		/// </summary>
+		Task ResetEmployeePasswordAsync(int employeeId, string newPassword);
 	}
 }

@@ -58,17 +58,14 @@
 			<TabItem Header="Tài khoản cá nhân"
              IsEnabled="{Binding IsLoggedIn}"
              Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-				<!-- Nếu đã có View & ViewModel thì binding vào đây -->
-				<TextBlock Text="Thông tin tài khoản cá nhân (đang phát triển)" 
-                   Margin="30" FontSize="16"/>
+				<views:MyAccountView DataContext="{Binding MyAccountVM}"/>
 			</TabItem>
 
 			<!-- Tab 6: Quản lý tài khoản (chỉ Admin) -->
 			<TabItem Header="Quản lý tài khoản"
              IsEnabled="{Binding CanManageAccounts}"
              Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-				<TextBlock Text="Quản lý tài khoản độc giả và nhân viên (chỉ Admin)" 
-                   Margin="30" FontSize="16" Foreground="DarkBlue"/>
+				<views:ManageAccountsView DataContext="{Binding ManageAccountsVM}"/>
 			</TabItem>
 
 		</TabControl>

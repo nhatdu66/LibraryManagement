@@ -35,15 +35,19 @@ namespace LibraryManagementSystem.Services
 		public async Task<IEnumerable<RoleDto>> GetAllRolesAsync()
 		{
 			var roles = await _uow.RoleRepository.GetAllAsync();
+			var roleDtos = new List<RoleDto>();
 
-			// Fix lambda async bằng Task.WhenAll
-			var roleDtos = await Task.WhenAll(roles.Select(async r => new RoleDto
+			foreach (var role in roles)
 			{
-				RoleId = r.RoleId,
-				RoleName = r.RoleName,
-				Description = r.Description ?? string.Empty,
-				EmployeeCount = await GetEmployeeCountForRole(r.RoleId)
-			}));
+				var count = await GetEmployeeCountForRole(role.RoleId);
+				roleDtos.Add(new RoleDto
+				{
+					RoleId = role.RoleId,
+					RoleName = role.RoleName,
+					Description = role.Description ?? string.Empty,
+					EmployeeCount = count
+				});
+			}
 
 			return roleDtos;
 		}

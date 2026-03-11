@@ -14,6 +14,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 	{
 		public LoginViewModel LoginVM { get; }
 		public BorrowViewModel BorrowVM { get; }
+		public MyAccountViewModel MyAccountVM { get; }
+		public ManageAccountsViewModel ManageAccountsVM { get; }
 
 		private int _selectedTabIndex = 0;
 		public int SelectedTabIndex
@@ -65,10 +67,17 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		public ICommand LogoutCommand { get; }
 
-		public MainViewModel(IAuthService authService, IBorrowService borrowService, IBookService bookService)
+		public MainViewModel(
+			IAuthService authService,
+			IBorrowService borrowService,
+			IBookService bookService,
+			MyAccountViewModel myAccountViewModel,
+			ManageAccountsViewModel manageAccountsViewModel)
 		{
 			LoginVM = new LoginViewModel(authService);
 			BorrowVM = new BorrowViewModel(borrowService, authService);
+			MyAccountVM = myAccountViewModel;
+			ManageAccountsVM = manageAccountsViewModel;
 
 			LogoutCommand = new RelayCommand(ExecuteLogout);
 
@@ -140,6 +149,11 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 
 				SelectedTabIndex = 1;
+				MyAccountVM.SetCurrentUser(
+					LoginVM.LoginSuccessUserId,
+					LoginVM.LoginSuccessAccountType,
+					LoginVM.LoginSuccessRoleName,
+					LoginVM.LoginSuccessFullName);
 				LoginVM.ClearLoginSuccessTriggered();
 
 				Debug.WriteLine($"[DEBUG] Hiển thị Role: {RoleDisplay} (AccountType={LoginVM.LoginSuccessAccountType}, RoleName={LoginVM.LoginSuccessRoleName})");
@@ -164,6 +178,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			LoginVM.LoginSuccessTriggered = false;
 			LoginVM.LoginSuccessFullName = "";
 			LoginVM.LoginSuccessUserId = 0;
+			MyAccountVM.ClearCurrentUser();
 
 			Debug.WriteLine("[DEBUG] Logout executed - IsLoggedIn set to false");
 		}

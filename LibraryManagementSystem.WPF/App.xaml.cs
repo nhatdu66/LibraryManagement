@@ -60,6 +60,8 @@ namespace LibraryManagementSystem.WPF
 			services.AddTransient<LoginViewModel>();
 			services.AddTransient<BookCatalogViewModel>();
 			services.AddTransient<BorrowViewModel>();
+			services.AddTransient<MyAccountViewModel>();
+			services.AddTransient<ManageAccountsViewModel>();
 			services.AddTransient<MainViewModel>();
 
 			// MainWindow

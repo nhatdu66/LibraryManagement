@@ -95,7 +95,7 @@ namespace LibraryManagementSystem.Services
 			var reader = new Reader
 			{
 				Email = dto.Email,
-				PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+				PasswordHash = dto.Password,
 				FullName = dto.FullName,
 				PhoneNumber = dto.PhoneNumber,
 				Address = dto.Address,
@@ -120,6 +120,31 @@ namespace LibraryManagementSystem.Services
 				ExpiredDate = reader.ExpiredDate,
 				ReaderStatus = reader.ReaderStatus
 			};
+		}
+
+		public async Task ChangeReaderPasswordAsync(int readerId, string currentPassword, string newPassword)
+		{
+			var reader = await _uow.ReaderRepository.GetByIdAsync(readerId);
+			if (reader == null) throw new KeyNotFoundException("Không tìm thấy độc giả");
+
+			if (reader.PasswordHash != currentPassword)
+				throw new InvalidOperationException("Mật khẩu hiện tại không đúng");
+
+			reader.PasswordHash = newPassword;
+
+			await _uow.ReaderRepository.UpdateAsync(reader);
+			await _uow.SaveChangesAsync();
+		}
+
+		public async Task ResetReaderPasswordAsync(int readerId, string newPassword)
+		{
+			var reader = await _uow.ReaderRepository.GetByIdAsync(readerId);
+			if (reader == null) throw new KeyNotFoundException("Không tìm thấy độc giả");
+
+			reader.PasswordHash = newPassword;
+
+			await _uow.ReaderRepository.UpdateAsync(reader);
+			await _uow.SaveChangesAsync();
 		}
 	}
 }

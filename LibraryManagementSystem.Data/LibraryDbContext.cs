@@ -37,7 +37,7 @@ namespace LibraryManagementSystem.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(
-                    "Server=ThanhTung;Database=LibraryManagementDB;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True;");
+					"Server=DESKTOP-4MP3LIQ\\SQLEXPRESS03;Database=LibraryManagementDB;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True;");
             }
         }
 

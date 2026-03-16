@@ -1,28 +1,19 @@
-﻿using LibraryManagementSystem.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using LibraryManagementSystem.Data.Entities;
 using LibraryManagementSystem.Repositories.Interfaces;
 using LibraryManagementSystem.Services.DTOs;
 using LibraryManagementSystem.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Services
 {
 	public class ReaderAccountService : IReaderAccountService
 	{
-     
+		private readonly IUnitOfWork _uow;
 
-        private readonly IUnitOfWork _uow;
-      
-        public ReaderAccountService(IUnitOfWork uow)
+		public ReaderAccountService(IUnitOfWork uow)
 		{
 			_uow = uow ?? throw new ArgumentNullException(nameof(uow));
 		}
@@ -124,34 +115,26 @@ namespace LibraryManagementSystem.Services
 				ReaderStatus = reader.ReaderStatus
 			};
 		}
-        public async Task<bool> Register(string email, string password, string fullName)
-        {
-            var exist = await _uow.ReaderRepository
-                .GetByEmailAsync(email);
 
-            if (exist != null)
-                return false;
+		public async Task<bool> Register(string email, string password, string fullName)
+		{
+			if (await _uow.ReaderRepository.GetByEmailAsync(email) != null)
+				return false;
 
-            string card = "RD" + new Random().Next(100000, 999999);
+			var reader = new Reader
+			{
+				CardNumber = "RD" + new Random().Next(100000, 999999),
+				Email = email,
+				PasswordHash = password,
+				FullName = fullName,
+				RegisterDate = DateTime.Now,
+				ExpiredDate = DateTime.Now.AddYears(2),
+				ReaderStatus = "Active"
+			};
 
-            var reader = new Reader
-            {
-                CardNumber = card,
-                Email = email,
-                PasswordHash = password,
-                FullName = fullName,
-                RegisterDate = DateTime.Now,
-                ExpiredDate = DateTime.Now.AddYears(2),
-                ReaderStatus = "Active"
-            };
-
-            await _uow.ReaderRepository.AddAsync(reader);
-
-            await _uow.SaveChangesAsync();
-
-            return true;
-        }
-    }
+			await _uow.ReaderRepository.AddAsync(reader);
+			await _uow.SaveChangesAsync();
+			return true;
 		}
 
 		public async Task ChangeReaderPasswordAsync(int readerId, string currentPassword, string newPassword)

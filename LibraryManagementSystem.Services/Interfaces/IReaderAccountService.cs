@@ -36,6 +36,8 @@ namespace LibraryManagementSystem.Services.Interfaces
 		/// Staff/Librarian tạo Reader
 		/// </summary>
 		Task<ReaderDto> CreateReaderAsync(CreateReaderDto dto);
+        public Task<bool> Register(string email, string password, string fullName);
+    }
 
 		/// <summary>
 		/// Đổi mật khẩu của Reader (yêu cầu mật khẩu hiện tại)

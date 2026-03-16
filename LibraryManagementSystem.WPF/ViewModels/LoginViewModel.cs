@@ -13,8 +13,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 	public class LoginViewModel : ObservableObject
 	{
 		private readonly IAuthService _authService;
-
-		private string _email = string.Empty;
+        
+        private string _email = string.Empty;
 		private string _statusMessage = string.Empty;
 		private bool _isReaderLogin = true;
 
@@ -73,12 +73,13 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		}
 
 		public ICommand LoginCommand { get; }
-
-		public LoginViewModel(IAuthService authService)
+        public ICommand RegisterCommand { get; }
+        public LoginViewModel(IAuthService authService)
 		{
 			_authService = authService;
 			LoginCommand = new RelayCommand(ExecuteLogin);
-		}
+            RegisterCommand = new RelayCommand(ExecuteRegister);
+        }
 
 		private async void ExecuteLogin(object parameter)
 		{
@@ -160,5 +161,58 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		{
 			LoginSuccessTriggered = false;
 		}
-	}
+        private async void ExecuteRegister(object parameter)
+        {
+            if (parameter is not PasswordBox passwordBox)
+            {
+                StatusMessage = "Không lấy được mật khẩu.";
+                return;
+            }
+
+            string email = Email?.Trim() ?? "";
+            string password = passwordBox.Password?.Trim() ?? "";
+
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                StatusMessage = "Vui lòng nhập email và mật khẩu để đăng ký.";
+                return;
+            }
+
+            try
+            {
+                StatusMessage = "Đang đăng ký...";
+
+                var dto = new RegisterDto
+                {
+                    Email = email,
+                    Password = password
+                };
+
+                // GỌI ĐÚNG HÀM THEO BÀI
+                var result = await _authService.RegisterReaderAsync(dto);
+
+                MessageBox.Show(
+                $"Register Result\nMessage: {result.Message}",
+                   "Debug Register",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Information
+                );
+
+                StatusMessage = result.Message ?? "Đăng ký xong.";
+
+                passwordBox.Password = "";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = "Lỗi đăng ký: " + ex.Message;
+
+                MessageBox.Show(
+                    $"Exception during register:\n{ex.Message}",
+                    "Register Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+    }
 }

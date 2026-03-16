@@ -15,15 +15,16 @@ namespace LibraryManagementSystem.Services.Interfaces
 		/// Login cho mọi role (Employee hoặc Reader)
 		/// </summary>
 		Task<LoginResponseDto> LoginAsync(LoginDto dto);
-
-		/// <summary>
-		/// Đăng ký tài khoản Reader (public)
-		/// </summary>
-		Task<RegisterResponseDto> RegisterReaderAsync(RegisterDto dto);
+      
+        /// <summary>
+        /// Đăng ký tài khoản Reader (public)
+        /// </summary>
+        Task<RegisterResponseDto> RegisterReaderAsync(RegisterDto dto);
 
 		/// <summary>
 		/// Admin tạo tài khoản Employee (Staff/Librarian/Admin)
 		/// </summary>
 		Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeDto dto);
-	}
+      
+    }
 }

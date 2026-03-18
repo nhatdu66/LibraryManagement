@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="LibraryManagementSystem.WPF.Views.BookManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" Width="1050">
+
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <TextBox x:Name="textSearch"
+                     Width="250"
+                     Height="30"
+                     Margin="5"/>
+
+            <Button Content="Search"
+                    Click="btnSearch_Click"
+                    Margin="5"
+                    Width="70"/>
+        </StackPanel>
+
+        <!-- Add button -->
+        <Button Grid.Row="0"
+                Content="Add"
+                Click="btnAdd_Click"
+                Margin="5"
+                Width="70"
+                HorizontalAlignment="Right"/>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding BookWorks}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  SelectionChanged="gtBook_SelectionChanged">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="WorkID"
+                                    Binding="{Binding WorkId}"
+                                    Width="50"/>
+
+                <DataGridTextColumn Header="Title"
+                                    Binding="{Binding Title}"
+                                    Width="170"/>
+
+                <DataGridTextColumn Header="Original Title"
+                                    Binding="{Binding OriginalTitle}"
+                                    Width="260"/>
+
+                <DataGridTextColumn Header="First Public Year"
+                                    Binding="{Binding FirstPublishYear}"
+                                    Width="110"/>
+
+                <DataGridTextColumn Header="Series Name"
+                                    Binding="{Binding Series.SeriesName}"
+                                    Width="150"/>
+
+                <DataGridTemplateColumn Header="Actions">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Edit" Width="50" Margin="2" Click="Edit_Click" Tag="{Binding WorkId}"/>
+                                <Button Content="Delete" Width="50" Margin="2" Click="Delete_Click" Tag="{Binding WorkId}"/>
+                                <Button Content="Detail" Width="50" Margin="2" Click="Detail_Click" Tag="{Binding WorkId}"/>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Pagination -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="10"
+                    VerticalAlignment="Center">
+
+            <Button Content="Prev"
+                    Width="70"
+                    Margin="5"
+                    Click="btnPrev_Click"/>
+
+            <Border Background="#F3F4F6"
+                    CornerRadius="20"
+                    Padding="12,6"
+                    Margin="5"
+                    VerticalAlignment="Center">
+                <TextBlock Text="{Binding PageInfo}"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           Foreground="#111827"/>
+            </Border>
+
+            <Button Content="Next"
+                    Width="70"
+                    Margin="5"
+                    Click="btnNext_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

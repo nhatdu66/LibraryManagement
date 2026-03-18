@@ -1,0 +1,281 @@
+using System;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using LibraryManagementSystem.Services.Interfaces;
+using LibraryManagementSystem.Services.DTOs;
+using LibraryManagementSystem.Data.Entities;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    public partial class EditBookWindow : Window
+    {
+        private readonly int _workId;
+        private BookWorkDto? _dto;
+        // UI controls (built in code)
+        private TextBox? txtTitle;
+        private TextBox? txtOriginalTitle;
+        private TextBox? txtSummary;
+        private TextBox? txtYear;
+        private ComboBox? cbSeries;
+        private ComboBox? cbAuthor;
+        private TextBox? txtNewAuthor;
+        private TextBox? txtNewCategory;
+        private ListBox? lbCategory;
+
+        public EditBookWindow(int workId)
+        {
+            _workId = workId;
+            // build UI in code to avoid XAML collisions
+            Title = "Edit Book";
+            Width = 640;
+            Height = 520;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            var grid = new Grid { Margin = new Thickness(16) };
+            for (int i = 0; i < 8; i++) grid.RowDefinitions.Add(new RowDefinition { Height = i == 6 ? new GridLength(1, GridUnitType.Star) : GridLength.Auto });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            // create controls (simplified - names must match handlers)
+            grid.Children.Add(new TextBlock { Text = "Title:", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0) });
+            txtTitle = new TextBox { Margin = new Thickness(6) };
+            Grid.SetRow(txtTitle, 0); Grid.SetColumn(txtTitle, 1);
+            grid.Children.Add(txtTitle);
+
+            var tbOrig = new TextBlock { Text = "Original Title:", VerticalAlignment = VerticalAlignment.Center };
+            Grid.SetRow(tbOrig, 1); grid.Children.Add(tbOrig);
+            txtOriginalTitle = new TextBox { Margin = new Thickness(6) };
+            Grid.SetRow(txtOriginalTitle, 1); Grid.SetColumn(txtOriginalTitle, 1); grid.Children.Add(txtOriginalTitle);
+
+            var tbSum = new TextBlock { Text = "Summary:", VerticalAlignment = VerticalAlignment.Top };
+            Grid.SetRow(tbSum, 2); grid.Children.Add(tbSum);
+            txtSummary = new TextBox { Margin = new Thickness(6), Height = 100, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap };
+            Grid.SetRow(txtSummary, 2); Grid.SetColumn(txtSummary, 1); grid.Children.Add(txtSummary);
+
+            var tbYear = new TextBlock { Text = "First Publish Year:", VerticalAlignment = VerticalAlignment.Center };
+            Grid.SetRow(tbYear, 3); grid.Children.Add(tbYear);
+            txtYear = new TextBox { Margin = new Thickness(6) };
+            Grid.SetRow(txtYear, 3); Grid.SetColumn(txtYear, 1); grid.Children.Add(txtYear);
+
+            var tbSeries = new TextBlock { Text = "Series:", VerticalAlignment = VerticalAlignment.Center };
+            Grid.SetRow(tbSeries, 4); grid.Children.Add(tbSeries);
+            cbSeries = new ComboBox { Margin = new Thickness(6), DisplayMemberPath = "SeriesName", SelectedValuePath = "SeriesId" };
+            Grid.SetRow(cbSeries, 4); Grid.SetColumn(cbSeries, 1); grid.Children.Add(cbSeries);
+
+            var tbAuthor = new TextBlock { Text = "Author:", VerticalAlignment = VerticalAlignment.Center };
+            Grid.SetRow(tbAuthor, 5); grid.Children.Add(tbAuthor);
+            var spAuthor = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(6) };
+            cbAuthor = new ComboBox { Width = 240, DisplayMemberPath = "AuthorName", SelectedValuePath = "AuthorId" };
+            txtNewAuthor = new TextBox { Width = 180, Margin = new Thickness(8,0,0,0) };
+            var btnAddAuthor = new Button { Content = "Add Author", Width = 90, Margin = new Thickness(8,0,0,0) };
+            btnAddAuthor.Click += btnAddAuthor_Click;
+            spAuthor.Children.Add(cbAuthor); spAuthor.Children.Add(txtNewAuthor); spAuthor.Children.Add(btnAddAuthor);
+            Grid.SetRow(spAuthor, 5); Grid.SetColumn(spAuthor, 1); grid.Children.Add(spAuthor);
+
+            var tbCat = new TextBlock { Text = "Category:", VerticalAlignment = VerticalAlignment.Top };
+            Grid.SetRow(tbCat, 6); grid.Children.Add(tbCat);
+            var spCat = new StackPanel { Margin = new Thickness(6) };
+            var spCatTop = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0,0,0,8) };
+            txtNewCategory = new TextBox { Width = 260, Height = 26 };
+            var btnAddCat = new Button { Content = "Add Category", Width = 100, Margin = new Thickness(8,0,0,0) };
+            btnAddCat.Click += btnAddCategory_Click;
+            spCatTop.Children.Add(txtNewCategory); spCatTop.Children.Add(btnAddCat);
+            spCat.Children.Add(spCatTop);
+            lbCategory = new ListBox { Height = 140, SelectionMode = SelectionMode.Multiple };
+            var dt = new DataTemplate(); // not used for code-built template; simple items
+            spCat.Children.Add(lbCategory);
+            Grid.SetRow(spCat, 6); Grid.SetColumn(spCat, 1); grid.Children.Add(spCat);
+
+            var spButtons = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(6) };
+            var btnSave = new Button { Content = "Save", Width = 100, Margin = new Thickness(6) };
+            btnSave.Click += btnSave_Click;
+            var btnCancel = new Button { Content = "Cancel", Width = 100, Margin = new Thickness(6) };
+            btnCancel.Click += btnCancel_Click;
+            spButtons.Children.Add(btnSave); spButtons.Children.Add(btnCancel);
+            Grid.SetRow(spButtons, 7); Grid.SetColumnSpan(spButtons, 2); grid.Children.Add(spButtons);
+
+            Content = grid;
+
+            Loaded += EditBookWindow_Loaded;
+        }
+
+        private async void EditBookWindow_Loaded(object? sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var bookSvc = App.ServiceProvider.GetRequiredService<IBookService>();
+                var authorSvc = App.ServiceProvider.GetRequiredService<IAuthorService>();
+                var catSvc = App.ServiceProvider.GetRequiredService<ICategoryService>();
+                var seriesSvc = App.ServiceProvider.GetRequiredService<ISeriesService>();
+
+                // load lists
+                var authors = await authorSvc.GetAuthorsAsync();
+                cbAuthor!.ItemsSource = authors;
+
+                var cats = await catSvc.GetCategoriesAsync();
+                var items = cats.Select(c => new { Id = c.CategoryId, Name = c.CategoryName, IsSelected = false }).ToList();
+                lbCategory!.ItemsSource = items;
+
+                var seriesList = await seriesSvc.GetSeriesAsync();
+                cbSeries!.ItemsSource = seriesList;
+
+                // load work
+                _dto = await bookSvc.GetBookWorkByIdAsync(_workId);
+                if (_dto != null)
+                {
+                    txtTitle!.Text = _dto.Title;
+                    txtOriginalTitle!.Text = _dto.OriginalTitle;
+                    txtSummary!.Text = _dto.Summary;
+                    txtYear!.Text = _dto.FirstPublishYear?.ToString() ?? string.Empty;
+
+                    if (_dto.SeriesId.HasValue)
+                    {
+                        cbSeries.SelectedValue = _dto.SeriesId.Value;
+                    }
+
+                    // select authors: if one author present in cbAuthor, select
+                    if (_dto.Authors?.Count > 0 && cbAuthor.ItemsSource is System.Collections.IEnumerable authorsList)
+                    {
+                        var firstName = _dto.Authors.First();
+                        var selected = authorsList.Cast<Author>().FirstOrDefault(a => a.AuthorName == firstName);
+                        if (selected != null) cbAuthor.SelectedItem = selected;
+                    }
+
+                    // mark categories
+                    if (lbCategory.ItemsSource is System.Collections.IEnumerable catsList)
+                    {
+                        foreach (var it in catsList)
+                        {
+                            var prop = it.GetType().GetProperty("Name");
+                            if (prop == null) continue;
+                            var name = prop.GetValue(it)?.ToString();
+                            var selProp = it.GetType().GetProperty("IsSelected");
+                            if (name != null && _dto.Categories.Contains(name) && selProp != null)
+                            {
+                                selProp.SetValue(it, true);
+                            }
+                        }
+                        // refresh binding
+                        lbCategory.Items.Refresh();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+        }
+
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var bookSvc = App.ServiceProvider.GetRequiredService<IBookService>();
+
+                var dto = new UpdateBookWorkDto();
+                dto.Title = txtTitle!.Text?.Trim();
+                dto.OriginalTitle = txtOriginalTitle!.Text?.Trim();
+                dto.Summary = txtSummary!.Text?.Trim();
+
+                if (int.TryParse(txtYear!.Text, out var y)) dto.FirstPublishYear = y;
+
+                if (cbSeries!.SelectedValue is int sv) dto.SeriesId = sv;
+
+                // authors: take selected from cbAuthor
+                if (cbAuthor!.SelectedItem is Author a)
+                {
+                    dto.AuthorIds = new System.Collections.Generic.List<int> { a.AuthorId };
+                }
+
+                // categories
+                var selectedCats = new System.Collections.Generic.List<int>();
+                if (lbCategory!.ItemsSource is System.Collections.IEnumerable items)
+                {
+                    foreach (var it in items)
+                    {
+                        var isSelProp = it.GetType().GetProperty("IsSelected");
+                        var idProp = it.GetType().GetProperty("Id");
+                        if (isSelProp != null && idProp != null)
+                        {
+                            var isSel = (bool?)isSelProp.GetValue(it) == true;
+                            if (isSel)
+                            {
+                                var id = (int)idProp.GetValue(it)!;
+                                selectedCats.Add(id);
+                            }
+                        }
+                    }
+                }
+                if (selectedCats.Count > 0) dto.CategoryIds = selectedCats;
+
+                await bookSvc.UpdateBookWorkAsync(dto, _workId);
+
+                MessageBox.Show("Book updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating book: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+
+        private async void btnAddAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            var name = txtNewAuthor!.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please enter an author name.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                var authorSvc = App.ServiceProvider.GetRequiredService<IAuthorService>();
+                var author = new Author { AuthorName = name };
+                await authorSvc.AddAuthorAsync(author);
+
+                var authors = await authorSvc.GetAuthorsAsync();
+                cbAuthor!.ItemsSource = authors;
+                txtNewAuthor.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding author: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            var name = txtNewCategory!.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please enter a category name.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                var catSvc = App.ServiceProvider.GetRequiredService<ICategoryService>();
+                var category = new LibraryManagementSystem.Data.Entities.Category { CategoryName = name };
+                await catSvc.AddCategoryAsync(category);
+
+                var cats = await catSvc.GetCategoriesAsync();
+                var items = cats.Select(c => new { Id = c.CategoryId, Name = c.CategoryName, IsSelected = false }).ToList();
+                lbCategory!.ItemsSource = items;
+                txtNewCategory.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding category: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+}

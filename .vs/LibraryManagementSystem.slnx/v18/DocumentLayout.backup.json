@@ -1,0 +1,1064 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\bookmanagement.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\bookmanagement.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\librarydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\librarydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\bookmanagement.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\bookmanagement.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\bookcatalogview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\bookcatalogview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\addeditionwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\addeditionwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\addeditionwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\addeditionwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\addview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\addview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\interfaces\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\interfaces\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\addview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\addview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\repositories\\bookworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\repositories\\bookworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\bookcatalogview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\bookcatalogview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\reader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\reader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\publisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\publisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\borrowrequestdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\borrowrequestdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\borrowrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\borrowrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\bookwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\bookwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\bookedition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\bookedition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\bookcopy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\bookcopy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.data\\entities\\author.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B98ABEDC-B2F3-A78A-9C18-35EAAA5B41B4}|LibraryManagementSystem.Data\\LibraryManagementSystem.Data.csproj|solutionrelative:librarymanagementsystem.data\\entities\\author.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\viewmodels\\bookmanagermentview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\viewmodels\\bookmanagermentview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\bookworkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\bookworkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\interfaces\\ibookworkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\interfaces\\ibookworkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\interfaces\\ibookworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\interfaces\\ibookworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\readeraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\readeraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\borrowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\borrowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\interfaces\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\interfaces\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\repositories\\borrowtransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\repositories\\borrowtransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\repositories\\borrowrequestrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\repositories\\borrowrequestrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\viewmodels\\bookcatalogviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\viewmodels\\bookcatalogviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\viewmodels\\myaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\viewmodels\\myaccountviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\borrowview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\borrowview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\loginview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\loginview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\helpers\\passwordboxhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\helpers\\passwordboxhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\viewmodels\\borrowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\viewmodels\\borrowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\loginview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\loginview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\myaccountview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\myaccountview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\helpers\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\helpers\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\helpers\\listtostringconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\helpers\\listtostringconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\resources\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\resources\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\interfaces\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\interfaces\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\interfaces\\iauthorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\interfaces\\iauthorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\repositories\\authorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\repositories\\authorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\interfaces\\iseriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\interfaces\\iseriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.repositories\\repositories\\seriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB92FED7-7CC2-FE66-34BB-59831B0C64A1}|LibraryManagementSystem.Repositories\\LibraryManagementSystem.Repositories.csproj|solutionrelative:librarymanagementsystem.repositories\\repositories\\seriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\interfaces\\iauthorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\interfaces\\iauthorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\authorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\authorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\interfaces\\iseriesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\interfaces\\iseriesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.services\\services\\seriesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19AA3026-1852-D815-299E-E3130BC9F529}|LibraryManagementSystem.Services\\LibraryManagementSystem.Services.csproj|solutionrelative:librarymanagementsystem.services\\services\\seriesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\editbookwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\editbookwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\detailbookwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\detailbookwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|c:\\users\\son\\source\\repos\\nhatdu66\\librarymanagement\\librarymanagementsystem.wpf\\views\\deletebookwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55B33DF-F11E-BD74-2680-A4EA17AA99A0}|LibraryManagementSystem.WPF\\LibraryManagementSystem.WPF.csproj|solutionrelative:librarymanagementsystem.wpf\\views\\deletebookwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BookManagement.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookManagement.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\BookManagement.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookManagement.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\BookManagement.xaml.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAADgvyIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T10:09:43.747Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\MainWindow.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:40:42.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookCatalogView.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-10T16:13:29.027Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "EditBookWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\EditBookWindow.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\EditBookWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\EditBookWindow.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\EditBookWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T08:20:17.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LibraryDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\LibraryDbContext.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\LibraryDbContext.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\LibraryDbContext.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\LibraryDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T19:03:20.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "DetailBookWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\DetailBookWindow.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\DetailBookWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\DetailBookWindow.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\DetailBookWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T08:20:46.553Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "DeleteBookWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\DeleteBookWindow.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\DeleteBookWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\DeleteBookWindow.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\DeleteBookWindow.xaml.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAIBJwFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T10:14:57.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BookManagement.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookManagement.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\BookManagement.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookManagement.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\BookManagement.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-18T10:09:01.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AddEditionWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwKIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:07:05.707Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\CategoryRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Repositories\\CategoryRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\CategoryRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Repositories\\CategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:47:27.648Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "ISeriesRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\ISeriesRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Interfaces\\ISeriesRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\ISeriesRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Interfaces\\ISeriesRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:01:50.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "AuthorRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\AuthorRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Repositories\\AuthorRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\AuthorRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Repositories\\AuthorRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:01:47.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "IAuthorRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\IAuthorRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Interfaces\\IAuthorRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\IAuthorRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Interfaces\\IAuthorRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:01:39.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\App.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\App.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\App.xaml.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAIBJwFMAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:41:32.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ReaderAccountService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\ReaderAccountService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\ReaderAccountService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\ReaderAccountService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\ReaderAccountService.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T06:01:08.551Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\appsettings.json",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\appsettings.json",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\appsettings.json",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-09T07:31:15.677Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\MainWindow.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-09T07:32:14.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\App.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\App.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\App.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-10T18:06:33.963Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "BorrowService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\BorrowService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\BorrowService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\BorrowService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\BorrowService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:48:56.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "IBookService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\IBookService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Interfaces\\IBookService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\IBookService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Interfaces\\IBookService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:45:58.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "BorrowTransactionRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\BorrowTransactionRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Repositories\\BorrowTransactionRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\BorrowTransactionRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Repositories\\BorrowTransactionRepository.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAwwEwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:30:18.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "BorrowRequestRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\BorrowRequestRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Repositories\\BorrowRequestRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\BorrowRequestRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Repositories\\BorrowRequestRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:44:26.4Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "BookCatalogViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\BookCatalogViewModel.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\ViewModels\\BookCatalogViewModel.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\BookCatalogViewModel.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\ViewModels\\BookCatalogViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:43:57.68Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AddEditionWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\AddEditionWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-17T07:06:40.73Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "SeriesRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\SeriesRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Repositories\\SeriesRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\SeriesRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Repositories\\SeriesRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:01:55.785Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "SeriesService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\SeriesService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\SeriesService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\SeriesService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\SeriesService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:02:17.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "ISeriesService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\ISeriesService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Interfaces\\ISeriesService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\ISeriesService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Interfaces\\ISeriesService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:02:09.578Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "AuthorService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\AuthorService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\AuthorService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\AuthorService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\AuthorService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:02:05.602Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "IAuthorService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\IAuthorService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Interfaces\\IAuthorService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\IAuthorService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Interfaces\\IAuthorService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T07:01:59.661Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ICategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\ICategoryRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Interfaces\\ICategoryRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\ICategoryRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Interfaces\\ICategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:47:23.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AddView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddView.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\AddView.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddView.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\AddView.xaml.cs",
+              "ViewState": "AgIAANcAAAAAAAAAAAAtwA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:34:50.896Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AddView.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddView.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\AddView.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\AddView.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\AddView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-17T06:21:05.86Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BookWorkRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\BookWorkRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Repositories\\BookWorkRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Repositories\\BookWorkRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Repositories\\BookWorkRepository.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAuwHkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:28:34.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "ICategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\ICategoryService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Interfaces\\ICategoryService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\ICategoryService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Interfaces\\ICategoryService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAIBIwAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:47:31.72Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\CategoryService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\CategoryService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\CategoryService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAIBJwB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:47:36.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BookCatalogView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\BookCatalogView.xaml.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAIBJwC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:41:06.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\Category.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Category.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:19:58.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Employee.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\Employee.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Employee.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:20:00.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Publisher.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Publisher.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\Publisher.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Publisher.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\Publisher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:20:01.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Reader.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Reader.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\Reader.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Reader.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\Reader.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:20:04.128Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "BorrowRequestDetail.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BorrowRequestDetail.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\BorrowRequestDetail.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BorrowRequestDetail.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\BorrowRequestDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:19:49.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "BorrowRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BorrowRequest.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\BorrowRequest.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BorrowRequest.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\BorrowRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:19:42.481Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BookEdition.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BookEdition.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\BookEdition.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BookEdition.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\BookEdition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:19:39.786Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "BookCopy.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BookCopy.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\BookCopy.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BookCopy.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\BookCopy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:19:38.459Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Author.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Author.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\Author.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\Author.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\Author.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T06:19:37.054Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BookManagermentView.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\BookManagermentView.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\ViewModels\\BookManagermentView.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\BookManagermentView.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\ViewModels\\BookManagermentView.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAIAwwDkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:55:32.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "BookWork.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BookWork.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Data\\Entities\\BookWork.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Data\\Entities\\BookWork.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Data\\Entities\\BookWork.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:02:34.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "BookWorkService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\BookWorkService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\BookWorkService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\BookWorkService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\BookWorkService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:47:53.744Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IBookWorkService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\IBookWorkService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Interfaces\\IBookWorkService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Interfaces\\IBookWorkService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Interfaces\\IBookWorkService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:39:14.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "IBookWorkRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\IBookWorkRepository.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Interfaces\\IBookWorkRepository.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\IBookWorkRepository.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Interfaces\\IBookWorkRepository.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:25:21.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "BookService.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\BookService.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Services\\Services\\BookService.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Services\\Services\\BookService.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Services\\Services\\BookService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T17:50:19.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\Interfaces\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\Interfaces\\IUnitOfWork.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\Interfaces\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:50:33.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:45:34.575Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwAAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:44:05.616Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "MyAccountViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\MyAccountViewModel.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\ViewModels\\MyAccountViewModel.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\MyAccountViewModel.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\ViewModels\\MyAccountViewModel.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:47:21.374Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.Repositories\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.Repositories\\UnitOfWork.cs",
+              "RelativeToolTip": "LibraryManagementSystem.Repositories\\UnitOfWork.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAkwE0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:49:34.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "BorrowViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\BorrowViewModel.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\ViewModels\\BorrowViewModel.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\ViewModels\\BorrowViewModel.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\ViewModels\\BorrowViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T15:44:04.414Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "LoginView.xaml",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\LoginView.xaml",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\LoginView.xaml",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\LoginView.xaml",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\LoginView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-10T15:43:44.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "PasswordBoxHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Helpers\\PasswordBoxHelper.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Helpers\\PasswordBoxHelper.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Helpers\\PasswordBoxHelper.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Helpers\\PasswordBoxHelper.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAowDMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:46:13.227Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "BorrowView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BorrowView.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\BorrowView.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\BorrowView.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\BorrowView.xaml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:34:40.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "LoginView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\LoginView.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\LoginView.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\LoginView.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\LoginView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:34:47.449Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "MyAccountView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\MyAccountView.xaml.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Views\\MyAccountView.xaml.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Views\\MyAccountView.xaml.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Views\\MyAccountView.xaml.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:41:25.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Resources\\Class1.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Resources\\Class1.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Resources\\Class1.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Resources\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:46:00.952Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "ListToStringConverter.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Helpers\\ListToStringConverter.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Helpers\\ListToStringConverter.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Helpers\\ListToStringConverter.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Helpers\\ListToStringConverter.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:46:04.419Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "ObservableObject.cs",
+              "DocumentMoniker": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Helpers\\ObservableObject.cs",
+              "RelativeDocumentMoniker": "LibraryManagementSystem.WPF\\Helpers\\ObservableObject.cs",
+              "ToolTip": "C:\\Users\\Son\\source\\repos\\nhatdu66\\LibraryManagement\\LibraryManagementSystem.WPF\\Helpers\\ObservableObject.cs",
+              "RelativeToolTip": "LibraryManagementSystem.WPF\\Helpers\\ObservableObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:46:12.138Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

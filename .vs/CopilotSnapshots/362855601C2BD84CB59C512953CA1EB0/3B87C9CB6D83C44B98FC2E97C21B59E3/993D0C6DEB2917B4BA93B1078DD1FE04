@@ -1,0 +1,66 @@
+﻿using LibraryManagementSystem.Data;
+using LibraryManagementSystem.Repositories;
+using LibraryManagementSystem.Services;
+using LibraryManagementSystem.Services.Services;
+using LibraryManagementSystem.WPF.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    /// <summary>
+    /// Interaction logic for BookManagement.xaml
+    /// </summary>
+    public partial class BookManagement : UserControl
+    {
+        private BookManagermentView _view;
+        public BookManagement()
+        {
+            InitializeComponent();
+            var context = new LibraryDbContext();
+            var repo = new BookWorkRepository(context);
+            var service = new BookWorkService(repo);
+            _view = new BookManagermentView(service);
+            DataContext = _view;
+        }
+
+        private async void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            await _view.Search(textSearch.Text);
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: implement add logic (open dialog / navigate). Placeholder for now.
+            MessageBox.Show("Add new book (not implemented)", "Add", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private async void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            await _view.PrevPage();
+        }
+
+        private async void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            await _view.NextPage();
+        }
+        private void gtBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        
+
+    }
+}

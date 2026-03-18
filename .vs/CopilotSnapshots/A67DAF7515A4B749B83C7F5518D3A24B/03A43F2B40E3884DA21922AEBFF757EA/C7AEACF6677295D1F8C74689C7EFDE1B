@@ -1,0 +1,87 @@
+﻿using System;
+using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using LibraryManagementSystem.Services.Interfaces;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    public partial class DetailBookWindow : Window
+    {
+        private readonly int _workId;
+        public DetailBookWindow(int workId)
+        {
+            _workId = workId;
+            Title = "Book Detail";
+            Width = 600;
+            Height = 420;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            var grid = new Grid { Margin = new Thickness(12) };
+            for (int i = 0; i < 6; i++) grid.RowDefinitions.Add(new RowDefinition { Height = i == 4 ? new GridLength(1, GridUnitType.Star) : GridLength.Auto });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(140) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            grid.Children.Add(new TextBlock { Text = "Title:", VerticalAlignment = VerticalAlignment.Center });
+            tbTitle = new TextBlock { Margin = new Thickness(6), TextWrapping = TextWrapping.Wrap };
+            Grid.SetRow(tbTitle, 0); Grid.SetColumn(tbTitle, 1); grid.Children.Add(tbTitle);
+
+            grid.Children.Add(new TextBlock { Text = "Authors:", VerticalAlignment = VerticalAlignment.Center });
+            tbAuthors = new TextBlock { Margin = new Thickness(6), TextWrapping = TextWrapping.Wrap };
+            Grid.SetRow(tbAuthors, 1); Grid.SetColumn(tbAuthors, 1); grid.Children.Add(tbAuthors);
+
+            grid.Children.Add(new TextBlock { Text = "Categories:", VerticalAlignment = VerticalAlignment.Center });
+            tbCategories = new TextBlock { Margin = new Thickness(6), TextWrapping = TextWrapping.Wrap };
+            Grid.SetRow(tbCategories, 2); Grid.SetColumn(tbCategories, 1); grid.Children.Add(tbCategories);
+
+            grid.Children.Add(new TextBlock { Text = "First Publish Year:", VerticalAlignment = VerticalAlignment.Center });
+            tbYear = new TextBlock { Margin = new Thickness(6) };
+            Grid.SetRow(tbYear, 3); Grid.SetColumn(tbYear, 1); grid.Children.Add(tbYear);
+
+            grid.Children.Add(new TextBlock { Text = "Summary:", VerticalAlignment = VerticalAlignment.Top });
+            tbSummary = new TextBox { Margin = new Thickness(6), IsReadOnly = true, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap };
+            Grid.SetRow(tbSummary, 4); Grid.SetColumn(tbSummary, 1); grid.Children.Add(tbSummary);
+
+            var sp = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right };
+            var btnClose = new Button { Content = "Close", Width = 90, Margin = new Thickness(6) };
+            btnClose.Click += btnClose_Click;
+            sp.Children.Add(btnClose);
+            Grid.SetRow(sp, 5); Grid.SetColumnSpan(sp, 2); grid.Children.Add(sp);
+
+            Content = grid;
+
+            Loaded += DetailBookWindow_Loaded;
+        }
+
+        private async void DetailBookWindow_Loaded(object? sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var svc = App.ServiceProvider.GetRequiredService<IBookService>();
+                var dto = await svc.GetBookWorkByIdAsync(_workId);
+                if (dto != null)
+                {
+                    tbTitle.Text = dto.Title;
+                    tbAuthors.Text = dto.AuthorsString;
+                    tbCategories.Text = dto.CategoriesString;
+                    tbYear.Text = dto.FirstPublishYear?.ToString() ?? string.Empty;
+                    tbSummary.Text = dto.Summary ?? string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show("Book not found.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading detail: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

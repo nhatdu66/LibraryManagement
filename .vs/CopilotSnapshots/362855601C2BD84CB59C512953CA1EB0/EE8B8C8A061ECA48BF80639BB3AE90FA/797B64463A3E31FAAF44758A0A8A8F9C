@@ -1,0 +1,67 @@
+﻿using System;
+using System.Windows;
+using LibraryManagementSystem.Data.Entities;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    public partial class AddEditionWindow : Window
+    {
+        public AddEditionWindow()
+        {
+            InitializeComponent();
+        }
+
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (!int.TryParse(txtWorkId.Text, out var workId))
+            {
+                MessageBox.Show("Invalid Work ID", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtISBN.Text))
+            {
+                MessageBox.Show("ISBN is required", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (!int.TryParse(txtPublishYear.Text, out var publishYear))
+            {
+                MessageBox.Show("Invalid publish year", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int? editionNumber = null;
+            if (int.TryParse(txtEditionNumber.Text, out var en)) editionNumber = en;
+
+            try
+            {
+                var context = new LibraryManagementSystem.Data.LibraryDbContext();
+                var edition = new BookEdition
+                {
+                    WorkId = workId,
+                    ISBN = txtISBN.Text.Trim(),
+                    PublisherId = int.TryParse(txtPublisherId.Text, out var pid) ? pid : 0,
+                    PublishYear = publishYear,
+                    EditionNumber = editionNumber,
+                    Language = txtLanguage.Text?.Trim()
+                };
+
+                await context.BookEditions.AddAsync(edition);
+                await context.SaveChangesAsync();
+
+                MessageBox.Show("Book edition added.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding edition: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+    }
+}

@@ -1,0 +1,16 @@
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\bin\Debug\net8.0\LibraryManagementSystem.Repositories.deps.json
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\bin\Debug\net8.0\LibraryManagementSystem.Repositories.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\bin\Debug\net8.0\LibraryManagementSystem.Repositories.pdb
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\bin\Debug\net8.0\LibraryManagementSystem.Data.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\bin\Debug\net8.0\LibraryManagementSystem.Data.pdb
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.csproj.AssemblyReference.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.AssemblyInfoInputs.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.AssemblyInfo.cs
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.sourcelink.json
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryM.55B110FC.Up2Date
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\refint\LibraryManagementSystem.Repositories.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\LibraryManagementSystem.Repositories.pdb
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Repositories\obj\Debug\net8.0\ref\LibraryManagementSystem.Repositories.dll

@@ -1,0 +1,102 @@
+﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using LibraryManagementSystem.Services;
+using LibraryManagementSystem.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+
+using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using LibraryManagementSystem.WPF.ViewModels;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+	public partial class BookCatalogView : UserControl
+	{
+		public BookCatalogView()
+		{
+			InitializeComponent();
+
+			// Sử dụng App.ServiceProvider (đã public static từ App.xaml.cs)
+			if (App.ServiceProvider != null)
+			{
+				DataContext = App.ServiceProvider.GetRequiredService<BookCatalogViewModel>();
+			}
+			else
+			{
+				// Fallback nếu DI chưa sẵn sàng (ít xảy ra)
+				throw new InvalidOperationException("ServiceProvider chưa được khởi tạo.");
+			}
+		}
+
+        private async void Detail_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out var workId))
+            {
+                try
+                {
+                    var svc = App.ServiceProvider.GetRequiredService<LibraryManagementSystem.Services.Interfaces.IBookService>();
+                    var dto = await svc.GetBookWorkByIdAsync(workId);
+                    if (dto != null)
+                    {
+                        var info = $"Title: {dto.Title}\nAuthors: {dto.AuthorsString}\nCategories: {dto.CategoriesString}\nSummary: {dto.Summary}";
+                        MessageBox.Show(info, "Book Detail", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading detail: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out var workId))
+            {
+                // For now open AddBookWindow as placeholder or show message
+                MessageBox.Show($"Edit feature not implemented yet. WorkId={workId}", "Edit", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out var workId))
+            {
+                var res = MessageBox.Show("Are you sure you want to delete this book?","Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (res != MessageBoxResult.Yes) return;
+
+                try
+                {
+                    var svc = App.ServiceProvider.GetRequiredService<LibraryManagementSystem.Services.Interfaces.IBookService>();
+                    await svc.DeleteBookWorkAsync(workId);
+
+                    // refresh ViewModel
+                    if (DataContext is LibraryManagementSystem.WPF.ViewModels.BookCatalogViewModel vm)
+                    {
+                        vm.RefreshCommand.Execute(null);
+                    }
+
+                    MessageBox.Show("Deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+	}
+}

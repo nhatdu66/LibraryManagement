@@ -1,0 +1,15 @@
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\bin\Debug\net8.0\LibraryManagementSystem.Data.deps.json
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\bin\Debug\net8.0\LibraryManagementSystem.Data.runtimeconfig.json
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\bin\Debug\net8.0\LibraryManagementSystem.Data.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\bin\Debug\net8.0\LibraryManagementSystem.Data.pdb
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.csproj.AssemblyReference.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.AssemblyInfoInputs.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.AssemblyInfo.cs
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.csproj.CoreCompileInputs.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.sourcelink.json
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\refint\LibraryManagementSystem.Data.dll
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.pdb
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\LibraryManagementSystem.Data.genruntimeconfig.cache
+C:\Users\Son\source\repos\nhatdu66\LibraryManagement\LibraryManagementSystem.Data\obj\Debug\net8.0\ref\LibraryManagementSystem.Data.dll

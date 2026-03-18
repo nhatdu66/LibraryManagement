@@ -1,0 +1,152 @@
+﻿using System;
+using System.Linq;
+using System.Windows;
+using LibraryManagementSystem.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    public partial class AddEditionWindow : Window
+    {
+        public AddEditionWindow()
+        {
+            InitializeComponent();
+            this.Loaded += AddEditionWindow_Loaded;
+        }
+
+        public AddEditionWindow(int? workId = null) : this()
+        {
+            if (workId.HasValue)
+            {
+                txtWorkId.Text = workId.Value.ToString();
+                txtWorkId.IsReadOnly = true;
+            }
+        }
+
+        public int? WorkId
+        {
+            get
+            {
+                if (int.TryParse(txtWorkId.Text, out var id)) return id;
+                return null;
+            }
+            set
+            {
+                if (value.HasValue)
+                {
+                    txtWorkId.Text = value.Value.ToString();
+                }
+                else
+                {
+                    txtWorkId.Text = string.Empty;
+                }
+            }
+        }
+
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (!int.TryParse(txtWorkId.Text, out var workId))
+            {
+                MessageBox.Show("Invalid Work ID", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtISBN.Text))
+            {
+                MessageBox.Show("ISBN is required", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (!int.TryParse(txtPublishYear.Text, out var publishYear))
+            {
+                MessageBox.Show("Invalid publish year", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int? editionNumber = null;
+            if (int.TryParse(txtEditionNumber.Text, out var en)) editionNumber = en;
+
+            try
+            {
+                using var context = new LibraryManagementSystem.Data.LibraryDbContext();
+
+                int publisherId = 0;
+                // If user selected an existing publisher
+                if (cmbPublisher.SelectedItem is Publisher sel)
+                {
+                    publisherId = sel.PublisherId;
+                }
+                else
+                {
+                    var typed = cmbPublisher.Text?.Trim();
+                    if (!string.IsNullOrEmpty(typed))
+                    {
+                        // If user typed an integer id, try parse and use existing
+                        if (int.TryParse(typed, out var typedId))
+                        {
+                            var existing = await context.Publishers.FindAsync(typedId);
+                            if (existing != null) publisherId = existing.PublisherId;
+                        }
+                        else
+                        {
+                            // Check by name first
+                            var existingByName = await context.Publishers
+                                .FirstOrDefaultAsync(p => p.PublisherName == typed);
+                            if (existingByName != null)
+                            {
+                                publisherId = existingByName.Id;
+                            }
+                            else
+                            {
+                                // Create new publisher
+                                var newPub = new Publisher { PublisherName = typed };
+                                await context.Publishers.AddAsync(newPub);
+                                await context.SaveChangesAsync();
+                                publisherId = newPub.PublisherId;
+                            }
+                        }
+                    }
+                }
+
+                var edition = new BookEdition
+                {
+                    WorkId = workId,
+                    ISBN = txtISBN.Text.Trim(),
+                    PublisherId = publisherId,
+                    PublishYear = publishYear,
+                    EditionNumber = editionNumber,
+                    Language = txtLanguage.Text?.Trim()
+                };
+
+                await context.BookEditions.AddAsync(edition);
+                await context.SaveChangesAsync();
+
+                MessageBox.Show("Book edition added.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding edition: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void AddEditionWindow_Loaded(object? sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using var context = new LibraryManagementSystem.Data.LibraryDbContext();
+                var pubs = await context.Publishers.OrderBy(p => p.PublisherName).ToListAsync();
+                cmbPublisher.ItemsSource = pubs;
+            }
+            catch
+            {
+                // ignore load errors for now
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+    }
+}

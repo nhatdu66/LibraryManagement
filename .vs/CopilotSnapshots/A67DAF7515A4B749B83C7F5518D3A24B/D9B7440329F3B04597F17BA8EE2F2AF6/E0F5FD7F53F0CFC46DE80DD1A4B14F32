@@ -1,0 +1,113 @@
+﻿using LibraryManagementSystem.Data;
+using LibraryManagementSystem.Repositories;
+using LibraryManagementSystem.Services;
+using LibraryManagementSystem.Services.Services;
+using LibraryManagementSystem.WPF.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    /// <summary>
+    /// Interaction logic for BookManagement.xaml
+    /// </summary>
+    public partial class BookManagement : UserControl
+    {
+        private BookManagermentView _view;
+        public BookManagement()
+        {
+            InitializeComponent();
+            if (App.ServiceProvider != null)
+            {
+                _view = App.ServiceProvider.GetRequiredService<BookManagermentView>();
+                DataContext = _view;
+            }
+            else
+            {
+                // fallback to manual construction if DI not available
+                var context = new LibraryDbContext();
+                var repo = new BookWorkRepository(context);
+                var service = new BookWorkService(repo);
+                _view = new BookManagermentView(service);
+                DataContext = _view;
+            }
+        }
+
+        private async void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            await _view.Search(textSearch.Text);
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            // Open AddBookWindow as modal dialog
+            var addWindow = new AddBookWindow();
+            var owner = Window.GetWindow(this);
+            if (owner != null)
+            {
+                addWindow.Owner = owner;
+            }
+            var result = addWindow.ShowDialog();
+
+            // Refresh list after adding (if dialog closed)
+            _ = _view.LoadData();
+        }
+        
+        private async void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            await _view.PrevPage();
+        }
+
+        private async void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            await _view.NextPage();
+        }
+        private void gtBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        
+        private void Detail_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out var workId))
+            {
+                var win = new DetailBookWindow(workId) { Owner = Window.GetWindow(this) };
+                win.ShowDialog();
+            }
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out var workId))
+            {
+                var win = new EditBookWindow(workId) { Owner = Window.GetWindow(this) };
+                var res = win.ShowDialog();
+                if (res == true) _ = _view.LoadData();
+            }
+        }
+
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && int.TryParse(btn.Tag?.ToString(), out var workId))
+            {
+                var win = new DeleteBookWindow(workId) { Owner = Window.GetWindow(this) };
+                var res = win.ShowDialog();
+                if (res == true) await _view.LoadData();
+            }
+        }
+        
+
+    }
+}

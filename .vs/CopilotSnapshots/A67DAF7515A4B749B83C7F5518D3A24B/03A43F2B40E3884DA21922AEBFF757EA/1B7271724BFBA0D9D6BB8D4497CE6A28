@@ -1,0 +1,50 @@
+﻿using System;
+using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using LibraryManagementSystem.Services.Interfaces;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    public partial class DetailBookWindow : Window
+    {
+        private readonly int _workId;
+        public DetailBookWindow(int workId)
+        {
+            InitializeComponent();
+            _workId = workId;
+            Loaded += DetailBookWindow_Loaded;
+        }
+
+        private async void DetailBookWindow_Loaded(object? sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var svc = App.ServiceProvider.GetRequiredService<IBookService>();
+                var dto = await svc.GetBookWorkByIdAsync(_workId);
+                if (dto != null)
+                {
+                    tbTitle.Text = dto.Title;
+                    tbAuthors.Text = dto.AuthorsString;
+                    tbCategories.Text = dto.CategoriesString;
+                    tbYear.Text = dto.FirstPublishYear?.ToString() ?? string.Empty;
+                    tbSummary.Text = dto.Summary ?? string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show("Book not found.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading detail: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

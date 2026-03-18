@@ -1,0 +1,178 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace LibraryManagementSystem.WPF.Views
+{
+    public partial class AddBookWindow : Window
+    {
+        private class CategorySelection
+        {
+            public int Id { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public bool IsSelected { get; set; }
+        }
+
+        public AddBookWindow()
+        {
+            InitializeComponent();
+            Loaded += AddBookWindow_Loaded;
+        }
+        private async void AddBookWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // load categories via repository -> service
+            var context = new LibraryManagementSystem.Data.LibraryDbContext();
+            var catRepo = new LibraryManagementSystem.Repositories.CategoryRepository(context);
+            var catService = new LibraryManagementSystem.Services.Services.CategoryService(catRepo);
+
+            var categories = await catService.GetCategoriesAsync();
+            // bind as list of selection objects so each item has IsSelected property bound to CheckBox
+            var items = categories.Select(c => new CategorySelection { Id = c.CategoryId, Name = c.CategoryName, IsSelected = false }).ToList();
+            lbCategory.ItemsSource = items;
+
+            // load authors
+            var authorRepo = new LibraryManagementSystem.Repositories.AuthorRepository(context);
+            var authorService = new LibraryManagementSystem.Services.Services.AuthorService(authorRepo);
+            var authors = await authorService.GetAuthorsAsync();
+            cbAuthor.ItemsSource = authors;
+
+            // load series
+            var seriesRepo = new LibraryManagementSystem.Repositories.SeriesRepository(context);
+            var seriesService = new LibraryManagementSystem.Services.Services.SeriesService(seriesRepo);
+            var seriesList = await seriesService.GetSeriesAsync();
+            cbSeries.ItemsSource = seriesList;
+        }
+
+        private async void btnAddAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            var name = txtNewAuthor.Text?.Trim();
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter an author name.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                var context = new LibraryManagementSystem.Data.LibraryDbContext();
+                var repo = new LibraryManagementSystem.Repositories.AuthorRepository(context);
+                var service = new LibraryManagementSystem.Services.Services.AuthorService(repo);
+
+                var author = new LibraryManagementSystem.Data.Entities.Author { AuthorName = name };
+                await service.AddAuthorAsync(author);
+
+                var authors = await service.GetAuthorsAsync();
+                cbAuthor.ItemsSource = authors;
+                txtNewAuthor.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding author: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void btnAddSeries_Click(object sender, RoutedEventArgs e)
+        {
+            var name = txtNewSeries.Text?.Trim();
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter a series name.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                var context = new LibraryManagementSystem.Data.LibraryDbContext();
+                var repo = new LibraryManagementSystem.Repositories.SeriesRepository(context);
+                var service = new LibraryManagementSystem.Services.Services.SeriesService(repo);
+
+                var series = new LibraryManagementSystem.Data.Entities.Series { SeriesName = name };
+                await service.AddSeriesAsync(series);
+
+                var seriesList = await service.GetSeriesAsync();
+                cbSeries.ItemsSource = seriesList;
+                txtNewSeries.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding series: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            var name = txtNewCategory.Text?.Trim();
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter a category name.", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                var context = new LibraryManagementSystem.Data.LibraryDbContext();
+                var catRepo = new LibraryManagementSystem.Repositories.CategoryRepository(context);
+                var catService = new LibraryManagementSystem.Services.Services.CategoryService(catRepo);
+
+                var category = new LibraryManagementSystem.Data.Entities.Category { CategoryName = name };
+                await catService.AddCategoryAsync(category);
+
+                // reload list
+                var categories = await catService.GetCategoriesAsync();
+                var items = categories.Select(c => new CategorySelection { Name = c.CategoryName, IsSelected = false }).ToList();
+                lbCategory.ItemsSource = items;
+
+                txtNewCategory.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding category: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            // collect selected categories
+            var selected = new List<string>();
+            if (lbCategory.ItemsSource is System.Collections.IEnumerable items)
+            {
+                foreach (var it in items)
+                {
+                    if (it is CategorySelection cs && cs.IsSelected)
+                    {
+                        selected.Add(cs.Name);
+                    }
+                }
+            }
+
+            MessageBox.Show($"Selected categories: {string.Join(", ", selected)}", "Add Book", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void btnAddEdition_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new AddEditionWindow();
+            win.Owner = this;
+            var res = win.ShowDialog();
+            if (res == true)
+            {
+                // optionally refresh or notify
+                MessageBox.Show("Edition added.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

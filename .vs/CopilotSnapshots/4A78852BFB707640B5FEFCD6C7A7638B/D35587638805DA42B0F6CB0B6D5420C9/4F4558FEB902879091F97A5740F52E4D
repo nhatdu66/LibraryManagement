@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LibraryManagementSystem.Data.Entities;
+using LibraryManagementSystem.Services.Interfaces;
+using System.ComponentModel;
+
+namespace LibraryManagementSystem.WPF.ViewModels
+{
+    public class BookManagermentView : INotifyPropertyChanged
+    {
+        private readonly IBookWorkService _workService;
+
+        public ObservableCollection<BookWork> BookWorks { get; set; }
+
+        public BookManagermentView(IBookWorkService IbookWorkService)
+        {
+            _workService = IbookWorkService;
+            BookWorks = new ObservableCollection<BookWork>();
+           _ = LoadData();
+        }
+
+        public async Task LoadData()
+        {
+            var works = await _workService.GetWorks();
+            BookWorks.Clear();
+            foreach (var work in works)
+            {
+                BookWorks.Add(work);
+            }
+            OnPropertyChanged(nameof(BookWorks));
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

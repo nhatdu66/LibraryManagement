@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using LibraryManagementSystem.Data.Entities;
+using LibraryManagementSystem.Services.Interfaces;
+
+namespace LibraryManagementSystem.WPF.ViewModels
+{
+    public class BookManagermentView : INotifyPropertyChanged
+    {
+        private readonly IBookWorkService _workService;
+
+        public ObservableCollection<BookWork> BookWorks { get; set; }
+
+        private int currentPage = 1;
+        private int pageSize = 10;
+        private int totalPages;
+        private string keywords;
+
+        public int CurrentPage
+        {
+            get { return currentPage; }
+            set
+            {
+                currentPage = value;
+                OnPropertyChanged(nameof(CurrentPage));
+            }
+        }
+
+        public int TotalPages
+        {
+            get { return totalPages; }
+            set
+            {
+                totalPages = value;
+                OnPropertyChanged(nameof(TotalPages));
+            }
+        }
+
+        public BookManagermentView(IBookWorkService IbookWorkService)
+        {
+            _workService = IbookWorkService;
+            BookWorks = new ObservableCollection<BookWork>();
+            _ = LoadData();
+        }
+
+        public async Task LoadData()
+        {
+            IEnumerable<BookWork> works =
+                await _workService.GetWorksPaging(keywords, CurrentPage, pageSize);
+
+            BookWorks.Clear();
+
+            foreach (BookWork work in works)
+            {
+                BookWorks.Add(work);
+            }
+
+            TotalPages = await _workService.GetTotalPages(keywords, pageSize);
+
+            OnPropertyChanged(nameof(BookWorks));
+        }
+
+        public async Task Search(string keyword)
+        {
+            keywords = keyword;
+            CurrentPage = 1;
+            await LoadData();
+        }
+
+        public async Task NextPage()
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                await LoadData();
+            }
+        }
+
+        public async Task PrevPage()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                await LoadData();
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

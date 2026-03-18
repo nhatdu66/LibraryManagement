@@ -1,0 +1,97 @@
+﻿<Window x:Class="LibraryManagementSystem.WPF.Views.AddBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Book" Height="500" Width="600"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Title -->
+        <TextBlock Text="Title:" Grid.Row="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtTitle" Grid.Row="0" Grid.Column="1" Margin="5"/>
+
+        <!-- Original Title -->
+        <TextBlock Text="Original Title:" Grid.Row="1" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtOriginalTitle" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+        <!-- Summary -->
+        <TextBlock Text="Summary:" Grid.Row="2" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtSummary"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Margin="5"
+                 Height="80"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"/>
+
+        <!-- Publish Year -->
+        <TextBlock Text="First Publish Year:" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtYear" Grid.Row="3" Grid.Column="1" Margin="5"/>
+
+        <!-- Series -->
+        <TextBlock Text="Series:" Grid.Row="4" VerticalAlignment="Center"/>
+        <ComboBox x:Name="cbSeries" Grid.Row="4" Grid.Column="1" Margin="5"
+                  DisplayMemberPath="SeriesName"
+                  SelectedValuePath="SeriesId"/>
+
+        <!-- Author -->
+        <TextBlock Text="Author:" Grid.Row="5" VerticalAlignment="Center"/>
+        <ComboBox x:Name="cbAuthor" Grid.Row="5" Grid.Column="1" Margin="5"
+                  DisplayMemberPath="AuthorName"
+                  SelectedValuePath="AuthorId"/>
+
+        <!-- Category -->
+        <TextBlock Text="Category:" Grid.Row="6" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="6" Grid.Column="1" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                <TextBox x:Name="txtNewCategory" Width="220" Height="26" Margin="0,0,6,0"/>
+                <Button Content="Add Category" Width="100" Click="btnAddCategory_Click"/>
+            </StackPanel>
+            <ListBox x:Name="lbCategory"
+                     Height="120"
+                     SelectionMode="Multiple">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Name}"
+                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="7"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="5">
+
+            <Button Content="Add Book"
+                    Width="100"
+                    Margin="5"
+                    Click="btnAdd_Click"/>
+
+            <Button Content="Cancel"
+                    Width="100"
+                    Margin="5"
+                    Click="btnCancel_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

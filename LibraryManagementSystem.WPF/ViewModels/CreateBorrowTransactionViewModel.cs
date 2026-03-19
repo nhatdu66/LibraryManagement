@@ -15,26 +15,29 @@ namespace LibraryManagementSystem.WPF.ViewModels
 	{
 		private readonly IBorrowService _borrowService;
 		private readonly IBookService _bookService;
-		private readonly IReaderService _readerService;
-		private readonly IAuthService _authService;
+		private readonly IReaderService _readerService;  // giả sử bạn có interface này
 
-		// 1. Tìm Reader
+		// Reader
 		public string SearchReaderKeyword { get; set; } = "";
 		public ObservableCollection<ReaderDto> ReaderResults { get; } = new();
 		public ReaderDto? SelectedReader { get; set; }
 
-		// 2. Tìm Work → Edition → Copy
+		// Work
 		public string SearchWorkKeyword { get; set; } = "";
 		public ObservableCollection<BookWorkDto> WorkResults { get; } = new();
 		public BookWorkDto? SelectedWork { get; set; }
 
+		// Edition
+		public string SearchEditionKeyword { get; set; } = "";
 		public ObservableCollection<BookEditionDto> EditionResults { get; } = new();
 		public BookEditionDto? SelectedEdition { get; set; }
 
+		// Copy
+		public string SearchCopyKeyword { get; set; } = "";
 		public ObservableCollection<BookCopyDto> CopyResults { get; } = new();
 		public BookCopyDto? SelectedCopy { get; set; }
 
-		// Danh sách đã chọn (sẽ lưu vào DB)
+		// Danh sách mượn tạm
 		public ObservableCollection<BorrowDetailTemp> BorrowDetails { get; } = new();
 
 		public DateTime BorrowDate { get; set; } = DateTime.Today;
@@ -53,94 +56,134 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public CreateBorrowTransactionViewModel(
 			IBorrowService borrowService,
 			IBookService bookService,
-			IReaderService readerService,
-			IAuthService authService)
+			IReaderService readerService)
 		{
 			_borrowService = borrowService;
 			_bookService = bookService;
 			_readerService = readerService;
-			_authService = authService;
 
-			SearchReaderCmd = new RelayCommand(async _ => await SearchReaders());
-			SearchWorkCmd = new RelayCommand(async _ => await SearchWorks());
-			SearchEditionCmd = new RelayCommand(async _ => await LoadEditions());
-			SearchCopyCmd = new RelayCommand(async _ => await LoadCopies());
+			SearchReaderCmd = new RelayCommand(async _ => await SearchReadersAsync());
+			SearchWorkCmd = new RelayCommand(async _ => await SearchWorksAsync());
+			SearchEditionCmd = new RelayCommand(async _ => await SearchEditionsAsync());
+			SearchCopyCmd = new RelayCommand(async _ => await SearchCopiesAsync());
 			AddCopyCmd = new RelayCommand(_ => AddSelectedCopy());
-			SaveTransactionCmd = new RelayCommand(async _ => await SaveTransaction());
+			SaveTransactionCmd = new RelayCommand(async _ => await SaveTransactionAsync());
 		}
 
-		private async Task SearchReaders() { /* giữ logic cũ hoặc dùng GetAllReadersAsync + filter */ }
-		private async Task SearchWorks()
+		private async Task SearchReadersAsync()
+		{
+			if (string.IsNullOrWhiteSpace(SearchReaderKeyword)) return;
+
+			// Giả sử bạn có method SearchReadersAsync trong IReaderService
+			// Nếu chưa có, dùng GetAllReadersAsync rồi filter client-side
+			var all = await _readerService.GetAllReadersAsync();  // hoặc SearchReadersAsync nếu thêm
+			var filtered = all.Where(r =>
+				r.FullName.Contains(SearchReaderKeyword, StringComparison.OrdinalIgnoreCase) ||
+				r.CardNumber.Contains(SearchReaderKeyword, StringComparison.OrdinalIgnoreCase))
+				.ToList();
+
+			ReaderResults.Clear();
+			foreach (var r in filtered) ReaderResults.Add(r);
+			StatusMessage = $"Tìm thấy {filtered.Count} độc giả.";
+		}
+
+		private async Task SearchWorksAsync()
 		{
 			if (string.IsNullOrWhiteSpace(SearchWorkKeyword)) return;
+
 			var results = await _bookService.SearchBooksAsync(SearchWorkKeyword, null, null, null);
 			WorkResults.Clear();
 			foreach (var w in results) WorkResults.Add(w);
+			StatusMessage = $"Tìm thấy {results.Count()} tác phẩm.";
 		}
 
-		private async Task LoadEditions()
+		private async Task SearchEditionsAsync()
 		{
-			if (SelectedWork == null) return;
-			var editions = await _bookService.GetEditionsByWorkIdAsync(SelectedWork.WorkId);
+			if (SelectedWork == null)
+			{
+				StatusMessage = "Vui lòng chọn tác phẩm trước!";
+				return;
+			}
+
+			var allEditions = await _bookService.GetEditionsByWorkIdAsync(SelectedWork.WorkId);
+			var filtered = string.IsNullOrWhiteSpace(SearchEditionKeyword)
+				? allEditions
+				: allEditions.Where(e =>
+					e.PublisherName.Contains(SearchEditionKeyword, StringComparison.OrdinalIgnoreCase) ||
+					e.ISBN.Contains(SearchEditionKeyword) ||
+					e.PublishYear.ToString().Contains(SearchEditionKeyword));
+
 			EditionResults.Clear();
-			foreach (var e in editions) EditionResults.Add(e);
+			foreach (var e in filtered) EditionResults.Add(e);
+			StatusMessage = $"Tìm thấy {filtered.Count()} phiên bản cho tác phẩm đã chọn.";
 		}
 
-		private async Task LoadCopies()
+		private async Task SearchCopiesAsync()
 		{
-			if (SelectedEdition == null) return;
-			var copies = await _bookService.GetAvailableCopiesByEditionIdAsync(SelectedEdition.EditionId);
+			if (SelectedEdition == null)
+			{
+				StatusMessage = "Vui lòng chọn phiên bản trước!";
+				return;
+			}
+
+			var allCopies = await _bookService.GetAvailableCopiesByEditionIdAsync(SelectedEdition.EditionId);
+			var filtered = string.IsNullOrWhiteSpace(SearchCopyKeyword)
+				? allCopies
+				: allCopies.Where(c =>
+					c.Barcode.Contains(SearchCopyKeyword) ||
+					c.ShelfLocation?.Contains(SearchCopyKeyword) == true);
+
 			CopyResults.Clear();
-			foreach (var c in copies) CopyResults.Add(c);
+			foreach (var c in filtered) CopyResults.Add(c);
+			StatusMessage = $"Tìm thấy {filtered.Count()} bản sao khả dụng.";
 		}
 
 		private void AddSelectedCopy()
 		{
-			if (SelectedCopy == null || SelectedWork == null) return;
+			if (SelectedCopy == null || SelectedWork == null || SelectedEdition == null) return;
 
 			BorrowDetails.Add(new BorrowDetailTemp
 			{
 				Title = SelectedWork.Title,
-				EditionInfo = $"{SelectedEdition?.PublisherName} - {SelectedEdition?.PublishYear}",
+				EditionInfo = $"{SelectedEdition.PublisherName} - {SelectedEdition.PublishYear}",
 				CopyId = SelectedCopy.CopyId,
 				ShelfLocation = SelectedCopy.ShelfLocation ?? "N/A",
 				DueDate = BorrowDate.AddDays(DurationDays)
 			});
 
-			StatusMessage = $"Đã thêm Copy #{SelectedCopy.CopyId}";
-			SelectedCopy = null; // reset
+			StatusMessage = $"Đã thêm Copy #{SelectedCopy.CopyId} vào danh sách mượn.";
+			SelectedCopy = null; // reset sau khi thêm
 		}
 
-		private async Task SaveTransaction()
+		private async Task SaveTransactionAsync()
 		{
 			if (SelectedReader == null || BorrowDetails.Count == 0)
 			{
-				StatusMessage = "Chưa chọn độc giả hoặc sách!";
+				StatusMessage = "Chưa chọn độc giả hoặc chưa thêm sách!";
 				return;
 			}
 
 			try
 			{
-				// Lấy employeeId từ login (sau này thay bằng CurrentEmployeeId)
-				int employeeId = 3; // tạm hardcode librarian1
+				// Lấy employeeId từ session/login (tạm hardcode)
+				int employeeId = 3; // thay bằng CurrentEmployeeId sau
 
 				var copyIds = BorrowDetails.Select(d => d.CopyId).ToList();
 
-				// Gọi service (mình sẽ thêm method này ở bước sau)
-				// var result = await _borrowService.CreateDirectBorrowTransactionAsync(
+				// Gọi service (sẽ implement tiếp nếu bạn muốn)
+				// var transaction = await _borrowService.CreateDirectBorrowTransactionAsync(
 				//     SelectedReader.ReaderId, employeeId, copyIds, BorrowDate, DurationDays);
 
-				MessageBox.Show("Tạo giao dịch thành công!", "Thành công");
+				MessageBox.Show("Tạo giao dịch mượn thành công!", "Thành công");
 				Application.Current.Windows.OfType<CreateBorrowTransactionWindow>().FirstOrDefault()?.Close();
 			}
 			catch (Exception ex)
 			{
-				StatusMessage = ex.Message;
+				StatusMessage = $"Lỗi: {ex.Message}";
 			}
 		}
 	}
 
-	// Class tạm hiển thị trong DataGrid
 	public class BorrowDetailTemp : ObservableObject
 	{
 		public string Title { get; set; } = "";

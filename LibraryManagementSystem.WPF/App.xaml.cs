@@ -64,6 +64,7 @@ namespace LibraryManagementSystem.WPF
 			services.AddTransient<ManageAccountsViewModel>();
 			services.AddTransient<MainViewModel>();
 			services.AddTransient<CreateBorrowTransactionViewModel>();
+			services.AddTransient<ManageBooksViewModel>();
 
 			// MainWindow
 			services.AddTransient<MainWindow>();

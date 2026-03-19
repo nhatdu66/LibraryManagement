@@ -40,11 +40,9 @@
 
 			<!-- Tab 3: Quản lý sách -->
 			<TabItem Header="Quản lý sách"
-             IsEnabled="{Binding CanManageBooks}"
-             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-				<!-- Nội dung sẽ làm sau -->
-				<TextBlock Text="Chức năng quản lý sách (thêm, sửa, xóa sách, thể loại, tác giả...)" 
-                   Margin="30" FontSize="16" Foreground="DarkGreen"/>
+				IsEnabled="{Binding CanManageBooks}"
+				Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+				<views:ManageBooksView DataContext="{Binding ManageBooksVM}"/>
 			</TabItem>
 
 			<!-- Tab 4: Quản lý mượn sách -->

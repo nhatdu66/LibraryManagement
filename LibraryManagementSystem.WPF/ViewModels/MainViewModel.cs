@@ -7,6 +7,7 @@ using LibraryManagementSystem.Data.Entities;
 using LibraryManagementSystem.Services.Interfaces;
 using LibraryManagementSystem.WPF.Helpers;
 using LibraryManagementSystem.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryManagementSystem.WPF.ViewModels
 {
@@ -16,6 +17,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public BorrowViewModel BorrowVM { get; }
 		public MyAccountViewModel MyAccountVM { get; }
 		public ManageAccountsViewModel ManageAccountsVM { get; }
+		public ManageBooksViewModel ManageBooksVM { get; }
 
 		private int _selectedTabIndex = 0;
 		public int SelectedTabIndex
@@ -78,6 +80,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			BorrowVM = new BorrowViewModel(borrowService, authService);
 			MyAccountVM = myAccountViewModel;
 			ManageAccountsVM = manageAccountsViewModel;
+			ManageBooksVM = new ManageBooksViewModel(bookService);
 
 			LogoutCommand = new RelayCommand(ExecuteLogout);
 

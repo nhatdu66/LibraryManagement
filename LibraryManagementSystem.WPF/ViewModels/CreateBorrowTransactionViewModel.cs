@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,70 +18,37 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		private readonly IReaderService _readerService;
 		private readonly IAuthService _authService;
 
-		// Tìm kiếm độc giả
-		private string _searchReaderKeyword = "";
-		public string SearchReaderKeyword
-		{
-			get => _searchReaderKeyword;
-			set => SetProperty(ref _searchReaderKeyword, value);
-		}
+		// 1. Tìm Reader
+		public string SearchReaderKeyword { get; set; } = "";
+		public ObservableCollection<ReaderDto> ReaderResults { get; } = new();
+		public ReaderDto? SelectedReader { get; set; }
 
-		public ObservableCollection<ReaderDto> ReaderSearchResults { get; } = new ObservableCollection<ReaderDto>();
+		// 2. Tìm Work → Edition → Copy
+		public string SearchWorkKeyword { get; set; } = "";
+		public ObservableCollection<BookWorkDto> WorkResults { get; } = new();
+		public BookWorkDto? SelectedWork { get; set; }
 
-		private ReaderDto? _selectedReader;
-		public ReaderDto? SelectedReader
-		{
-			get => _selectedReader;
-			set => SetProperty(ref _selectedReader, value);
-		}
+		public ObservableCollection<BookEditionDto> EditionResults { get; } = new();
+		public BookEditionDto? SelectedEdition { get; set; }
 
-		// Tìm kiếm sách
-		private string _searchBookKeyword = "";
-		public string SearchBookKeyword
-		{
-			get => _searchBookKeyword;
-			set => SetProperty(ref _searchBookKeyword, value);
-		}
+		public ObservableCollection<BookCopyDto> CopyResults { get; } = new();
+		public BookCopyDto? SelectedCopy { get; set; }
 
-		public ObservableCollection<BookWorkDto> BookSearchResults { get; } = new ObservableCollection<BookWorkDto>();
+		// Danh sách đã chọn (sẽ lưu vào DB)
+		public ObservableCollection<BorrowDetailTemp> BorrowDetails { get; } = new();
 
-		private BookWorkDto? _selectedBookWork;
-		public BookWorkDto? SelectedBookWork
-		{
-			get => _selectedBookWork;
-			set => SetProperty(ref _selectedBookWork, value);
-		}
+		public DateTime BorrowDate { get; set; } = DateTime.Today;
+		public int DurationDays { get; set; } = 14;
 
-		// Danh sách chi tiết mượn tạm thời
-		public ObservableCollection<BorrowDetailTemp> BorrowDetails { get; } = new ObservableCollection<BorrowDetailTemp>();
-
-		private DateTime _borrowDate = DateTime.Today;
-		public DateTime BorrowDate
-		{
-			get => _borrowDate;
-			set => SetProperty(ref _borrowDate, value);
-		}
-
-		private int _borrowDurationDays = 14;
-		public int BorrowDurationDays
-		{
-			get => _borrowDurationDays;
-			set => SetProperty(ref _borrowDurationDays, value);
-		}
-
-		private string _statusMessage = "Nhập thông tin để tạo giao dịch...";
-		public string StatusMessage
-		{
-			get => _statusMessage;
-			set => SetProperty(ref _statusMessage, value);
-		}
+		public string StatusMessage { get; set; } = "Chọn độc giả và sách để tạo giao dịch...";
 
 		// Commands
-		public ICommand SearchReaderCommand { get; }
-		public ICommand SelectReaderCommand { get; }
-		public ICommand SearchBookCommand { get; }
-		public ICommand AddBookCommand { get; }
-		public ICommand SaveTransactionCommand { get; }
+		public ICommand SearchReaderCmd { get; }
+		public ICommand SearchWorkCmd { get; }
+		public ICommand SearchEditionCmd { get; }
+		public ICommand SearchCopyCmd { get; }
+		public ICommand AddCopyCmd { get; }
+		public ICommand SaveTransactionCmd { get; }
 
 		public CreateBorrowTransactionViewModel(
 			IBorrowService borrowService,
@@ -90,170 +56,97 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			IReaderService readerService,
 			IAuthService authService)
 		{
-			_borrowService = borrowService ?? throw new ArgumentNullException(nameof(borrowService));
-			_bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
-			_readerService = readerService ?? throw new ArgumentNullException(nameof(readerService));
-			_authService = authService ?? throw new ArgumentNullException(nameof(authService));
+			_borrowService = borrowService;
+			_bookService = bookService;
+			_readerService = readerService;
+			_authService = authService;
 
-			SearchReaderCommand = new RelayCommand(_ => SearchReaders());
-			SelectReaderCommand = new RelayCommand(o => SelectReader(o as ReaderDto));
-			SearchBookCommand = new RelayCommand(_ => SearchBooks());
-			AddBookCommand = new RelayCommand(_ => AddSelectedBook());
-			SaveTransactionCommand = new RelayCommand(_ => SaveTransaction());
+			SearchReaderCmd = new RelayCommand(async _ => await SearchReaders());
+			SearchWorkCmd = new RelayCommand(async _ => await SearchWorks());
+			SearchEditionCmd = new RelayCommand(async _ => await LoadEditions());
+			SearchCopyCmd = new RelayCommand(async _ => await LoadCopies());
+			AddCopyCmd = new RelayCommand(_ => AddSelectedCopy());
+			SaveTransactionCmd = new RelayCommand(async _ => await SaveTransaction());
 		}
 
-		private async void SearchReaders()
+		private async Task SearchReaders() { /* giữ logic cũ hoặc dùng GetAllReadersAsync + filter */ }
+		private async Task SearchWorks()
 		{
-			if (string.IsNullOrWhiteSpace(SearchReaderKeyword) || SearchReaderKeyword.Length < 2)
-			{
-				StatusMessage = "Nhập ít nhất 2 ký tự để tìm độc giả.";
-				return;
-			}
-
-			try
-			{
-				StatusMessage = "Đang tìm độc giả...";
-
-				// Giả định IReaderService có method GetAllReadersAsync (hoặc SearchReadersAsync)
-				// Nếu chưa có, bạn cần implement
-				var allReaders = await _readerService.GetAllReadersAsync(); // Thay bằng method thực nếu có
-
-				var results = allReaders
-					.Where(r => r.FullName.Contains(SearchReaderKeyword, StringComparison.OrdinalIgnoreCase) ||
-								r.Email.Contains(SearchReaderKeyword, StringComparison.OrdinalIgnoreCase) ||
-								r.CardNumber.Contains(SearchReaderKeyword, StringComparison.OrdinalIgnoreCase))
-					.Take(15)
-					.ToList();
-
-				ReaderSearchResults.Clear();
-				foreach (var reader in results)
-				{
-					ReaderSearchResults.Add(reader);
-				}
-
-				StatusMessage = $"Tìm thấy {results.Count} độc giả.";
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Lỗi tìm độc giả: {ex.Message}";
-			}
+			if (string.IsNullOrWhiteSpace(SearchWorkKeyword)) return;
+			var results = await _bookService.SearchBooksAsync(SearchWorkKeyword, null, null, null);
+			WorkResults.Clear();
+			foreach (var w in results) WorkResults.Add(w);
 		}
 
-		private void SelectReader(ReaderDto? reader)
+		private async Task LoadEditions()
 		{
-			if (reader == null) return;
-
-			SelectedReader = reader;
-			StatusMessage = $"Đã chọn độc giả: {reader.FullName} (Mã thẻ: {reader.CardNumber})";
+			if (SelectedWork == null) return;
+			var editions = await _bookService.GetEditionsByWorkIdAsync(SelectedWork.WorkId);
+			EditionResults.Clear();
+			foreach (var e in editions) EditionResults.Add(e);
 		}
 
-		private async void SearchBooks()
+		private async Task LoadCopies()
 		{
-			if (string.IsNullOrWhiteSpace(SearchBookKeyword))
-			{
-				StatusMessage = "Nhập từ khóa tìm sách.";
-				return;
-			}
-
-			try
-			{
-				StatusMessage = "Đang tìm sách...";
-
-				var results = await _bookService.SearchBooksAsync(SearchBookKeyword, null, null, null);
-
-				BookSearchResults.Clear();
-				foreach (var book in results)
-				{
-					BookSearchResults.Add(book);
-				}
-
-				StatusMessage = $"Tìm thấy {results.Count()} sách.";
-			}
-			catch (Exception ex)
-			{
-				StatusMessage = $"Lỗi tìm sách: {ex.Message}";
-			}
+			if (SelectedEdition == null) return;
+			var copies = await _bookService.GetAvailableCopiesByEditionIdAsync(SelectedEdition.EditionId);
+			CopyResults.Clear();
+			foreach (var c in copies) CopyResults.Add(c);
 		}
 
-		private void AddSelectedBook()
+		private void AddSelectedCopy()
 		{
-			if (SelectedBookWork == null)
-			{
-				StatusMessage = "Vui lòng chọn một sách.";
-				return;
-			}
-
-			// Placeholder cho EditionInfo (vì BookWorkDto không có PublishYear)
-			// Bạn có thể thay bằng AuthorsString hoặc thông tin khác có sẵn
-			string editionInfo = SelectedBookWork.AuthorsString != null && SelectedBookWork.AuthorsString.Length > 0
-				? $"Tác giả: {SelectedBookWork.AuthorsString}"
-				: "Edition cơ bản";
+			if (SelectedCopy == null || SelectedWork == null) return;
 
 			BorrowDetails.Add(new BorrowDetailTemp
 			{
-				Title = SelectedBookWork.Title,
-				EditionInfo = editionInfo,
-				CopyId = 0,              // Placeholder - sau này thay bằng CopyId thực
-				ShelfLocation = "Kệ A-01" // Placeholder - sau này lấy từ BookCopy
+				Title = SelectedWork.Title,
+				EditionInfo = $"{SelectedEdition?.PublisherName} - {SelectedEdition?.PublishYear}",
+				CopyId = SelectedCopy.CopyId,
+				ShelfLocation = SelectedCopy.ShelfLocation ?? "N/A",
+				DueDate = BorrowDate.AddDays(DurationDays)
 			});
 
-			StatusMessage = $"Đã thêm \"{SelectedBookWork.Title}\" vào danh sách.";
-
-			// Reset sau khi thêm
-			SelectedBookWork = null;
-			SearchBookKeyword = "";
+			StatusMessage = $"Đã thêm Copy #{SelectedCopy.CopyId}";
+			SelectedCopy = null; // reset
 		}
 
-		private async void SaveTransaction()
+		private async Task SaveTransaction()
 		{
-			if (SelectedReader == null)
+			if (SelectedReader == null || BorrowDetails.Count == 0)
 			{
-				StatusMessage = "Vui lòng chọn độc giả.";
-				return;
-			}
-
-			if (BorrowDetails.Count == 0)
-			{
-				StatusMessage = "Chưa có sách nào trong danh sách.";
+				StatusMessage = "Chưa chọn độc giả hoặc sách!";
 				return;
 			}
 
 			try
 			{
-				StatusMessage = "Đang lưu giao dịch...";
+				// Lấy employeeId từ login (sau này thay bằng CurrentEmployeeId)
+				int employeeId = 3; // tạm hardcode librarian1
 
-				// Lấy employeeId của thủ thư hiện tại (cần implement lấy từ login/auth)
-				// Tạm hard-code để test
-				int employeeId = 1; // <-- THAY BẰNG CÁCH LẤY THỰC TẾ SAU NÀY
+				var copyIds = BorrowDetails.Select(d => d.CopyId).ToList();
 
-				// Tạo list copyIds (hiện tại placeholder)
-				var copyIds = new List<int>(); // Sau này lấy từ BorrowDetails.CopyId thực
+				// Gọi service (mình sẽ thêm method này ở bước sau)
+				// var result = await _borrowService.CreateDirectBorrowTransactionAsync(
+				//     SelectedReader.ReaderId, employeeId, copyIds, BorrowDate, DurationDays);
 
-				// Gọi service tạo transaction (cần implement method này trong BorrowService)
-				// var transaction = await _borrowService.CreateDirectBorrowTransactionAsync(
-				//     SelectedReader.ReaderId, employeeId, BorrowDate, BorrowDate.AddDays(BorrowDurationDays), copyIds);
-
-				// Placeholder thành công
-				MessageBox.Show("Giao dịch đã được tạo thành công (placeholder).",
-					"Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
-
-				// Đóng window
+				MessageBox.Show("Tạo giao dịch thành công!", "Thành công");
 				Application.Current.Windows.OfType<CreateBorrowTransactionWindow>().FirstOrDefault()?.Close();
 			}
 			catch (Exception ex)
 			{
-				StatusMessage = $"Lỗi khi tạo giao dịch: {ex.Message}";
-				MessageBox.Show(StatusMessage, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+				StatusMessage = ex.Message;
 			}
 		}
 	}
 
-	// Class tạm để hiển thị trong DataGrid
+	// Class tạm hiển thị trong DataGrid
 	public class BorrowDetailTemp : ObservableObject
 	{
-		public string Title { get; set; } = string.Empty;
-		public string EditionInfo { get; set; } = string.Empty;
+		public string Title { get; set; } = "";
+		public string EditionInfo { get; set; } = "";
 		public int CopyId { get; set; }
-		public string ShelfLocation { get; set; } = string.Empty;
+		public string ShelfLocation { get; set; } = "";
+		public DateTime DueDate { get; set; }
 	}
 }

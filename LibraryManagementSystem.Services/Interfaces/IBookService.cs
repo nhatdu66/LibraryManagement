@@ -20,5 +20,7 @@ namespace LibraryManagementSystem.Services.Interfaces
 
 
 		Task<IEnumerable<BookWorkDto>> SearchBooksAsync(string keyword, int? authorId, int? categoryId, int? seriesId);
+		Task<IEnumerable<BookEditionDto>> GetEditionsByWorkIdAsync(int workId);
+		Task<IEnumerable<BookCopyDto>> GetAvailableCopiesByEditionIdAsync(int editionId);
 	}
 }

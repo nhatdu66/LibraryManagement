@@ -230,5 +230,41 @@ namespace LibraryManagementSystem.Services
 			_uow.DbContext.BookWorks.Remove(bookWork);
 			await _uow.SaveChangesAsync();
 		}
+
+		public async Task<IEnumerable<BookEditionDto>> GetEditionsByWorkIdAsync(int workId)
+		{
+			var editions = await _uow.DbContext.BookEditions
+				.Include(e => e.Publisher)
+				.Include(e => e.BookCopies)
+				.Where(e => e.WorkId == workId)
+				.ToListAsync();
+
+			return editions.Select(e => new BookEditionDto
+			{
+				EditionId = e.EditionId,
+				ISBN = e.ISBN,
+				PublisherName = e.Publisher.PublisherName,
+				PublishYear = e.PublishYear,
+				Language = e.Language,
+				Format = e.Format,
+				AvailableCopies = e.BookCopies.Count(c => c.CirculationStatus == "Available")
+			});
+		}
+
+		public async Task<IEnumerable<BookCopyDto>> GetAvailableCopiesByEditionIdAsync(int editionId)
+		{
+			var copies = await _uow.DbContext.BookCopies
+				.Where(c => c.EditionId == editionId && c.CirculationStatus == "Available")
+				.ToListAsync();
+
+			return copies.Select(c => new BookCopyDto
+			{
+				CopyId = c.CopyId,
+				Barcode = c.Barcode,
+				CirculationStatus = c.CirculationStatus,
+				PhysicalCondition = c.PhysicalCondition,
+				ShelfLocation = c.ShelfLocation
+			});
+		}
 	}
 }

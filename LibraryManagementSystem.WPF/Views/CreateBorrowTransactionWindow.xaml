@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagementSystem.WPF.Views"
+        xmlns:helpers="clr-namespace:LibraryManagementSystem.WPF.Helpers"
         mc:Ignorable="d"
-        Title="Tạo Giao Dịch Mượn Tại Quầy" Height="650" Width="950"
-        WindowStartupLocation="CenterOwner">
+        Title="Tạo giao dịch mượn mới" Height="680" Width="950"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize">
 
-	<Grid Margin="15">
+	<Grid Margin="12">
 		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
@@ -17,89 +19,126 @@
 		</Grid.RowDefinitions>
 
 		<!-- Tiêu đề -->
-		<TextBlock Grid.Row="0" Text="Tạo giao dịch mượn sách tại quầy" 
-                   FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+		<TextBlock Grid.Row="0" Text="Tạo giao dịch mượn mới" FontSize="18" FontWeight="Bold" Margin="0,0,0,12"/>
 
-		<!-- Phần độc giả -->
-		<GroupBox Grid.Row="0" Header="Độc giả" Margin="0,0,0,10">
-			<StackPanel>
-				<StackPanel Orientation="Horizontal" Margin="0,5">
-					<TextBox Text="{Binding SearchReaderKeyword, UpdateSourceTrigger=PropertyChanged}" 
-                             Width="300" Margin="0,0,10,0"/>
-					<Button Content="Tìm" Width="80" Command="{Binding SearchReaderCommand}"/>
+		<!-- Phần 1: Chọn độc giả -->
+		<GroupBox Grid.Row="1" Header="Độc giả" Margin="0,0,0,12">
+			<StackPanel Orientation="Horizontal" Margin="8">
+				<TextBox Width="280" Text="{Binding SearchReaderKeyword, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,8,0" Padding="6"/>
+				<Button Content="Tìm độc giả" Width="110" Command="{Binding SearchReaderCmd}" 
+                        Margin="0,0,12,0"/>
+				<ComboBox Width="320" ItemsSource="{Binding ReaderResults}" 
+                          DisplayMemberPath="FullNameAndCard" 
+                          SelectedItem="{Binding SelectedReader}"/>
+			</StackPanel>
+		</GroupBox>
+
+		<!-- Phần 2: Chọn sách (3 tầng) -->
+		<GroupBox Grid.Row="2" Header="Chọn sách để mượn">
+			<Grid Margin="8">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<!-- Thanh tìm kiếm 3 tầng -->
+				<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+					<!-- Work -->
+					<StackPanel Margin="0,0,16,0">
+						<TextBlock Text="Tác phẩm (Work)" FontWeight="SemiBold" Margin="0,0,0,4"/>
+						<TextBox Width="240" Text="{Binding SearchWorkKeyword, UpdateSourceTrigger=PropertyChanged}" 
+                                 Padding="6"/>
+						<Button Content="Tìm" Width="80" HorizontalAlignment="Right" Margin="0,4,0,0" 
+                                Command="{Binding SearchWorkCmd}"/>
+					</StackPanel>
+
+					<!-- Edition -->
+					<StackPanel Margin="0,0,16,0">
+						<TextBlock Text="Phiên bản (Edition)" FontWeight="SemiBold" Margin="0,0,0,4"/>
+						<ComboBox Width="260" ItemsSource="{Binding EditionResults}" 
+                                  IsEnabled="{Binding SelectedWork, Converter={StaticResource NotNullToBoolean}}"
+                                  SelectedItem="{Binding SelectedEdition}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock>
+                                        <Run Text="{Binding PublisherName}"/>
+                                        <Run Text=" - "/>
+                                        <Run Text="{Binding PublishYear}"/>
+                                        <Run Text=" (ISBN: "/>
+                                        <Run Text="{Binding ISBN}"/>
+                                        <Run Text=")"/>
+									</TextBlock>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</StackPanel>
+
+					<!-- Copy -->
+					<StackPanel>
+						<TextBlock Text="Bản sao khả dụng (Copy)" FontWeight="SemiBold" Margin="0,0,0,4"/>
+						<ComboBox Width="260" ItemsSource="{Binding CopyResults}" 
+                                  IsEnabled="{Binding SelectedEdition, Converter={StaticResource NotNullToBoolean}}"
+                                  SelectedItem="{Binding SelectedCopy}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock>
+                                        <Run Text="Copy #"/>
+                                        <Run Text="{Binding CopyId}"/>
+                                        <Run Text=" - "/>
+                                        <Run Text="{Binding Barcode}"/>
+                                        <Run Text=" (Kệ: "/>
+                                        <Run Text="{Binding ShelfLocation}"/>
+                                        <Run Text=")"/>
+									</TextBlock>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</StackPanel>
 				</StackPanel>
 
-				<ListView ItemsSource="{Binding ReaderSearchResults}" 
-                          SelectedItem="{Binding SelectedReader}"
-                          Height="120" Margin="0,10,0,0">
-					<ListView.View>
-						<GridView>
-							<GridViewColumn Header="Mã thẻ" DisplayMemberBinding="{Binding CardNumber}" Width="120"/>
-							<GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding FullName}" Width="200"/>
-							<GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="200"/>
-						</GridView>
-					</ListView.View>
-				</ListView>
+				<!-- Nút thêm + danh sách đã chọn -->
+				<StackPanel Grid.Row="1" Margin="0,12,0,0">
+					<Button Content="Thêm sách vào danh sách mượn" Width="240" Height="36" 
+                            HorizontalAlignment="Left" Command="{Binding AddCopyCmd}"
+                            IsEnabled="{Binding SelectedCopy, Converter={StaticResource NotNullToBoolean}}"
+                            Margin="0,0,0,12"/>
 
-				<TextBlock Text="{Binding SelectedReader.FullName, StringFormat='Độc giả: {0}'}" 
-                           Margin="0,10,0,0" FontWeight="SemiBold"/>
-			</StackPanel>
-		</GroupBox>
-
-		<!-- Phần sách -->
-		<GroupBox Grid.Row="1" Header="Sách" Margin="0,0,0,10">
-			<StackPanel>
-				<StackPanel Orientation="Horizontal" Margin="0,5">
-					<TextBox Text="{Binding SearchBookKeyword, UpdateSourceTrigger=PropertyChanged}" 
-                             Width="350" Margin="0,0,10,0"/>
-					<Button Content="Tìm sách" Width="100" Command="{Binding SearchBookCommand}"/>
+					<DataGrid ItemsSource="{Binding BorrowDetails}" AutoGenerateColumns="False" 
+                              CanUserAddRows="False" CanUserDeleteRows="True" Height="180">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Tên sách" Binding="{Binding Title}" Width="*" IsReadOnly="True"/>
+							<DataGridTextColumn Header="Phiên bản" Binding="{Binding EditionInfo}" Width="180" IsReadOnly="True"/>
+							<DataGridTextColumn Header="Copy ID" Binding="{Binding CopyId}" Width="90" IsReadOnly="True"/>
+							<DataGridTextColumn Header="Kệ" Binding="{Binding ShelfLocation}" Width="100" IsReadOnly="True"/>
+							<DataGridTextColumn Header="Hạn trả" Binding="{Binding DueDate, StringFormat=dd/MM/yyyy}" Width="110" IsReadOnly="True"/>
+						</DataGrid.Columns>
+					</DataGrid>
 				</StackPanel>
-
-				<ListView ItemsSource="{Binding BookSearchResults}" 
-                          SelectedItem="{Binding SelectedBookWork}"
-                          Height="140" Margin="0,10,0,0">
-					<ListView.View>
-						<GridView>
-							<GridViewColumn Header="Tên sách" DisplayMemberBinding="{Binding Title}" Width="300"/>
-							<GridViewColumn Header="Tác giả" DisplayMemberBinding="{Binding AuthorsString}" Width="180"/>
-							<GridViewColumn Header="Còn lại" DisplayMemberBinding="{Binding AvailableCopies}" Width="80"/>
-						</GridView>
-					</ListView.View>
-				</ListView>
-
-				<Button Content="Thêm sách" Width="120" Margin="0,10,0,0" 
-                        HorizontalAlignment="Left" Command="{Binding AddBookCommand}"/>
-			</StackPanel>
+			</Grid>
 		</GroupBox>
 
-		<!-- Danh sách đã chọn -->
-		<GroupBox Grid.Row="2" Header="Danh sách mượn" Margin="0,0,0,10">
-			<DataGrid ItemsSource="{Binding BorrowDetails}" AutoGenerateColumns="False" 
-                      CanUserAddRows="False" Height="120">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Tên sách" Binding="{Binding Title}" Width="*"/>
-					<DataGridTextColumn Header="Thông tin edition" Binding="{Binding EditionInfo}" Width="150"/>
-					<DataGridTextColumn Header="Vị trí kệ" Binding="{Binding ShelfLocation}" Width="100"/>
-				</DataGrid.Columns>
-			</DataGrid>
-		</GroupBox>
-
-		<!-- Thông tin chung + nút -->
-		<StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-			<StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-				<TextBlock Text="Ngày mượn:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-				<DatePicker SelectedDate="{Binding BorrowDate}" Width="140" Margin="0,0,15,0"/>
-
-				<TextBlock Text="Số ngày mượn:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-				<TextBox Text="{Binding BorrowDurationDays}" Width="60"/>
+		<!-- Phần 3: Thông tin chung + nút lưu -->
+		<StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,12,0,0">
+			<StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+				<TextBlock Text="Ngày mượn:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+				<DatePicker SelectedDate="{Binding BorrowDate}" Width="140" IsEnabled="False"/>
 			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Thời hạn (ngày):" VerticalAlignment="Center" Margin="0,0,8,0"/>
+				<TextBox Text="{Binding DurationDays}" Width="60" Padding="4"/>
+			</StackPanel>
+		</StackPanel>
 
-			<Button Content="Lưu giao dịch" Width="140" Command="{Binding SaveTransactionCommand}"/>
-			<Button Content="Hủy" Width="100" Margin="10,0,0,0" Click="CancelButton_Click"/>
+		<!-- Nút hành động -->
+		<StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+			<Button Content="Lưu giao dịch" Width="140" Height="38" Margin="0,0,12,0" 
+                    Command="{Binding SaveTransactionCmd}" FontWeight="SemiBold"/>
+			<Button Content="Hủy" Width="100" Height="38" Click="CancelButton_Click"/>
 		</StackPanel>
 
 		<!-- Trạng thái -->
-		<TextBlock Grid.Row="3" Text="{Binding StatusMessage}" 
-                   VerticalAlignment="Bottom" Margin="0,10,0,0" Foreground="DarkBlue"/>
+		<TextBlock Grid.Row="4" Text="{Binding StatusMessage}" Foreground="DarkBlue" 
+                   TextWrapping="Wrap" Margin="0,16,0,0" VerticalAlignment="Bottom"/>
 	</Grid>
 </Window>

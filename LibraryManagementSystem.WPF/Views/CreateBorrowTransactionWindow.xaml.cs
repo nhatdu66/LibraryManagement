@@ -14,5 +14,6 @@ namespace LibraryManagementSystem.WPF.Views
 			DialogResult = false;
 			Close();
 		}
+
 	}
 }

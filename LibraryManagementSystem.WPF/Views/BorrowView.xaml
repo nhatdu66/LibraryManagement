@@ -61,20 +61,24 @@
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Mã GD" 
                                     Binding="{Binding BorrowId}" 
-                                    Width="80" 
+                                    Width="50" 
                                     ElementStyle="{StaticResource CenterText}"/>
 
 				<DataGridTextColumn Header="Độc giả" 
                                     Binding="{Binding ReaderFullName}" 
-                                    Width="180"/>
+                                    Width="150"/>
 
 				<DataGridTextColumn Header="Nhân viên xử lý" 
                                     Binding="{Binding EmployeeFullName}" 
-                                    Width="160"/>
+                                    Width="150"/>
 
 				<DataGridTextColumn Header="Ngày mượn" 
                                     Binding="{Binding BorrowDate, StringFormat=dd/MM/yyyy HH:mm}" 
                                     Width="140"/>
+
+				<DataGridTextColumn Header="Hạn trả sách" 
+                            Binding="{Binding DueDatesString}" 
+                            Width="40" />
 
 				<DataGridTextColumn Header="Trạng thái mượn" 
                                     Binding="{Binding Status}" 

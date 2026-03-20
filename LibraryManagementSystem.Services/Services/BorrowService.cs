@@ -382,5 +382,33 @@ namespace LibraryManagementSystem.Services
 
 			await _uow.SaveChangesAsync();
 		}
+		public async Task<BorrowTransactionDto> GetBorrowTransactionByIdAsync(int borrowId)
+		{
+			var transaction = await _uow.BorrowTransactionRepository.GetTransactionWithDetailsAsync(borrowId);
+			if (transaction == null) throw new KeyNotFoundException("Không tìm thấy giao dịch");
+			return GetTransactionDto(transaction);
+		}
+
+		public async Task UpdateBorrowDetailsAsync(int borrowId, List<UpdateBorrowDetailDto> updatedDetails)
+		{
+			var transaction = await _uow.DbContext.BorrowTransactions
+				.Include(t => t.Details)
+				.FirstOrDefaultAsync(t => t.BorrowId == borrowId);
+
+			if (transaction == null) throw new KeyNotFoundException("Không tìm thấy giao dịch");
+
+			foreach (var update in updatedDetails)
+			{
+				var detail = transaction.Details.FirstOrDefault(d => d.BorrowDetailId == update.BorrowDetailId);
+				if (detail != null)
+				{
+					detail.DueDate = update.DueDate;
+					if (!string.IsNullOrEmpty(update.ItemStatus))
+						detail.ItemStatus = update.ItemStatus;
+				}
+			}
+
+			await _uow.SaveChangesAsync();
+		}
 	}
 }

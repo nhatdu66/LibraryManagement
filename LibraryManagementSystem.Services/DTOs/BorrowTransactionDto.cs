@@ -59,6 +59,9 @@ namespace LibraryManagementSystem.Services.DTOs
 		public string DetailsString => Details?.Any() == true
 			? string.Join("; ", Details.Select(d => $"{d.Title} (Copy #{d.CopyId})"))
 			: "Không có chi tiết";
+		public string DueDatesString => Details?.Any() == true
+		? string.Join("; ", Details.Select(d => d.DueDate.ToString("dd/MM/yyyy")))
+		: "N/A";
 	}
 
 	/// <summary>

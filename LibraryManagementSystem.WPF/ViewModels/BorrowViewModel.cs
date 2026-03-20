@@ -121,20 +121,17 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				return;
 			}
 
-			if (SelectedTransaction.Status == "FullyReturned")
-			{
-				StatusMessage = "Giao dịch đã trả hết, không thể cập nhật.";
-				return;
-			}
-
 			var window = new UpdateBorrowTransactionWindow();
 			var vm = App.ServiceProvider.GetRequiredService<UpdateBorrowTransactionViewModel>();
 			vm.BorrowId = SelectedTransaction.BorrowId;
 			window.DataContext = vm;
 
+			// Load dữ liệu async
+			await vm.LoadAsync();
+
 			window.ShowDialog();
 
-			// Refresh danh sách sau khi đóng
+			// Refresh danh sách
 			await LoadTransactionsAsync();
 		}
 

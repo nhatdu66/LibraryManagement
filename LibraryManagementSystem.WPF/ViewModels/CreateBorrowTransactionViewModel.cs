@@ -165,21 +165,31 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 			try
 			{
-				// Lấy employeeId từ session/login (tạm hardcode)
-				int employeeId = 3; // thay bằng CurrentEmployeeId sau
+				int employeeId = 3; // TODO: sau này thay bằng _authService.CurrentEmployeeId
 
 				var copyIds = BorrowDetails.Select(d => d.CopyId).ToList();
 
-				// Gọi service (sẽ implement tiếp nếu bạn muốn)
-				// var transaction = await _borrowService.CreateDirectBorrowTransactionAsync(
-				//     SelectedReader.ReaderId, employeeId, copyIds, BorrowDate, DurationDays);
+				var transaction = await _borrowService.CreateDirectBorrowTransactionAsync(
+					SelectedReader.ReaderId,
+					employeeId,
+					copyIds,
+					BorrowDate,
+					DurationDays);
 
-				MessageBox.Show("Tạo giao dịch mượn thành công!", "Thành công");
-				Application.Current.Windows.OfType<CreateBorrowTransactionWindow>().FirstOrDefault()?.Close();
+				StatusMessage = $"Tạo giao dịch #{transaction.BorrowId} thành công!";
+
+				MessageBox.Show($"Tạo giao dịch mượn thành công!\nMã GD: #{transaction.BorrowId}",
+								"Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+				// Đóng window
+				Application.Current.Windows.OfType<CreateBorrowTransactionWindow>()
+					.FirstOrDefault()?.Close();
 			}
 			catch (Exception ex)
 			{
 				StatusMessage = $"Lỗi: {ex.Message}";
+				MessageBox.Show($"Lỗi khi tạo giao dịch:\n{ex.Message}", "Lỗi",
+								MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}

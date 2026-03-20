@@ -18,5 +18,12 @@ namespace LibraryManagementSystem.Services.Interfaces
 
 		// Thêm method này để BorrowViewModel gọi được
 		Task<IEnumerable<BorrowTransactionDto>> GetAllBorrowTransactionsAsync();
+		// Thêm vào cuối interface IBorrowService.cs
+		Task<BorrowTransactionDto> CreateDirectBorrowTransactionAsync(
+			int readerId,
+			int employeeId,
+			List<int> copyIds,
+			DateTime borrowDate,
+			int durationDays);
 	}
 }

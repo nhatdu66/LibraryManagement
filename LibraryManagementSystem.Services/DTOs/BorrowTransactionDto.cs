@@ -55,6 +55,10 @@ namespace LibraryManagementSystem.Services.DTOs
 		/// Danh sách chi tiết giao dịch (bản sao cụ thể, ngày đến hạn, ngày trả, phạt)
 		/// </summary>
 		public List<BorrowTransactionDetailDto> Details { get; set; } = new List<BorrowTransactionDetailDto>();
+		// Thêm vào class BorrowTransactionDto
+		public string DetailsString => Details?.Any() == true
+			? string.Join("; ", Details.Select(d => $"{d.Title} (Copy #{d.CopyId})"))
+			: "Không có chi tiết";
 	}
 
 	/// <summary>

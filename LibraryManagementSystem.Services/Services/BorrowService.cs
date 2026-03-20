@@ -191,6 +191,65 @@ namespace LibraryManagementSystem.Services
 			return GetTransactionDto(loadedTransaction);
 		}
 
+		public async Task<BorrowTransactionDto> CreateDirectBorrowTransactionAsync(
+	int readerId,
+	int employeeId,
+	List<int> copyIds,
+	DateTime borrowDate,
+	int durationDays)
+		{
+			// Validate
+			var reader = await _uow.ReaderRepository.GetByIdAsync(readerId);
+			if (reader == null) throw new KeyNotFoundException("Không tìm thấy độc giả");
+
+			var employee = await _uow.EmployeeRepository.GetByIdAsync(employeeId);
+			if (employee == null) throw new KeyNotFoundException("Không tìm thấy nhân viên");
+
+			if (copyIds == null || !copyIds.Any())
+				throw new ArgumentException("Phải chọn ít nhất một bản sao");
+
+			var transaction = new BorrowTransaction
+			{
+				ReaderId = readerId,
+				EmployeeId = employeeId,
+				RequestId = null,                    // direct borrow
+				BorrowDate = borrowDate,
+				Status = "Borrowed"
+			};
+
+			await _uow.BorrowTransactionRepository.AddAsync(transaction);
+			await _uow.SaveChangesAsync();
+
+			foreach (var copyId in copyIds)
+			{
+				var copy = await _uow.BookCopyRepository.GetByIdAsync(copyId);
+				if (copy == null ||
+					(copy.PhysicalCondition != "Good" && copy.PhysicalCondition != "Excellent"))
+				{
+					throw new InvalidOperationException($"Bản sao ID {copyId} không khả dụng");
+				}
+
+				var detail = new BorrowTransactionDetail
+				{
+					BorrowId = transaction.BorrowId,
+					CopyId = copyId,
+					DueDate = borrowDate.AddDays(durationDays),
+					ItemStatus = "Borrowed"
+				};
+
+				await _uow.DbContext.BorrowTransactionDetails.AddAsync(detail);
+
+				// Cập nhật trạng thái bản sao (giống logic cũ của request-based)
+				copy.PhysicalCondition = "Borrowed";
+				await _uow.BookCopyRepository.UpdateAsync(copy);
+			}
+
+			await _uow.SaveChangesAsync();
+
+			// Load full data để trả DTO
+			var loaded = await _uow.BorrowTransactionRepository.GetTransactionWithDetailsAsync(transaction.BorrowId);
+			return GetTransactionDto(loaded);
+		}
 		public async Task ReturnBookAsync(int borrowDetailId, ReturnBookDto dto)
 		{
 			var detail = await _uow.DbContext.BorrowTransactionDetails

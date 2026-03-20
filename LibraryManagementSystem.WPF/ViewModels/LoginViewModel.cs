@@ -128,6 +128,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 				if (result.Success)
 				{
+					_authService.SetCurrentUser(result); 
+					
 					LoginSuccessFullName = result.FullName ?? "Unknown";
 					LoginSuccessAccountType = result.AccountType ?? "Unknown";
 					LoginSuccessUserId = result.UserId;

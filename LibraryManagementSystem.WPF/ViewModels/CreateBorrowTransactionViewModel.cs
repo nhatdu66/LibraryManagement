@@ -16,6 +16,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		private readonly IBorrowService _borrowService;
 		private readonly IBookService _bookService;
 		private readonly IReaderService _readerService;  // giả sử bạn có interface này
+		private readonly IAuthService _authService;
 
 		// Reader
 		public string SearchReaderKeyword { get; set; } = "";
@@ -56,11 +57,13 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public CreateBorrowTransactionViewModel(
 			IBorrowService borrowService,
 			IBookService bookService,
-			IReaderService readerService)
+			IReaderService readerService,
+			IAuthService authService)
 		{
 			_borrowService = borrowService;
 			_bookService = bookService;
 			_readerService = readerService;
+			_authService = authService ?? throw new ArgumentNullException(nameof(authService));
 
 			SearchReaderCmd = new RelayCommand(async _ => await SearchReadersAsync());
 			SearchWorkCmd = new RelayCommand(async _ => await SearchWorksAsync());
@@ -68,6 +71,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			SearchCopyCmd = new RelayCommand(async _ => await SearchCopiesAsync());
 			AddCopyCmd = new RelayCommand(_ => AddSelectedCopy());
 			SaveTransactionCmd = new RelayCommand(async _ => await SaveTransactionAsync());
+			
 		}
 
 		private async Task SearchReadersAsync()
@@ -157,6 +161,13 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 		private async Task SaveTransactionAsync()
 		{
+			string debugInfo = $"CurrentUserId: {_authService.CurrentUserId}\n" +
+						  $"CurrentAccountType: '{_authService.CurrentAccountType}'\n" +
+						  $"CurrentFullName: '{_authService.CurrentFullName}'\n" +
+						  $"IsAuthenticated: {_authService.IsAuthenticated}";
+
+			MessageBox.Show(debugInfo, "Debug Auth State", MessageBoxButton.OK, MessageBoxImage.Information); 
+			
 			if (SelectedReader == null || BorrowDetails.Count == 0)
 			{
 				StatusMessage = "Chưa chọn độc giả hoặc chưa thêm sách!";
@@ -165,7 +176,27 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 			try
 			{
-				int employeeId = 3; // TODO: sau này thay bằng _authService.CurrentEmployeeId
+				if (!_authService.IsAuthenticated || _authService.CurrentUserId == null)
+				{
+					MessageBox.Show("Chưa đăng nhập! Vui lòng đăng nhập trước khi tạo giao dịch.",
+									"Lỗi xác thực", MessageBoxButton.OK, MessageBoxImage.Error);
+					return;
+				}
+
+				// Cho phép tất cả nhân viên (Employee / Administrator / Librarian / Staff)
+				bool isEmployee = _authService.CurrentAccountType == "Employee" ||
+								  (_authService.CurrentRoleName?.Contains("Admin", StringComparison.OrdinalIgnoreCase) == true) ||
+								  (_authService.CurrentRoleName?.Contains("Librarian", StringComparison.OrdinalIgnoreCase) == true) ||
+								  (_authService.CurrentRoleName?.Contains("Staff", StringComparison.OrdinalIgnoreCase) == true);
+
+				if (!isEmployee)
+				{
+					MessageBox.Show($"Tài khoản của bạn ({_authService.CurrentRoleName}) không có quyền tạo giao dịch mượn.",
+									"Không có quyền", MessageBoxButton.OK, MessageBoxImage.Warning);
+					return;
+				}
+
+				int employeeId = _authService.CurrentUserId.Value;
 
 				var copyIds = BorrowDetails.Select(d => d.CopyId).ToList();
 

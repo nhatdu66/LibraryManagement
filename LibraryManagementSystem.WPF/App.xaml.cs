@@ -47,7 +47,8 @@ namespace LibraryManagementSystem.WPF
 			services.AddTransient<IBookCopyRepository, BookCopyRepository>();
 
 			// Services
-			services.AddTransient<IAuthService, AuthService>();
+			//services.AddTransient<IAuthService, AuthService>();
+			services.AddSingleton<IAuthService, AuthService>();
 			services.AddTransient<IBookService, BookService>();
 			services.AddTransient<IBorrowService, BorrowService>();
 			services.AddTransient<IEmployeeAccountService, EmployeeAccountService>();

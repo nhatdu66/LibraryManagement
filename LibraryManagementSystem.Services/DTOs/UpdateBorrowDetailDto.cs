@@ -12,6 +12,13 @@ namespace LibraryManagementSystem.Services.DTOs
 	{
 		public int BorrowDetailId { get; set; }
 		public DateTime DueDate { get; set; }
-		public string? ItemStatus { get; set; }   // cho phép đổi trạng thái từng cuốn
+		// Thêm để cập nhật trạng thái mượn của bản sao
+		public string? CirculationStatus { get; set; }
+
+		// Optional: nếu muốn cập nhật luôn tình trạng vật lý
+		public string? PhysicalCondition { get; set; }
+
+		// Giữ nguyên nếu bạn vẫn dùng ItemStatus cho ghi nhận trả
+		public string? ItemStatus { get; set; }
 	}
 }

@@ -77,5 +77,7 @@ namespace LibraryManagementSystem.Services.DTOs
 		public string ItemStatus { get; set; } = string.Empty;
 		public decimal FineAmount { get; set; }
 		public string? ConditionNote { get; set; }
+		public string? CirculationStatus { get; set; }     // ← thêm
+		public string? PhysicalCondition { get; set; }     // ← thêm
 	}
 }

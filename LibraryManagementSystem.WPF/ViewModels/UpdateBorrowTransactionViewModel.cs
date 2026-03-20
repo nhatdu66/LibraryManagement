@@ -39,8 +39,26 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		{
 			Transaction = await _borrowService.GetBorrowTransactionByIdAsync(BorrowId);
 			EditableDetails.Clear();
+
 			foreach (var d in Transaction.Details)
-				EditableDetails.Add(d);   // bind trực tiếp để edit
+			{
+				var detail = new BorrowTransactionDetailDto
+				{
+					BorrowDetailId = d.BorrowDetailId,
+					CopyId = d.CopyId,
+					Title = d.Title,
+					DueDate = d.DueDate,
+					ReturnDate = d.ReturnDate,
+					ItemStatus = d.ItemStatus ?? "Good",
+					FineAmount = d.FineAmount,
+					ConditionNote = d.ConditionNote,
+
+					// Lấy trực tiếp từ DTO (đã map từ service)
+					CirculationStatus = d.CirculationStatus ?? "Borrowed",
+					PhysicalCondition = d.PhysicalCondition ?? "Good"
+				};
+				EditableDetails.Add(detail);
+			}
 		}
 
 		private async Task SaveAsync()
@@ -51,6 +69,8 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				{
 					BorrowDetailId = d.BorrowDetailId,
 					DueDate = d.DueDate,
+					CirculationStatus = d.CirculationStatus,     // ← gửi về service
+					PhysicalCondition = d.PhysicalCondition,     // ← gửi về service
 					ItemStatus = d.ItemStatus
 				}).ToList();
 

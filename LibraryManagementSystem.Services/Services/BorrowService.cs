@@ -393,22 +393,49 @@ namespace LibraryManagementSystem.Services
 		{
 			var transaction = await _uow.DbContext.BorrowTransactions
 				.Include(t => t.Details)
+				.ThenInclude(d => d.BookCopy)  // ← Quan trọng: Include BookCopy để update
 				.FirstOrDefaultAsync(t => t.BorrowId == borrowId);
 
-			if (transaction == null) throw new KeyNotFoundException("Không tìm thấy giao dịch");
+			if (transaction == null)
+				throw new KeyNotFoundException("Không tìm thấy giao dịch");
 
 			foreach (var update in updatedDetails)
 			{
 				var detail = transaction.Details.FirstOrDefault(d => d.BorrowDetailId == update.BorrowDetailId);
-				if (detail != null)
+				if (detail == null) continue;
+
+				// Cập nhật DueDate trong chi tiết mượn
+				detail.DueDate = update.DueDate;
+
+				// Cập nhật ItemStatus nếu có (cho giao dịch)
+				if (!string.IsNullOrEmpty(update.ItemStatus))
+					detail.ItemStatus = update.ItemStatus;
+
+				// Cập nhật CirculationStatus vào BookCopy (trạng thái mượn toàn cục)
+				if (detail.BookCopy != null && !string.IsNullOrEmpty(update.CirculationStatus))
 				{
-					detail.DueDate = update.DueDate;
-					if (!string.IsNullOrEmpty(update.ItemStatus))
-						detail.ItemStatus = update.ItemStatus;
+					// Kiểm tra hợp lệ (tùy business rule của bạn)
+					if (IsValidCirculationStatus(update.CirculationStatus))
+					{
+						detail.BookCopy.CirculationStatus = update.CirculationStatus;
+					}
+				}
+
+				// Cập nhật PhysicalCondition nếu có
+				if (detail.BookCopy != null && !string.IsNullOrEmpty(update.PhysicalCondition))
+				{
+					detail.BookCopy.PhysicalCondition = update.PhysicalCondition;
 				}
 			}
 
 			await _uow.SaveChangesAsync();
+		}
+
+		// Helper method (thêm vào class BorrowService)
+		private bool IsValidCirculationStatus(string status)
+		{
+			var valid = new[] { "Available", "Borrowed", "On Hold", "In Repair", "Withdrawn", "Lost", "Damaged" };
+			return valid.Contains(status, StringComparer.OrdinalIgnoreCase);
 		}
 	}
 }

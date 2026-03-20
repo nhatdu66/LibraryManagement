@@ -168,6 +168,21 @@
 					<DataGridTextColumn Header="Copy ID" Binding="{Binding CopyId}" Width="90"/>
 					<DataGridTextColumn Header="Kệ" Binding="{Binding ShelfLocation}" Width="100"/>
 					<DataGridTextColumn Header="Hạn trả" Binding="{Binding DueDate, StringFormat=dd/MM/yyyy}" Width="110"/>
+					<DataGridTemplateColumn Width="40">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Button Content="✕" 
+                    Command="{Binding DataContext.RemoveDetailCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                    CommandParameter="{Binding}"
+                    Background="Transparent" 
+                    BorderBrush="Transparent"
+                    Foreground="Red" 
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    ToolTip="Xóa cuốn sách này khỏi danh sách"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
 				</DataGrid.Columns>
 			</DataGrid>
 

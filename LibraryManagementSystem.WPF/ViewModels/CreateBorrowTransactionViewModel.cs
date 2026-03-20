@@ -53,7 +53,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public ICommand SearchCopyCmd { get; }
 		public ICommand AddCopyCmd { get; }
 		public ICommand SaveTransactionCmd { get; }
-
+		public ICommand RemoveDetailCommand { get; }
 		public CreateBorrowTransactionViewModel(
 			IBorrowService borrowService,
 			IBookService bookService,
@@ -70,8 +70,10 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			SearchEditionCmd = new RelayCommand(async _ => await SearchEditionsAsync());
 			SearchCopyCmd = new RelayCommand(async _ => await SearchCopiesAsync());
 			AddCopyCmd = new RelayCommand(_ => AddSelectedCopy());
+			RemoveDetailCommand = new RelayCommand<BorrowDetailTemp>(RemoveDetail);
+
 			SaveTransactionCmd = new RelayCommand(async _ => await SaveTransactionAsync());
-			
+
 		}
 
 		private async Task SearchReadersAsync()
@@ -158,7 +160,14 @@ namespace LibraryManagementSystem.WPF.ViewModels
 			StatusMessage = $"Đã thêm Copy #{SelectedCopy.CopyId} vào danh sách mượn.";
 			SelectedCopy = null; // reset sau khi thêm
 		}
-
+		private void RemoveDetail(BorrowDetailTemp? detail)
+		{
+			if (detail != null && BorrowDetails.Contains(detail))
+			{
+				BorrowDetails.Remove(detail);
+				StatusMessage = $"Đã xóa khỏi danh sách: {detail.Title}";
+			}
+		}
 		private async Task SaveTransactionAsync()
 		{
 			string debugInfo = $"CurrentUserId: {_authService.CurrentUserId}\n" +
@@ -233,4 +242,6 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public string ShelfLocation { get; set; } = "";
 		public DateTime DueDate { get; set; }
 	}
+
+
 }

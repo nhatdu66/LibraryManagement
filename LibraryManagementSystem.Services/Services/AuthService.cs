@@ -11,10 +11,29 @@ namespace LibraryManagementSystem.Services
 	public class AuthService : IAuthService
 	{
 		private readonly IUnitOfWork _uow;
-
+		private LoginResponseDto? _currentUser;
 		public AuthService(IUnitOfWork uow)
 		{
 			_uow = uow ?? throw new ArgumentNullException(nameof(uow));
+			//_uow = uow;
+		}
+		public bool IsAuthenticated => _currentUser != null;
+		public int? CurrentUserId => _currentUser?.UserId;
+		public string? CurrentFullName => _currentUser?.FullName;
+		public string? CurrentRoleName => _currentUser?.RoleName;
+		public string? CurrentAccountType => _currentUser?.AccountType;
+
+		public void SetCurrentUser(LoginResponseDto response)
+		{
+			if (response == null || !response.Success)
+				throw new ArgumentException("Response không hợp lệ");
+
+			_currentUser = response;
+		}
+
+		public void Logout()
+		{
+			_currentUser = null;
 		}
 
 		public async Task<LoginResponseDto> LoginAsync(LoginDto dto)

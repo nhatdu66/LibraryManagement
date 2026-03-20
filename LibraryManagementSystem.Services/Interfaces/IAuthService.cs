@@ -25,6 +25,13 @@ namespace LibraryManagementSystem.Services.Interfaces
 		/// Admin tạo tài khoản Employee (Staff/Librarian/Admin)
 		/// </summary>
 		Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeDto dto);
-      
-    }
+		bool IsAuthenticated { get; }
+		int? CurrentUserId { get; }               // EmployeeId hoặc ReaderId tùy loại
+		string? CurrentFullName { get; }
+		string? CurrentRoleName { get; }
+		string? CurrentAccountType { get; }       // "Employee" hoặc "Reader"
+
+		void SetCurrentUser(LoginResponseDto response);
+		void Logout();
+	}
 }

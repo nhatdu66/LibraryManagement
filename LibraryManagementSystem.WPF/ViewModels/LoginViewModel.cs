@@ -77,6 +77,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
         public LoginViewModel(IAuthService authService)
 		{
 			_authService = authService;
+
 			LoginCommand = new RelayCommand(ExecuteLogin);
             RegisterCommand = new RelayCommand(ExecuteRegister);
         }

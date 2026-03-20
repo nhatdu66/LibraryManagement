@@ -33,7 +33,7 @@
 				<DataGridTemplateColumn Header="Hạn trả" Width="140">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<DatePicker SelectedDate="{Binding DueDate, Mode=TwoWay}" Width="130"/>
+							<DatePicker SelectedDate="{Binding DueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="130"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
@@ -42,7 +42,7 @@
 				<DataGridTemplateColumn Header="Trạng thái mượn" Width="160">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<ComboBox SelectedItem="{Binding CirculationStatus, Mode=TwoWay}" Width="150">
+							<ComboBox SelectedItem="{Binding CirculationStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150">
 								<sys:String>Available</sys:String>
 								<sys:String>Borrowed</sys:String>
 								<sys:String>On Hold</sys:String>
@@ -59,8 +59,7 @@
 				<DataGridTemplateColumn Header="Tình trạng vật lý" Width="160">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<ComboBox SelectedItem="{Binding PhysicalCondition, Mode=TwoWay}" Width="150">
-								<sys:String>Good</sys:String>
+							<ComboBox SelectedItem="{Binding PhysicalCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150">
 								<sys:String>Fair</sys:String>
 								<sys:String>Poor</sys:String>
 								<sys:String>Damaged</sys:String>

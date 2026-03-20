@@ -316,7 +316,11 @@ namespace LibraryManagementSystem.Services
 				ReturnDate = d.ReturnDate,
 				ItemStatus = d.ItemStatus,
 				FineAmount = d.FineAmount,
-				ConditionNote = d.ConditionNote
+				ConditionNote = d.ConditionNote,
+
+				// THÊM 2 DÒNG DƯỚI ĐÂY ĐỂ LẤY DỮ LIỆU TỪ DATABASE LÊN UI
+				CirculationStatus = d.BookCopy?.CirculationStatus,
+				PhysicalCondition = d.BookCopy?.PhysicalCondition
 			}).ToList();
 
 			return new BorrowTransactionDto
@@ -393,39 +397,46 @@ namespace LibraryManagementSystem.Services
 		{
 			var transaction = await _uow.DbContext.BorrowTransactions
 				.Include(t => t.Details)
-				.ThenInclude(d => d.BookCopy)  // Phải include để update BookCopy
+				.ThenInclude(d => d.BookCopy)
 				.FirstOrDefaultAsync(t => t.BorrowId == borrowId);
 
 			if (transaction == null)
 				throw new KeyNotFoundException("Không tìm thấy giao dịch");
+
+			bool hasChanges = false;
 
 			foreach (var update in updatedDetails)
 			{
 				var detail = transaction.Details.FirstOrDefault(d => d.BorrowDetailId == update.BorrowDetailId);
 				if (detail == null) continue;
 
-				// Chỉ cập nhật DueDate trong chi tiết mượn
+				// Cập nhật chi tiết mượn
 				detail.DueDate = update.DueDate;
+				_uow.DbContext.BorrowTransactionDetails.Update(detail); // Ép EF theo dõi thay đổi
 
-				// Cập nhật CirculationStatus vào BookCopy (trạng thái mượn toàn cục)
-				if (detail.BookCopy != null && !string.IsNullOrEmpty(update.CirculationStatus))
+				// Cập nhật BookCopy
+				if (detail.BookCopy != null)
 				{
-					if (IsValidCirculationStatus(update.CirculationStatus))
+					if (!string.IsNullOrEmpty(update.CirculationStatus) && IsValidCirculationStatus(update.CirculationStatus))
 					{
 						detail.BookCopy.CirculationStatus = update.CirculationStatus;
 					}
+
+					if (!string.IsNullOrEmpty(update.PhysicalCondition))
+					{
+						detail.BookCopy.PhysicalCondition = update.PhysicalCondition;
+					}
+
+					_uow.DbContext.BookCopies.Update(detail.BookCopy); // Ép EF theo dõi BookCopy
 				}
 
-				// Cập nhật PhysicalCondition vào BookCopy
-				if (detail.BookCopy != null && !string.IsNullOrEmpty(update.PhysicalCondition))
-				{
-					detail.BookCopy.PhysicalCondition = update.PhysicalCondition;
-				}
-
-				
+				hasChanges = true;
 			}
 
-			await _uow.SaveChangesAsync();
+			if (hasChanges)
+			{
+				await _uow.SaveChangesAsync();
+			}
 		}
 
 		// Helper method (thêm vào class BorrowService)

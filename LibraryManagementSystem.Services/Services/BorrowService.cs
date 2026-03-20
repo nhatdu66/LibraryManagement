@@ -223,11 +223,9 @@ namespace LibraryManagementSystem.Services
 			foreach (var copyId in copyIds)
 			{
 				var copy = await _uow.BookCopyRepository.GetByIdAsync(copyId);
-				if (copy == null ||
-					(copy.PhysicalCondition != "Good" && copy.PhysicalCondition != "Excellent"))
-				{
-					throw new InvalidOperationException($"Bản sao ID {copyId} không khả dụng");
-				}
+				// Kiểm tra ĐÚNG trạng thái lưu thông
+				if (copy == null || copy.CirculationStatus != "Available")
+					throw new InvalidOperationException($"Bản sao ID {copyId} đang không sẵn sàng để mượn.");
 
 				var detail = new BorrowTransactionDetail
 				{
@@ -240,7 +238,8 @@ namespace LibraryManagementSystem.Services
 				await _uow.DbContext.BorrowTransactionDetails.AddAsync(detail);
 
 				// Cập nhật trạng thái bản sao (giống logic cũ của request-based)
-				copy.PhysicalCondition = "Borrowed";
+				copy.CirculationStatus = "Borrowed"; // Cập nhật trạng thái lưu thông
+													 // Giữ nguyên PhysicalCondition là "Good", không nên đổi nó thành "Borrowed"
 				await _uow.BookCopyRepository.UpdateAsync(copy);
 			}
 
@@ -266,13 +265,14 @@ namespace LibraryManagementSystem.Services
 			detail.FineAmount = dto.FineAmount;
 			detail.ConditionNote = dto.ConditionNote;
 
-			// Khi trả, set lại PhysicalCondition dựa vào tình trạng trả về
+			detail.BookCopy.CirculationStatus = "Available"; // Sách đã về kho
+
 			detail.BookCopy.PhysicalCondition = dto.ItemStatus switch
 			{
 				"Damaged" => "Poor",
 				"Lost" => "Missing",
-				_ => "Good"  // mặc định
-			};  // ← sửa thành PhysicalCondition
+				_ => "Good"
+			};
 
 			var transaction = detail.BorrowTransaction;
 			if (transaction.Details.All(d => d.ReturnDate.HasValue))

@@ -49,11 +49,10 @@ namespace LibraryManagementSystem.WPF.ViewModels
 					Title = d.Title,
 					DueDate = d.DueDate,
 					ReturnDate = d.ReturnDate,
-					ItemStatus = d.ItemStatus ?? "Good",
 					FineAmount = d.FineAmount,
 					ConditionNote = d.ConditionNote,
 
-					// Lấy trực tiếp từ DTO (đã map từ service)
+					// Không cần ItemStatus nữa
 					CirculationStatus = d.CirculationStatus ?? "Borrowed",
 					PhysicalCondition = d.PhysicalCondition ?? "Good"
 				};
@@ -69,15 +68,15 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				{
 					BorrowDetailId = d.BorrowDetailId,
 					DueDate = d.DueDate,
-					CirculationStatus = d.CirculationStatus,     // ← gửi về service
-					PhysicalCondition = d.PhysicalCondition,     // ← gửi về service
-					ItemStatus = d.ItemStatus
+					CirculationStatus = d.CirculationStatus,
+					PhysicalCondition = d.PhysicalCondition
+					// Không có ItemStatus
 				}).ToList();
 
 				await _borrowService.UpdateBorrowDetailsAsync(BorrowId, updates);
 
 				StatusMessage = "Cập nhật thành công!";
-				MessageBox.Show("Đã lưu thay đổi hạn trả và trạng thái sách!", "Thành công",
+				MessageBox.Show("Đã lưu thay đổi hạn trả và trạng thái mượn!", "Thành công",
 					MessageBoxButton.OK, MessageBoxImage.Information);
 
 				Application.Current.Windows.OfType<UpdateBorrowTransactionWindow>()

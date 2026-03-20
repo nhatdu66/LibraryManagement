@@ -18,7 +18,6 @@ namespace LibraryManagementSystem.Services.DTOs
 		// Optional: nếu muốn cập nhật luôn tình trạng vật lý
 		public string? PhysicalCondition { get; set; }
 
-		// Giữ nguyên nếu bạn vẫn dùng ItemStatus cho ghi nhận trả
-		public string? ItemStatus { get; set; }
+		
 	}
 }

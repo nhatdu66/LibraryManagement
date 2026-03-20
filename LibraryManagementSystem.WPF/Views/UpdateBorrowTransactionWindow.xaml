@@ -71,8 +71,6 @@
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
 
-				<!-- ItemStatus nếu vẫn muốn giữ (cho ghi nhận trả) -->
-				<DataGridTextColumn Header="Ghi nhận trả" Binding="{Binding ItemStatus}" Width="120"/>
 			</DataGrid.Columns>
 		</DataGrid>
 

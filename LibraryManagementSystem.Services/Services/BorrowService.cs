@@ -332,5 +332,55 @@ namespace LibraryManagementSystem.Services
 				Details = detailDtos
 			};
 		}
+		public async Task DeleteBorrowTransactionAsync(int borrowId)
+		{
+			var transaction = await _uow.DbContext.BorrowTransactions
+				.Include(t => t.Details)
+				.ThenInclude(d => d.BookCopy)
+				.FirstOrDefaultAsync(t => t.BorrowId == borrowId);
+
+			if (transaction == null)
+				throw new KeyNotFoundException("Không tìm thấy giao dịch");
+
+			if (transaction.Status != "Borrowed" || transaction.Details.Any(d => d.ReturnDate.HasValue))
+				throw new InvalidOperationException("Chỉ có thể xóa giao dịch chưa trả sách nào");
+
+			// Revert bản sao về kho
+			foreach (var detail in transaction.Details)
+			{
+				if (detail.BookCopy != null)
+				{
+					detail.BookCopy.CirculationStatus = "Available";
+				}
+			}
+
+			_uow.DbContext.BorrowTransactionDetails.RemoveRange(transaction.Details);
+			_uow.DbContext.BorrowTransactions.Remove(transaction);
+
+			await _uow.SaveChangesAsync();
+		}
+
+		public async Task ExtendDueDateAsync(int borrowId, int additionalDays)
+		{
+			if (additionalDays <= 0)
+				throw new ArgumentException("Số ngày gia hạn phải > 0");
+
+			var transaction = await _uow.DbContext.BorrowTransactions
+				.Include(t => t.Details)
+				.FirstOrDefaultAsync(t => t.BorrowId == borrowId);
+
+			if (transaction == null)
+				throw new KeyNotFoundException("Không tìm thấy giao dịch");
+
+			if (transaction.Status == "FullyReturned")
+				throw new InvalidOperationException("Giao dịch đã trả hết, không thể gia hạn");
+
+			foreach (var detail in transaction.Details.Where(d => d.ReturnDate == null))
+			{
+				detail.DueDate = detail.DueDate.AddDays(additionalDays);
+			}
+
+			await _uow.SaveChangesAsync();
+		}
 	}
 }

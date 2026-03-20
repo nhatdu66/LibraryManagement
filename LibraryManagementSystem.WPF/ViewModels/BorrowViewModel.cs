@@ -48,7 +48,11 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		public BorrowTransactionDto? SelectedTransaction
 		{
 			get => _selectedTransaction;
-			set => SetProperty(ref _selectedTransaction, value);
+			set
+			{
+				SetProperty(ref _selectedTransaction, value);
+				CommandManager.InvalidateRequerySuggested(); // ← THÊM DÒNG NÀY
+			}
 		}
 
 		// Phần mới: 3 command cho các nút Tạo / Cập nhật / Xóa
@@ -109,7 +113,7 @@ namespace LibraryManagementSystem.WPF.ViewModels
 		}
 
 
-		private void UpdateSelectedBorrow()
+		private async void UpdateSelectedBorrow()
 		{
 			if (SelectedTransaction == null)
 			{
@@ -117,11 +121,24 @@ namespace LibraryManagementSystem.WPF.ViewModels
 				return;
 			}
 
-			StatusMessage = $"Đang cập nhật giao dịch #{SelectedTransaction.BorrowId} - đang phát triển...";
-			// Sau này: mở dialog chỉnh sửa (ví dụ: thay đổi hạn trả, ghi chú, trạng thái)
+			if (SelectedTransaction.Status == "FullyReturned")
+			{
+				StatusMessage = "Giao dịch đã trả hết, không thể cập nhật.";
+				return;
+			}
+
+			var window = new UpdateBorrowTransactionWindow();
+			var vm = App.ServiceProvider.GetRequiredService<UpdateBorrowTransactionViewModel>();
+			vm.BorrowId = SelectedTransaction.BorrowId;
+			window.DataContext = vm;
+
+			window.ShowDialog();
+
+			// Refresh danh sách sau khi đóng
+			await LoadTransactionsAsync();
 		}
 
-		private void DeleteSelectedBorrow()
+		private async void DeleteSelectedBorrow()
 		{
 			if (SelectedTransaction == null)
 			{
@@ -135,8 +152,18 @@ namespace LibraryManagementSystem.WPF.ViewModels
 
 			if (result == MessageBoxResult.Yes)
 			{
-				StatusMessage = $"Đang xóa giao dịch #{SelectedTransaction.BorrowId}... (chức năng đang phát triển)";
-				// Sau này: gọi service xóa transaction (nếu chưa trả sách)
+				try
+				{
+					StatusMessage = $"Đang xóa giao dịch #{SelectedTransaction.BorrowId}...";
+					await _borrowService.DeleteBorrowTransactionAsync(SelectedTransaction.BorrowId);
+					StatusMessage = $"Đã xóa giao dịch #{SelectedTransaction.BorrowId} thành công!";
+					await LoadTransactionsAsync();
+				}
+				catch (Exception ex)
+				{
+					StatusMessage = $"Lỗi xóa: {ex.Message}";
+					MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
 			}
 		}
 

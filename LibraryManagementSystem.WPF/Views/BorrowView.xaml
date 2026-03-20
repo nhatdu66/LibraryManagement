@@ -30,24 +30,26 @@
             ToolTip="Tạo giao dịch mượn trực tiếp tại quầy"/>
 
 			<Button Content="Cập nhật giao dịch" 
-            Width="160" Height="38" Margin="0,0,12,0"
+            Width="140" Height="38" Margin="0,0,12,0"
             Command="{Binding UpdateBorrowCommand}"
-            ToolTip="Chỉnh sửa thông tin giao dịch đang chọn"/>
+            ToolTip="Gia hạn thời hạn mượn cho giao dịch đã chọn"/>
 
 			<Button Content="Xóa giao dịch" 
-            Width="140" Height="38"
+            Width="120" Height="38" Margin="0,0,0,0"
             Command="{Binding DeleteBorrowCommand}"
-            ToolTip="Xóa giao dịch (chỉ khi chưa trả sách)"/>
+            ToolTip="Xóa giao dịch (chỉ khi chưa trả sách nào)"
+            Background="#F44336" Foreground="White"/>
 
 			<TextBlock Text="{Binding StatusMessage}" 
-                       VerticalAlignment="Center" 
-                       Foreground="DarkBlue"
-                       Margin="10,0,0,0"/>
+               VerticalAlignment="Center" 
+               Foreground="DarkBlue"
+               Margin="10,0,0,0"/>
 		</StackPanel>
 
 		<!-- DataGrid hiển thị giao dịch -->
 		<DataGrid Grid.Row="2" 
                   ItemsSource="{Binding BorrowTransactions}"
+				  SelectedItem="{Binding SelectedTransaction}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   CanUserResizeColumns="True"
@@ -74,7 +76,7 @@
                                     Binding="{Binding BorrowDate, StringFormat=dd/MM/yyyy HH:mm}" 
                                     Width="140"/>
 
-				<DataGridTextColumn Header="Trạng thái" 
+				<DataGridTextColumn Header="Trạng thái mượn" 
                                     Binding="{Binding Status}" 
                                     Width="110">
 					<DataGridTextColumn.ElementStyle>

@@ -25,5 +25,7 @@ namespace LibraryManagementSystem.Services.Interfaces
 			List<int> copyIds,
 			DateTime borrowDate,
 			int durationDays);
+		Task DeleteBorrowTransactionAsync(int borrowId);
+		Task ExtendDueDateAsync(int borrowId, int additionalDays);
 	}
 }
